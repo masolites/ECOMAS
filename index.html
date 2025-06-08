@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MASOLITES ECOMAS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Section -->
+        <div class="top-section">
+            <header>
+                <h1 class="logo">MASOLITES ECOMAS</h1>
+                <p class="tagline">Building Trust & A Better Society Together</p>
+                <div class="auth-buttons">
+                    <button class="btn btn-login">Login</button>
+                    <button class="btn btn-register">Register</button>
+                </div>
+            </header>
+            
+            <div class="card">
+                <p class="welcome-message">ECOMAS is Economic Community Of Masolites. A Trusted Products & Services Hub using MAZOL Token. MAZOL Daily New Price is decided by your vote. Enjoy Free Mining, Discounts & Sell Stuff too.</p>
+            </div>
+            
+            <div class="card compact">
+                <h3 class="card-title">PRIVATE SALE ENDS IN</h3>
+                <div class="price-info">
+                    <span class="price">$0.001/MZLx</span>
+                    <span class="price">₦18/MZLx</span>
+                </div>
+                <div class="countdown-timer">
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="days">120</div>
+                        <div class="countdown-label">Days</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="hours">00</div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="minutes">00</div>
+                        <div class="countdown-label">Minutes</div>
+                    </div>
+                </div>
+                <button class="cta-button buy-button" id="buyButton">BUY MAZOL NOW</button>
+            </div>
+            
+            <div class="card compact">
+                <h3 class="card-title">MAZOL MINING PORTAL</h3>
+                <div class="mining-counter">
+                    <div class="mining-display">
+                        <div class="mining-speed">
+                            <div class="mining-label">Speed</div>
+                            <div id="minedAmount">0.000000 MZLx/s</div>
+                        </div>
+                        <div class="mining-total">
+                            <div class="mining-label">Total</div>
+                            <div id="miningTotal">0.000000 MZLx</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="cta-button mining-button" id="miningButton">START MINING</button>
+            </div>
+            
+            <!-- Action Buttons Card -->
+            <div class="card action-buttons-card">
+                <div class="action-grid">
+                    <div class="action-card" id="saveEarnBtn">
+                        <div class="action-icon">💰</div>
+                        <div class="action-label">Save & Earn</div>
+                    </div>
+                    <div class="action-card" id="escrowShopBtn">
+                        <div class="action-icon">🛒</div>
+                        <div class="action-label">Escrow Shop</div>
+                    </div>
+                    <div class="action-card" id="connectWalletBtn">
+                        <div class="action-icon">🔗</div>
+                        <div class="action-label">Connect Wallet</div>
+                    </div>
+                    <div class="action-card" id="sendReceiveBtn">
+                        <div class="action-icon">⇄</div>
+                        <div class="action-label">Send/Receive</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Currency Modal -->
+    <div class="modal" id="currencyModal">
+        <div class="modal-content">
+            <h3>Select Payment Method</h3>
+            <div class="currency-options">
+                <button class="currency-btn" data-currency="USD">USD ($)</button>
+                <button class="currency-btn" data-currency="NGN">Naira (₦)</button>
+                <button class="currency-btn" data-currency="USDT">USDT</button>
+                <button class="currency-btn" data-currency="BNB">BNB</button>
+            </div>
+            <button class="modal-close">Close</button>
+        </div>
+    </div>
+
+    <script src="assets/js/mining.js"></script>
+</body>
+</html>
