@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASOLITES ECOMAS - Crypto Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1f36;
+            --secondary: #2d3748;
+            --accent: #00c9a7;
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+            --bronze: #cd7f32;
+            --bull: #ff6b6b;
+            --text: #f8f9fa;
+            --text-secondary: #a0aec0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: var(--text);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .container {
+            max-width: 100%;
+            height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            overflow: hidden;
+        }
+        
+        /* Header Styles */
+        header {
+            background: rgba(26, 31, 54, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 201, 167, 0.3);
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(to right, var(--accent), #00d4ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+        
+        .welcome-message {
+            font-size: 1.2rem;
+            text-align: center;
+            flex-grow: 1;
+            color: var(--accent);
+            font-weight: 500;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .auth-btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+        }
+        
+        .login-btn {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+        
+        .signup-btn {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        
+        .admin-menu {
+            position: relative;
+        }
+        
+        .admin-toggle {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        .admin-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--secondary);
+            border-radius: 8px;
+            padding: 1rem;
+            min-width: 200px;
+            display: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+        
+        .admin-menu:hover .admin-dropdown {
+            display: block;
+        }
+        
+        .admin-dropdown input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.2);
+            color: var(--text);
+        }
+        
+        .admin-dropdown button {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background: rgba(26, 31, 54, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 2rem 1rem;
+            border-right: 1px solid rgba(0, 201, 167, 0.2);
+            overflow-y: auto;
+        }
+        
+        .user-profile {
+            text-align: center;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--secondary);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+        
+        .user-name {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .user-id {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            background: rgba(0,0,0,0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .badge {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        .badge.bronze {
+            background: var(--bronze);
+        }
+        
+        .badge.silver {
+            background: var(--silver);
+        }
+        
+        .badge.gold {
+            background: var(--gold);
+        }
+        
+        .badge.bull {
+            background: var(--bull);
+        }
+        
+        .badge.gift {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+        }
+        
+        .mining-stats {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .mining-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .mining-speed {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .mining-total {
+            text-align: center;
+            color: var(--text-secondary);
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-item {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        
+        /* Dashboard */
+        .dashboard {
+            padding: 2rem;
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            align-content: start;
+        }
+        
+        .card {
+            background: rgba(26, 31, 54, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 201, 167, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+        
+        /* Countdown Timer */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .countdown-box {
+            text-align: center;
+        }
+        
+        .countdown-value {
+            font-size: 2rem;
+            font-weight: 700;
+            background: rgba(0, 201, 167, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            min-width: 70px;
+        }
+        
+        .countdown-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+        
+        /* Voting Section */
+        .voting-section {
+            grid-column: 1 / -1;
+        }
+        
+        .voting-timer {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(0,0,0,0.2);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .voting-controls {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .vote-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            outline: none;
+        }
+        
+        .price-suggestion {
+            background: rgba(0,0,0,0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .ai-recommendation {
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        /* Wallet Section */
+        .wallet-balance {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .wallet-address {
+            background: rgba(0,0,0,0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            word-break: break-all;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .wallet-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .wallet-btn {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            background: rgba(0, 201, 167, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            transition: all 0.3s ease;
+        }
+        
+        .wallet-btn:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(26, 31, 54, 0.95);
+            padding: 1rem 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border-top: 1px solid rgba(0, 201, 167, 0.3);
+        }
+        
+        /* Modals */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal-content {
+            background: var(--primary);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid rgba(0, 201, 167, 0.3);
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .close-modal {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            font-size: 1rem;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            font-size: 1rem;
+            appearance: none;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 201, 167, 0.4);
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Badge Tooltips */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--secondary);
+            color: var(--text);
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .countdown-container {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <i class="fas fa-coins"></i>
+                <h1>MASOLITES ECOMAS</h1>
+            </div>
+            <div class="welcome-message">
+                Welcome to the Future of Crypto Commerce
+            </div>
+            <div class="auth-buttons">
+                <button class="auth-btn login-btn">Login</button>
+                <button class="auth-btn signup-btn">Sign Up</button>
+                <div class="admin-menu">
+                    <button class="admin-toggle"><i class="fas fa-user-cog"></i></button>
+                    <div class="admin-dropdown">
+                        <input type="text" placeholder="Admin Username">
+                        <input type="password" placeholder="Password">
+                        <button>Admin Login</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-name">John Doe</div>
+                    <div class="user-id">MSL123456P</div>
+                    <div class="badges">
+                        <div class="tooltip">
+                            <div class="badge gold">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <span class="tooltiptext">Gold Member: 4x Mining Speed</span>
+                        </div>
+                        <div class="tooltip">
+                            <div class="badge bull">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <span class="tooltiptext">Bull Member: Paid Registration</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mining-stats">
+                    <div class="mining-title">
+                        <span>Mining Speed</span>
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="mining-speed">4.5 MZLx/s</div>
+                    <div class="mining-total">Total Mined: 12,345 MZLx</div>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li class="nav-item active">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fas fa-wallet"></i>
+                        <span>My Wallet</span>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fas fa-gem"></i>
+                        <span>Buy MAZOL</span>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fas fa-hammer"></i>
+                        <span>Mining</span>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fas fa-vote-yea"></i>
+                        <span>Voting</span>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Exchange</span>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>E-Commerce</span>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fas fa-handshake"></i>
+                        <span>Escrow Trade</span>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fas fa-users"></i>
+                        <span>Affiliate Program</span>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fas fa-save"></i>
+                        <span>Save & Earn</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Dashboard -->
+            <div class="dashboard">
+                <!-- ICO Countdown -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">ICO Countdown</div>
+                        <div class="card-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    <div class="countdown-container">
+                        <div class="countdown-box">
+                            <div class="countdown-value">120</div>
+                            <div class="countdown-label">Days</div>
+                        </div>
+                        <div class="countdown-box">
+                            <div class="countdown-value">23</div>
+                            <div class="countdown-label">Hours</div>
+                        </div>
+                        <div class="countdown-box">
+                            <div class="countdown-value">45</div>
+                            <div class="countdown-label">Minutes</div>
+                        </div>
+                        <div class="countdown-box">
+                            <div class="countdown-value">30</div>
+                            <div class="countdown-label">Seconds</div>
+                        </div>
+                    </div>
+                    <p>Private Sale ends in:</p>
+                </div>
+                
+                <!-- Mining Counter -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Mining Counter</div>
+                        <div class="card-icon">
+                            <i class="fas fa-digging"></i>
+                        </div>
+                    </div>
+                    <div class="countdown-container">
+                        <div class="countdown-box">
+                            <div class="countdown-value">00</div>
+                            <div class="countdown-label">Minutes</div>
+                        </div>
+                        <div class="countdown-box">
+                            <div class="countdown-value">00</div>
+                            <div class="countdown-label">Seconds</div>
+                        </div>
+                    </div>
+                    <div class="mining-speed">Current Speed: 4.5 MZLx/s</div>
+                    <div class="mining-total">Total Mined: 12,345 MZLx</div>
+                </div>
+                
+                <!-- My Wallet -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">My Wallet</div>
+                        <div class="card-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                    </div>
+                    <div class="wallet-balance">12,345.67 MZLx</div>
+                    <div>≈ $12.35 USD</div>
+                    <div class="wallet-address">
+                        MZLx1A2b3C4d5E6f7G8h9J0kLmN
+                        <i class="fas fa-copy"></i>
+                    </div>
+                    <div class="wallet-actions">
+                        <div class="wallet-btn">
+                            <i class="fas fa-arrow-up"></i> Send
+                        </div>
+                        <div class="wallet-btn">
+                            <i class="fas fa-arrow-down"></i> Receive
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Voting Section -->
+                <div class="card voting-section">
+                    <div class="card-header">
+                        <div class="card-title">Token Price Voting</div>
+                        <div class="card-icon">
+                            <i class="fas fa-vote-yea"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="voting-timer">
+                        <div>
+                            <i class="fas fa-clock"></i> 
+                            Voting: 6:00 PM - 11:30 PM (WAT)
+                        </div>
+                        <div>
+                            Next Price: <span class="ai-recommendation">$0.0012</span>
+                        </div>
+                    </div>
+                    
+                    <div class="price-suggestion">
+                        <div>AI Market Projection:</div>
+                        <div class="ai-recommendation">$0.0012 (+20% from today)</div>
+                        <div>Company Target: $0.0011</div>
+                        <div>Voting closes in: <strong>2h 15m</strong></div>
+                    </div>
+                    
+                    <div class="voting-controls">
+                        <button class="vote-btn">Vote for $0.0010</button>
+                        <button class="vote-btn">Vote for $0.0011</button>
+                        <button class="vote-btn">Vote for $0.0012</button>
+                        <button class="vote-btn">Vote for $0.0013</button>
+                    </div>
+                </div>
+                
+                <!-- Buy MAZOL -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Buy MAZOL Tokens</div>
+                        <div class="card-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Payment Method</label>
+                        <select class="form-select">
+                            <option>Flutterwave (NGN)</option>
+                            <option>Flutterwave (USD)</option>
+                            <option>Bank Transfer</option>
+                            <option>USDT (BEP-20)</option>
+                            <option>BNB</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Amount</label>
+                        <input type="number" class="form-input" placeholder="Enter amount">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">You will receive</label>
+                        <input type="text" class="form-input" value="0 MZLx" readonly>
+                    </div>
+                    
+                    <button class="submit-btn pulse">Buy Now</button>
+                </div>
+                
+                <!-- Membership Upgrade -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Membership Upgrade</div>
+                        <div class="card-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="membership-level">
+                        <div class="level bronze">
+                            <div class="level-title">
+                                <i class="fas fa-medal" style="color: var(--bronze);"></i>
+                                Bronze Membership
+                            </div>
+                            <div class="level-desc">Min: 25 MZLx</div>
+                            <div class="level-benefits">1.5x Mining Speed</div>
+                            <button class="submit-btn">Upgrade</button>
+                        </div>
+                    </div>
+                    
+                    <div class="membership-level">
+                        <div class="level silver">
+                            <div class="level-title">
+                                <i class="fas fa-medal" style="color: var(--silver);"></i>
+                                Silver Membership
+                            </div>
+                            <div class="level-desc">Min: 1,000 MZLx</div>
+                            <div class="level-benefits">3x Mining Speed</div>
+                            <button class="submit-btn">Upgrade</button>
+                        </div>
+                    </div>
+                    
+                    <div class="membership-level">
+                        <div class="level gold">
+                            <div class="level-title">
+                                <i class="fas fa-medal" style="color: var(--gold);"></i>
+                                Gold Membership
+                            </div>
+                            <div class="level-desc">Min: 2,000 MZLx</div>
+                            <div class="level-benefits">4x Mining Speed</div>
+                            <button class="submit-btn">Upgrade</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <div>© 2023 MASOLITES ECOMAS. All rights reserved.</div>
+            <div>MAZOL (MZLx) - The Future of Crypto Commerce</div>
+        </footer>
+    </div>
+    
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">User Login</div>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" placeholder="Enter your password">
+                </div>
+                <button class="submit-btn">Login</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Create Account</div>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" placeholder="Create a password">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" class="form-input" placeholder="Confirm your password">
+                </div>
+                <button class="submit-btn">Create Account</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Modal functionality
+        const loginModal = document.getElementById('loginModal');
+        const signupModal = document.getElementById('signupModal');
+        const loginBtn = document.querySelector('.login-btn');
+        const signupBtn = document.querySelector('.signup-btn');
+        const closeBtns = document.querySelectorAll('.close-modal');
+        
+        loginBtn.addEventListener('click', () => {
+            loginModal.classList.add('active');
+        });
+        
+        signupBtn.addEventListener('click', () => {
+            signupModal.classList.add('active');
+        });
+        
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                loginModal.classList.remove('active');
+                signupModal.classList.remove('active');
+            });
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.classList.remove('active');
+            }
+            if (e.target === signupModal) {
+                signupModal.classList.remove('active');
+            }
+        });
+        
+        // Update mining counter
+        function updateMiningCounter() {
+            const minutesElement = document.querySelector('.countdown-container .countdown-box:nth-child(1) .countdown-value');
+            const secondsElement = document.querySelector('.countdown-container .countdown-box:nth-child(2) .countdown-value');
+            
+            let minutes = parseInt(minutesElement.textContent);
+            let seconds = parseInt(secondsElement.textContent);
+            
+            seconds++;
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+            }
+            
+            minutesElement.textContent = minutes.toString().padStart(2, '0');
+            secondsElement.textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        setInterval(updateMiningCounter, 1000);
+        
+        // Update ICO countdown
+        function updateICOCountdown() {
+            const daysElement = document.querySelector('.countdown-container .countdown-box:nth-child(1) .countdown-value');
+            const hoursElement = document.querySelector('.countdown-container .countdown-box:nth-child(2) .countdown-value');
+            const minutesElement = document.querySelector('.countdown-container .countdown-box:nth-child(3) .countdown-value');
+            const secondsElement = document.querySelector('.countdown-container .countdown-box:nth-child(4) .countdown-value');
+            
+            let days = parseInt(daysElement.textContent);
+            let hours = parseInt(hoursElement.textContent);
+            let minutes = parseInt(minutesElement.textContent);
+            let seconds = parseInt(secondsElement.textContent);
+            
+            seconds--;
+            if (seconds < 0) {
+                seconds = 59;
+                minutes--;
+            }
+            if (minutes < 0) {
+                minutes = 59;
+                hours--;
+            }
+            if (hours < 0) {
+                hours = 23;
+                days--;
+            }
+            
+            daysElement.textContent = days.toString().padStart(2, '0');
+            hoursElement.textContent = hours.toString().padStart(2, '0');
+            minutesElement.textContent = minutes.toString().padStart(2, '0');
+            secondsElement.textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        setInterval(updateICOCountdown, 1000);
+        
+        // Copy wallet address
+        const copyBtn = document.querySelector('.fa-copy');
+        copyBtn.addEventListener('click', () => {
+            const address = document.querySelector('.wallet-address').firstChild.textContent.trim();
+            navigator.clipboard.writeText(address);
+            
+            // Show copied notification
+            const originalIcon = copyBtn.className;
+            copyBtn.className = 'fas fa-check';
+            setTimeout(() => {
+                copyBtn.className = originalIcon;
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
