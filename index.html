@@ -6,6 +6,7 @@
     <title>MASOLITES ECOMAS</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js" type="application/javascript"></script>
     <script src="https://checkout.flutterwave.com/v3.js"></script>
     <style>
         :root {
@@ -22,7 +23,6 @@
             --silver: #c0c0c0;
             --gold: #ffd700;
             --platinum: #e5e4e2;
-            --admin-bg: linear-gradient(135deg, #0f0c29, #1a1a2e, #24243e);
         }
         
         * {
@@ -546,6 +546,21 @@
             font-weight: 600;
         }
         
+        /* Connect Wallet Button */
+        .connect-wallet-btn {
+            background: var(--lemon-green);
+            color: var(--navy);
+            padding: 10px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 10px auto;
+            border: none;
+            cursor: pointer;
+        }
+        
         /* Responsive Adjustments */
         @media (max-width: 480px) {
             .countdown-item {
@@ -706,6 +721,10 @@
                     <p class="note" style="font-size:0.7rem; margin-top:8px;">Voting: 6pm - 11:30pm WAT | Results at 11:45pm</p>
                 </div>
             </div>
+            
+            <button class="connect-wallet-btn" id="connectWalletBtn">
+                <i class="fas fa-plug"></i> Connect Metamask Wallet
+            </button>
         </div>
     </div>
 
@@ -947,6 +966,34 @@
         </div>
     </div>
 
+    <!-- Admin Access Modal -->
+    <div class="modal" id="adminAccessModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-lock"></i> Admin Access</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Admin Username</label>
+                    <input type="text" id="adminUsername" placeholder="Enter admin username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="adminPassword" placeholder="Enter password" required>
+                </div>
+                <div class="form-group">
+                    <label>6-Digit PIN</label>
+                    <input type="text" id="adminPin" placeholder="Enter 6-digit PIN" maxlength="6" required>
+                </div>
+                <div class="error-message" id="adminError" style="display:none;"></div>
+                <button class="cta-button" id="adminLoginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Access Admin Panel
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Tokenomics Configuration
         const TOKENOMICS = {
@@ -963,6 +1010,37 @@
                 platinum: 4
             }
         };
+
+        // FLUTTERWAVE LIVE PUBLIC KEY - REPLACE WITH YOUR ACTUAL KEY
+        const FLW_PUBLIC_KEY = "FLWPUBK-XXXXXXXXXXXXXXXXXXXXXXXXXX-X";
+        
+        // MAZOL Token Contract Details
+        const CONTRACT_ADDRESS = "0xYourContractAddressHere";
+        const CONTRACT_ABI = [
+            // REPLACE WITH YOUR ACTUAL CONTRACT ABI
+            // This is a simplified example
+            {
+                "constant": false,
+                "inputs": [
+                    {"name": "_to", "type": "address"},
+                    {"name": "_value", "type": "uint256"}
+                ],
+                "name": "transfer",
+                "outputs": [{"name": "", "type": "bool"}],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [{"name": "_owner", "type": "address"}],
+                "name": "balanceOf",
+                "outputs": [{"name": "balance", "type": "uint256"}],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }
+        ];
 
         // User Management
         class UserSystem {
@@ -1101,9 +1179,9 @@
                     timestamp: new Date().toISOString()
                 };
                 
-                const deposits = JSON.parse(localStorage.getItem('deposits') || '[]');
+                const deposits = JSON.parse(localStorage.getItem('depositSubmissions') || '[]');
                 deposits.push(deposit);
-                localStorage.setItem('deposits', JSON.stringify(deposits));
+                localStorage.setItem('depositSubmissions', JSON.stringify(deposits));
                 
                 // Record activity for admin
                 const activity = JSON.parse(localStorage.getItem('activity') || '[]');
@@ -1124,9 +1202,6 @@
             static processFlutterwave(amount) {
                 const user = UserSystem.getCurrentUser();
                 if (!user) return { error: 'Not authenticated' };
-                
-                // FLUTTERWAVE KEY - Replace with your actual key
-                const FLW_PUBLIC_KEY = "FLWPUBK_TEST-XXXXXXXXXXXXXXXXXXXXXXXXXX";
                 
                 FlutterwaveCheckout({
                     public_key: FLW_PUBLIC_KEY,
@@ -1239,7 +1314,7 @@
                 }
             }
             
-            claimTokens() {
+            async claimTokens() {
                 const user = UserSystem.getCurrentUser();
                 if (!user) {
                     alert('Please login first!');
@@ -1251,15 +1326,35 @@
                     return;
                 }
                 
-                user.cryptoWallet.balance += this.totalMined;
-                UserSystem.addNotification(user, `Claimed ${this.totalMined.toFixed(6)} MZLx from mining!`);
-                
-                this.totalMined = 0;
-                document.getElementById('miningTotal').textContent = '0.000000 MZLx';
-                document.getElementById('claimButton').style.display = 'none';
-                this.stopMining();
-                
-                alert(`Successfully claimed ${this.totalMined.toFixed(6)} MZLx!`);
+                try {
+                    // Connect to Metamask
+                    const provider = new ethers.providers.Web3Provider(window.ethereum);
+                    const signer = provider.getSigner();
+                    
+                    // Create contract instance
+                    const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+                    
+                    // Convert tokens to wei
+                    const tokens = ethers.utils.parseUnits(this.totalMined.toString(), 18);
+                    
+                    // Transfer tokens to user
+                    const tx = await contract.transfer(user.cryptoWallet.address, tokens);
+                    await tx.wait();
+                    
+                    // Update local balance
+                    user.cryptoWallet.balance += this.totalMined;
+                    UserSystem.addNotification(user, `Claimed ${this.totalMined.toFixed(6)} MZLx from mining!`);
+                    
+                    this.totalMined = 0;
+                    document.getElementById('miningTotal').textContent = '0.000000 MZLx';
+                    document.getElementById('claimButton').style.display = 'none';
+                    this.stopMining();
+                    
+                    alert(`Successfully claimed ${this.totalMined.toFixed(6)} MZLx!`);
+                } catch (error) {
+                    console.error('Error claiming tokens:', error);
+                    alert('Failed to claim tokens. Please try again.');
+                }
             }
         }
 
@@ -1569,9 +1664,70 @@
                 }
             });
             
-            // Admin button
+            // Admin button with enhanced security
             document.getElementById('adminBtn').addEventListener('click', function() {
-                window.location.href = 'admin.html';
+                document.getElementById('adminAccessModal').style.display = 'flex';
+            });
+            
+            // Admin login with PIN
+            document.getElementById('adminLoginBtn').addEventListener('click', function() {
+                const username = document.getElementById('adminUsername').value;
+                const password = document.getElementById('adminPassword').value;
+                const pin = document.getElementById('adminPin').value;
+                
+                // Hardcoded admin credentials (replace with your own)
+                const ADMIN_CREDENTIALS = {
+                    username: "admin",
+                    password: "Masolites123",
+                    pin: "123456" // Replace with your 6-digit PIN
+                };
+                
+                if (username === ADMIN_CREDENTIALS.username && 
+                    password === ADMIN_CREDENTIALS.password && 
+                    pin === ADMIN_CREDENTIALS.pin) {
+                    window.location.href = 'admin.html';
+                } else {
+                    document.getElementById('adminError').textContent = 'Invalid admin credentials or PIN';
+                    document.getElementById('adminError').style.display = 'block';
+                }
+            });
+            
+            // Connect to Metamask
+            document.getElementById('connectWalletBtn').addEventListener('click', async function() {
+                if (typeof window.ethereum === 'undefined') {
+                    alert('Metamask not detected! Please install Metamask first.');
+                    return;
+                }
+                
+                try {
+                    // Request account access
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const userAddress = accounts[0];
+                    
+                    // Create provider and signer
+                    const provider = new ethers.providers.Web3Provider(window.ethereum);
+                    const signer = provider.getSigner();
+                    
+                    // Create contract instance
+                    const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+                    
+                    // Get token balance
+                    const balance = await contract.balanceOf(userAddress);
+                    const formattedBalance = ethers.utils.formatUnits(balance, 18);
+                    
+                    // Update UI
+                    const user = UserSystem.getCurrentUser();
+                    if (user) {
+                        user.cryptoWallet.balance = parseFloat(formattedBalance);
+                        localStorage.setItem('currentUser', JSON.stringify(user));
+                        document.getElementById('cryptoBalance').textContent = formattedBalance;
+                    }
+                    
+                    alert(`Successfully connected to wallet! Balance: ${formattedBalance} MZLx`);
+                } catch (error) {
+                    console.error('Error connecting to Metamask:', error);
+                    alert('Failed to connect to wallet. Please try again.');
+                }
             });
             
             // Logout
