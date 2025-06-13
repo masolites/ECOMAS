@@ -3,1034 +3,1559 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MASOLITES ECOMAS - Crypto Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>MASOLITES ECOMAS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
     <style>
         :root {
-            --primary: #2a0a5e;
-            --secondary: #6a1b9a;
-            --accent: #ff5722;
-            --success: #4CAF50;
-            --warning: #FFC107;
-            --danger: #F44336;
-            --light: #f5f5f5;
-            --dark: #121212;
-            --card-bg: rgba(255, 255, 255, 0.1);
-            --badge-bronze: #cd7f32;
-            --badge-silver: #c0c0c0;
-            --badge-gold: #ffd700;
-            --badge-bull: #5d4037;
-            --badge-gift: #9c27b0;
+            --deep-blue: #0a2463;
+            --navy: #1a1a2e;
+            --light-blue: #3e92cc;
+            --lemon-green: #a4de02;
+            --accent: #d8315b;
+            --card-bg: rgba(26, 26, 46, 0.8);
+            --text-light: #ffffff;
+            --mining-off: #ff9500;
+            --mining-on: #4cd964;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
         }
-
+        
         body {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--light);
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            overflow: hidden;
-            position: relative;
+            padding: 15px;
         }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="100%" height="100%" fill="%232a0a5e"/><path d="M0,100 Q50,50 100,100 T200,100" stroke="%236a1b9a" stroke-width="2" fill="none"/></svg>') repeat;
-            opacity: 0.1;
-            z-index: -1;
+        
+        .app-container {
+            max-width: 500px;
+            margin: 0 auto;
         }
-
-        .container {
-            max-width: 100%;
-            height: 100vh;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            grid-template-rows: 80px 1fr;
-            gap: 15px;
-        }
-
-        /* Header Styles */
+        
         header {
-            grid-column: 1 / -1;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            text-align: center;
+            padding: 15px 0;
+            margin-bottom: 15px;
         }
-
+        
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo h1 {
             font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            font-weight: 800;
+            background: linear-gradient(to right, var(--lemon-green), var(--light-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
         }
-
-        .logo i {
-            font-size: 2.5rem;
-            color: var(--accent);
+        
+        .tagline {
+            font-size: 0.95rem;
+            color: var(--lemon-green);
+            margin-bottom: 15px;
         }
-
-        .welcome-message {
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: var(--light);
-            opacity: 0.9;
-        }
-
-        .auth-buttons {
+        
+        .auth-container {
             display: flex;
-            gap: 15px;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
         }
-
+        
         .btn {
             padding: 10px 20px;
             border-radius: 50px;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             border: none;
-            outline: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-
+        
         .btn-login {
-            background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border: 1px solid var(--light-blue);
         }
-
-        .btn-signup {
+        
+        .btn-register {
+            background: var(--lemon-green);
+            color: var(--navy);
+        }
+        
+        .admin-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor极: pointer;
+            border: 1px solid var(--light-blue);
+        }
+        
+        .logout-btn {
             background: var(--accent);
             color: white;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Sidebar Styles */
-        .sidebar {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            overflow-y: auto;
-        }
-
-        .user-profile {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .user-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: white;
-        }
-
-        .user-info {
-            text-align: center;
-        }
-
-        .user-id {
+            padding: 10px 20px;
+            border-radius: 50px;
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .badges {
             display: flex;
-            gap: 10px;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .member-badge {
+            background: rgba(164, 222, 2, 0.2);
+            border: 1px solid var(--lemon-green);
+            border-radius: 50px;
+            padding: 8px 15px;
+            font-size: 0.8rem;
+            display: inline-block;
             margin-top: 10px;
         }
-
-        .badge {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-        }
-
-        .badge.bronze {
-            background: var(--badge-bronze);
-        }
-
-        .badge.silver {
-            background: var(--badge-silver);
-            color: #333;
-        }
-
-        .badge.gold {
-            background: var(--badge-gold);
-            color: #333;
-        }
-
-        .badge.bull {
-            background: var(--badge-bull);
-        }
-
-        .badge.gift {
-            background: var(--badge-gift);
-        }
-
-        .nav-links {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 12px 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            background: rgba(106, 27, 154, 0.5);
-        }
-
-        .nav-link i {
-            font-size: 1.2rem;
-        }
-
-        /* Main Content Styles */
-        .main-content {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: auto 1fr 1fr;
-            gap: 15px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        .main-content::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .main-content::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-        }
-
+        
         .card {
             background: var(--card-bg);
+            backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
-
-        .card-header {
+        
+        .card.compact {
+            padding: 15px;
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--lemon-green);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .welcome-message {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            text-align: center;
+            opacity: 0.9;
+        }
+        
+        .sale-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 10px;
         }
-
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: 600;
+        
+        .price-info {
             display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card-title i {
-            color: var(--accent);
-        }
-
-        .countdown-timer {
-            grid-column: 1 / -1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            padding: 25px;
+            gap: 15px;
+            margin-bottom: 15px;
         }
-
-        .timer-display {
-            font-size: 2.5rem;
+        
+        .price {
+            font-size: 0.85rem;
             font-weight: 700;
-            margin: 20px 0;
-            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8极 15px;
+            border-radius: 50px;
+            border: 1px solid var(--accent);
+        }
+        
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .countdown-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 10px;
+            min-width: 70px;
+            text-align: center;
+            border: 1px solid var(--accent);
+        }
+        
+        .countdown-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(to bottom, #fff, #ccc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
-        .timer-labels {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .timer-label {
-            font-size: 0.9rem;
+        
+        .countdown-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            margin-top: 5px;
+            color: var(--text-light);
             opacity: 0.8;
         }
-
-        .mining-card {
+        
+        .mining-counter {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid var(--accent);
+            margin: 15px 0;
+        }
+        
+        .mining-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .mining-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 5px;
+            opacity: 0.8;
+        }
+        
+        .mining-actions {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .mining-stats {
-            display: flex;
-            justify-content: space-between;
-            margin: 15px 0;
-        }
-
-        .mining-stat {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        .mining-button {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .btn-mining {
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            background: var(--warning);
-            color: #333;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
             gap: 10px;
-            margin: 0 auto;
+            margin-top: 15px;
         }
-
-        .btn-mining.on {
-            background: var(--success);
-            color: white;
-        }
-
-        .btn-mining i {
-            font-size: 1.3rem;
-        }
-
-        .voting-card {
-            grid-row: span 2;
-        }
-
-        .price-info {
-            display: flex;
-            justify-content: space-between;
-            margin: 15px 0;
+        
+        .cta-button {
             padding: 15px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-        }
-
-        .price-value {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        .ai-suggestion {
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            border-left: 4px solid var(--accent);
-        }
-
-        .ai-suggestion h4 {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .voting-options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .vote-option {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
+            border-radius: 50px;
+            width: 100%;
+            max-width: 100%;
+            font-weight: 600;
+            border: none;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1rem;
         }
-
-        .vote-option:hover {
-            background: rgba(106, 27, 154, 0.5);
-            transform: translateY(-3px);
-        }
-
-        .vote-percentage {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin: 10px 0;
-        }
-
-        .vote-button {
-            width: 100%;
-            padding: 10px;
-            border-radius: 50px;
+        
+        .buy-button {
             background: var(--accent);
             color: white;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
         }
-
-        .wallet-card {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        
+        .mining-button {
+            background: var(--mining-off);
+            color: #000;
         }
-
-        .balance {
-            text-align: center;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
+        
+        .mining-button.mining-active {
+            background: var(--mining-on);
         }
-
-        .balance-value {
-            font-size: 2rem;
-            font-weight: 700;
-            margin: 10px 0;
-            color: var(--accent);
+        
+        .claim-button {
+            background: var(--light-blue);
+            color: var(--navy);
+            display: none;
         }
-
-        .wallet-actions {
+        
+        .action-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
             margin-top: 10px;
         }
-
-        .wallet-btn {
-            padding: 12px;
-            border-radius: 10px;
+        
+        .action-card {
             background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
+            border-radius: 15px;
+            padding: 15px 5px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            border: 1px solid var(--light-blue);
+            cursor: pointer;
             transition: all 0.3s ease;
         }
-
-        .wallet-btn:hover {
-            background: rgba(106, 27, 154, 0.5);
-            transform: translateY(-3px);
+        
+        .action-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
         }
-
-        .wallet-btn i {
-            font-size: 1.5rem;
+        
+        .action-icon {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            color: var(--text-light);
         }
-
-        /* Modals */
+        
+        .action-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            color: var(--text-light);
+        }
+        
         .modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: var(--navy);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--light-blue);
+        }
+        
+        .modal-header {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-header h3 {
+            color: var(--lemon-green);
+        }
+        
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 20px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 50px;
+            padding: 5px;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            border-radius: 50px;
+            font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
+            gap: 8px;
         }
-
-        .modal.active {
-            opacity: 1;
-            pointer-events: all;
+        
+        .tab-btn.active {
+            background: var(--light-blue);
+            color: var(--nav极);
         }
-
-        .modal-content {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            width: 90%;
-            max-width: 500px;
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .bank-details {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
             border-radius: 15px;
-            padding: 30px;
-            position: relative;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            transform: translateY(-20px);
-            transition: transform 0.3s ease;
-        }
-
-        .modal.active .modal-content {
-            transform: translateY(0);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: rgba(255, 255, 255, 0.7);
-            transition: color 0.3s ease;
-        }
-
-        .close-modal:hover {
-            color: var(--accent);
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .form-group {
             margin-bottom: 20px;
         }
-
-        .form-group label {
+        
+        .bank-details h4 {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .save-earn-form .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .save-earn-form label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 500;
+            font-weight: 600;
         }
-
-        .form-control {
+        
+        .save-earn-form input {
             width: 100%;
-            padding: 12px 15px;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid var(--light-blue);
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
             color: white;
             font-size: 1rem;
         }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--accent);
+        
+        .form-row {
+            display: flex;
+            gap: 10px;
         }
-
-        .submit-btn {
-            width: 100%;
-            padding: 12px;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease;
+        
+        .form-row .form-group {
+            flex: 1;
         }
-
-        .submit-btn:hover {
-            background: #e64a19;
+        
+        .wallet-info {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
         }
-
-        .form-footer {
-            text-align: center;
-            margin-top: 20px;
+        
+        .wallet-info h4 {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .wallet-address {
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
             font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 5px;
         }
-
-        .form-footer a {
-            color: var(--accent);
-            text-decoration: none;
+        
+        .notifications {
+            max-height: 200px;
+            overflow-y: auto;
         }
-
-        .admin-panel {
-            display: none;
+        
+        .notification-item {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto auto 1fr;
+        
+        .notification-time {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 5px;
+        }
+        
+        .profile-update {
+            margin-top: 20px;
+        }
+        
+        .profile-update h4 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .profile-update input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--light-blue);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .buy-options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .buy-option {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid var(--light-blue);
+        }
+        
+        .buy-option:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: translateY(-5px);
+        }
+        
+        .vote-form {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        
+        .auth-form input {
+            padding: 16px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .auth-form button {
+            padding: 16px;
+            font-size: 16px;
+        }
+        
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        @media (max-width: 480px) {
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
             }
             
-            .sidebar {
-                display: none;
+            .countdown-item {
+                min-width: 60px;
+                padding: 8px;
             }
             
-            .main-content {
-                grid-template-columns: 1fr;
+            .countdown-value {
+                font-size: 1.2rem;
             }
             
-            .voting-card {
-                grid-row: auto;
+            .action-icon {
+                font-size: 1.5rem;
             }
             
-            .welcome-message {
-                display: none;
+            .action-label {
+                font-size: 0.6rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header>
-            <div class="logo">
-                <i class="fas fa-coins"></i>
-                <h1>MASOLITES ECOMAS</h1>
-            </div>
-            <div class="welcome-message">
-                Welcome to the future of cryptocurrency!
-            </div>
-            <div class="auth-buttons">
-                <button class="btn btn-login" id="loginBtn">Login</button>
-                <button class="btn btn-signup" id="signupBtn">Sign Up</button>
-            </div>
-        </header>
-
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="user-profile">
-                <div class="user-avatar">
-                    <i class="fas fa-user"></i>
+    <div class="app-container">
+        <div class="top-section">
+            <header>
+                <h1 class="logo">MASOLITES ECOMAS</h1>
+                <p class="tagline">Building Trust & A Better Society Together</p>
+                <div class="auth-container">
+                    <button class="btn btn-login" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <button class="btn btn-register" id="registerBtn">
+                        <i class="fas fa-user-plus"></i> Register
+                    </button>
+                    <div class="admin-btn" id="adminBtn" title="Admin Panel">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn" style="display:none;">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
                 </div>
-                <div class="user-info">
-                    <h3>Guest User</h3>
-                    <div class="user-id">MSL000000P</div>
+                <div id="walletInfo" style="display:none; margin-top:10px;">
+                    <span class="wallet-address" id="walletAddress"></span>
+                    <span class="platform-wallet-indicator">Platform Wallet</span>
                 </div>
-                <div class="badges">
-                    <div class="badge gift" title="Gift Member"><i class="fas fa-gift"></i></div>
+                <div id="memberBadge" class="member-badge">
+                    <i class="fas fa-gift"></i> Free Member | <span id="memberId">MSL-F-000000</span>
+                </div>
+            </header>
+            
+            <div class="card">
+                <p class="welcome-message">ECOMAS is Economic Community Of Masolites. A Trusted Products & Services Hub using MAZOL Token. MAZOL Daily New Price is decided by your vote. Enjoy Free Mining, Discounts & Sell Stuff too.</p>
+            </div>
+            
+            <div class="card compact private-sale-card">
+                <div class="sale-header">
+                    <h3 class="card-title"><i class="fas fa-coins"></i> PRIVATE SALE ENDS IN</h3>
+                    <button class="cta-button buy-button" id="buyButton">
+                        <i class="fas fa-shopping-cart"></i> BUY MAZOL
+                    </button>
+                </div>
+                <div class="price-info">
+                    <span class="price">$0.001/MZLx</span>
+                    <span class="price">₦18/MZLx</span>
+                </div>
+                <div class="countdown-timer">
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="days">120</div>
+                        <div class="countdown-label">Days</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="hours">00</div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="minutes">00</div>
+                        <div class="countdown-label">Minutes</div>
+                    </div>
                 </div>
             </div>
             
-            <div class="nav-links">
-                <div class="nav-link active">
-                    <i class="fas fa-home"></i>
-                    <span>Dashboard</span>
-                </div>
-                <div class="nav-link">
-                    <i class="fas fa-wallet"></i>
-                    <span>My Wallet</span>
-                </div>
-                <div class="nav-link">
-                    <i class="fas fa-gem"></i>
-                    <span>Mining Center</span>
-                </div>
-                <div class="nav-link">
-                    <i class="fas fa-vote-yea"></i>
-                    <span>Voting</span>
-                </div>
-                <div class="nav-link">
-                    <i class="fas fa-store"></i>
-                    <span>E-Commerce</span>
-                </div>
-                <div class="nav-link">
-                    <i class="fas fa-users"></i>
-                    <span>Affiliate Program</span>
-                </div>
-                <div class="nav-link">
-                    <i class="fas fa-exchange-alt"></i>
-                    <span>Exchange</span>
-                </div>
-                <div class="nav-link">
-                    <i class="fas fa-cog"></i>
-                    <span>Settings</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Countdown Timer -->
-            <div class="card countdown-timer">
-                <h2>ICO PRIVATE SALE COUNTDOWN</h2>
-                <div class="timer-display">120:00:00:00</div>
-                <div class="timer-labels">
-                    <span class="timer-label">DAYS</span>
-                    <span class="timer-label">HOURS</span>
-                    <span class="timer-label">MINUTES</span>
-                    <span class="timer-label">SECONDS</span>
-                </div>
-            </div>
-
-            <!-- Mining Card -->
-            <div class="card mining-card">
-                <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-hard-hat"></i> Mining Center</h3>
-                </div>
-                <div class="mining-stats">
-                    <div class="mining-stat">
-                        <div class="stat-value">0.0001</div>
-                        <div class="stat-label">MZLx/SEC</div>
-                    </div>
-                    <div class="mining-stat">
-                        <div class="stat-value">0.006</div>
-                        <div class="stat-label">MZLx/MIN</div>
-                    </div>
-                    <div class="mining-stat">
-                        <div class="stat-value">0.36</div>
-                        <div class="stat-label">MZLx/HR</div>
+            <div class="card compact">
+                <h3 class="card-title"><i class="fas fa-hard-hat"></i> MAZOL MINING PORTAL</h3>
+                <div class="mining-counter">
+                    <div class="mining-display">
+                        <div class="mining-speed">
+                            <div class="mining-label">Speed</div>
+                            <div id="minedAmount">0.000000 MZLx/s</div>
+                        </div>
+                        <div class="mining-total">
+                            <div class="mining-label">Total</div>
+                            <div id="miningTotal">0.000000 MZLx</div>
+                        </div>
                     </div>
                 </div>
-                <div class="mining-button">
-                    <button class="btn btn-mining" id="miningBtn">
-                        <i class="fas fa-power-off"></i> START MINING (OFF)
+                <div class="mining-actions">
+                    <button class="cta-button mining-button" id="miningButton">
+                        <i class="fas fa-play"></i> START MINING
+                    </button>
+                    <button class="cta-button claim-button" id="claimButton" style="display:none;">
+                        <i class="fas fa-wallet"></i> CLAIM MZLx
                     </button>
                 </div>
             </div>
-
-            <!-- Voting Card -->
-            <div class="card voting-card">
-                <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-vote-yea"></i> Daily Price Voting</h3>
-                    <span>6:00 PM - 11:30 PM (WAT)</span>
-                </div>
-                <div class="price-info">
-                    <div>
-                        <div>Current Price</div>
-                        <div class="price-value">$0.0010</div>
+            
+            <div class="card action-buttons-card">
+                <div class="action-grid">
+                    <div class="action-card" id="saveEarnBtn">
+                        <div class="action-icon"><i class="fas fa-piggy-bank"></i></div>
+                        <div class="action-label">Save & Earn</div>
                     </div>
-                    <div>
-                        <div>Next Day Price</div>
-                        <div class="price-value">$0.0010</div>
+                    <div class="action-card" id="escrowShopBtn">
+                        <div class="action-icon"><i class="fas fa-store"></i></div>
+                        <div class="action-label">Escrow Shop</div>
                     </div>
-                </div>
-                <div class="ai-suggestion">
-                    <h4><i class="fas fa-robot"></i> AI Price Suggestion</h4>
-                    <p>Based on market analysis and tokenomics, we suggest a price increase of 0.0002 for tomorrow. This maintains sustainable growth while rewarding early investors.</p>
-                </div>
-                <div class="voting-options">
-                    <div class="vote-option">
-                        <h4>Option 1</h4>
-                        <div class="vote-percentage">$0.0010</div>
-                        <div>+0.0%</div>
-                        <button class="vote-button">VOTE</button>
+                    <div class="action-card" id="platformWalletBtn">
+                        <div class="action-icon"><i class="fas fa-wallet"></i></div>
+                        <div class="action-label">My Wallet</div>
                     </div>
-                    <div class="vote-option">
-                        <h4>Option 2</h4>
-                        <div class="vote-percentage">$0.0012</div>
-                        <div>+20.0%</div>
-                        <button class="vote-button">VOTE</button>
+                    <div class="action-card" id="voteBtn">
+                        <div class="action-icon"><i class="fas fa-vote-yea"></i></div>
+                        <div class="action-label">Vote</div>
                     </div>
-                    <div class="vote-option">
-                        <h4>Option 3</h4>
-                        <div class="vote-percentage">$0.0014</div>
-                        <div>+40.0%</div>
-                        <button class="vote-button">VOTE</button>
-                    </div>
-                    <div class="vote-option">
-                        <h4>Option 4</h4>
-                        <div class="vote-percentage">$0.0016</div>
-                        <div>+60.0%</div>
-                        <button class="vote-button">VOTE</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Wallet Card -->
-            <div class="card wallet-card">
-                <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-wallet"></i> My Wallet</h3>
-                </div>
-                <div class="balance">
-                    <div>Total Balance</div>
-                    <div class="balance-value">0 MZLx</div>
-                    <div>≈ $0.00</div>
-                </div>
-                <div class="wallet-actions">
-                    <button class="wallet-btn">
-                        <i class="fas fa-arrow-down"></i>
-                        <span>Receive</span>
-                    </button>
-                    <button class="wallet-btn">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>Send</span>
-                    </button>
-                    <button class="wallet-btn">
-                        <i class="fas fa-sync-alt"></i>
-                        <span>Swap</span>
-                    </button>
-                    <button class="wallet-btn">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <span>Buy</span>
-                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Login Modal -->
+    <!-- Auth Modals -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-plus"></i> Create Account</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="auth-form">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="registerEmail" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="registerPassword" placeholder="Create password" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Referral Code (optional)</label>
+                        <input type="text" id="referralCode" placeholder="Enter referral code">
+                    </div>
+                    <button class="cta-button" id="confirmRegister">
+                        <i class="fas fa-check"></i> Register
+                    </button>
+                    <p class="auth-note">By registering, you agree to our Terms of Service</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal" id="loginModal">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2 class="modal-title">Login to Your Account</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail">Email Address</label>
-                    <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
+            <div class="modal-header">
+                <h3><i class="fas fa-sign-in-alt"></i> Login to Account</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="auth-form">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" placeholder="Your password" required>
+                    </div>
+                    <button class="cta-button" id="confirmLogin">
+                        <i class="fas fa-check"></i> Login
+                    </button>
+                    <p class="auth-note">New user? <a href="#" id="showRegister">Register instead</a></p>
                 </div>
-                <div class="form-group">
-                    <label for="loginPassword">Password</label>
-                    <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
-                </div>
-                <button type="submit" class="submit-btn">Login</button>
-                <div class="form-footer">
-                    <p>Don't have an account? <a href="#" id="switchToSignup">Sign Up</a></p>
-                    <p><a href="#">Forgot Password?</a></p>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 
-    <!-- Signup Modal -->
-    <div class="modal" id="signupModal">
+    <!-- Save & Earn Modal -->
+    <div class="modal" id="saveEarnModal">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2 class="modal-title">Create New Account</h2>
-            <form id="signupForm">
-                <div class="form-group">
-                    <label for="signupName">Full Name</label>
-                    <input type="text" id="signupName" class="form-control" placeholder="Enter your full name" required>
+            <div class极="modal-header">
+                <h3><i class="fas fa-piggy-bank"></i> Save & Earn</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="manual">
+                        <i class="fas fa-building"></i> Bank
+                    </button>
+                    <button class="tab-btn" data-tab="flutterwave">
+                        <i class="fas fa-credit-card"></i> Flutterwave
+                    </button>
+                    <button class="tab-btn" data-tab="crypto">
+                        <i class="fas fa-coins"></i> Crypto
+                    </button>
                 </div>
-                <div class="form-group">
-                    <label for="signupEmail">Email Address</label>
-                    <input type="email" id="signupEmail" class="form-control" placeholder="Enter your email" required>
+                
+                <div class="tab-content active" id="manualTab">
+                    <div class="bank-details">
+                        <h4><i class="fas fa-university"></i> Pay To Bank:</h4>
+                        <p><strong>UBA</strong>: 1026664654</p>
+                        <p><strong>Account Name</strong>: Masses Freedom</p>
+                    </div>
+                    
+                    <div class="save-earn-form">
+                        <div class="form-group">
+                            <label>Amount (₦)</label>
+                            <input type="number" id="depositAmount" min="500" max="2000000" value="1000">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Date (dd.mm.yy)</label>
+                                <input type="text" id="receiptDate" placeholder="01.01.23">
+                            </div>
+                            <div class="form-group">
+                                <label>Time (hh.mm am/pm)</label>
+                                <input type="text" id="receiptTime" placeholder="12.00 pm">
+                            </div>
+                        </div>
+                        
+                        <button class="cta-button" id="submitDeposit">
+                            <i class="fas fa-paper-plane"></i> Submit Deposit
+                        </button>
+                        <p class="note">Min: ₦500, Max: ₦2,000,000</p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="signupPassword">Password</label>
-                    <input type="password" id="signupPassword" class="form-control" placeholder="Create a password" required>
+                
+                <div class="tab-content" id="flutterwaveTab">
+                    <div class="save-earn-form">
+                        <div class="form-group">
+                            <label>Amount (₦)</label>
+                            <input type="number" id="fwAmount" min="500" value="1000">
+                        </div>
+                        
+                        <button class="cta-button" id="processFlutterwave">
+                            <i class="fas fa-credit-card"></i> Pay with Flutterwave
+                        </button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="signupConfirm">Confirm Password</label>
-                    <input type="password" id="signupConfirm" class="form-control" placeholder="Confirm your password" required>
+                
+                <div class="tab-content" id="cryptoTab">
+                    <div class="save-earn-form">
+                        <div class="form-group">
+                            <label>Amount (USDT)</label>
+                            <input type="number" id="cryptoAmount" min="10" value="50">
+                        </div>
+                        
+                        <button class="cta-button" id="processCrypto">
+                            <i class="fas fa-coins"></i> Vest Crypto
+                        </button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" required> I agree to the <a href="#">Terms & Conditions</a>
-                    </label>
-                </div>
-                <button type="submit" class="submit-btn">Create Account</button>
-                <div class="form-footer">
-                    <p>Already have an account? <a href="#" id="switchToLogin">Login</a></p>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 
-    <!-- Admin Panel (Hidden by default) -->
-    <div class="admin-panel">
-        <!-- Admin interface would be implemented here -->
+    <!-- Dashboard Modal -->
+    <div class="modal" id="dashboardModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-circle"></i> Your Dashboard</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="wallet-info">
+                    <h4><i class="fas fa-wallet"></i> Crypto Wallet</h4>
+                    <p><strong>Address:</strong></p>
+                    <div class="wallet-address" id="cryptoAddress">0x0000000000000000000000000000000000000000</div>
+                    <p><strong>Balance:</strong> <span id="cryptoBalance">0</span> MZLx</p>
+                </div>
+                
+                <div class="wallet-info">
+                    <h4><i class="fas fa-money-bill-wave"></i> Fiat Wallet</h4>
+                    <p><strong>Account:</strong> <span id="fiatAccount">MAS_0000000000</span></p>
+                    <p><strong>Balance:</strong> ₦<span id="fiatBalance">0</span></p>
+                </div>
+                
+                <div class="notifications">
+                    <h4><i class="fas fa-bell"></i> Notifications</h4>
+                    <div id="notificationList">
+                        <div class="notification-item">
+                            <p>Welcome to Masolites! Start by exploring the platform.</p>
+                            <p class="notification-time">Just now</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-update">
+                    <h4><i class="fas fa-user-edit"></i> Update Profile</h4>
+                    <div class="form-group">
+                        <input type="text" id="userFullName" placeholder="Full Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="userPhone" placeholder="Phone Number">
+                    </div>
+                    <button class="cta-button" id="updateProfile">
+                        <i class="fas fa-save"></i> Update Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buy Options Modal -->
+    <div class="modal" id="buyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-shopping-cart"></i> Buy MAZOL Tokens</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="buy-options-grid">
+                    <div class="buy-option" id="bankOption">
+                        <div class="action-icon"><i class="fas fa-building"></i></div>
+                        <h4>Bank Transfer</h4>
+                        <p>₦18 per MZLx</p>
+                    </div>
+                    <div class="buy-option" id="usdtOption">
+                        <div class="action-icon"><i class="fab fa-ethereum"></i></div>
+                        <h4>USDT Payment</h4>
+                        <p>$0.001 per MZLx</p>
+                    </div>
+                    <div class="buy-option" id="flutterOption">
+                        <div class="action-icon"><i class="fas fa-bolt"></i></div>
+                        <h4>Flutterwave</h4>
+                        <p>Instant Payment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voting Modal -->
+    <div class="modal" id="voteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-vote-yea"></i> Token Price Voting</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="votingForm">
+                    <div class="vote-form">
+                        <div class="form-group">
+                            <label>New Token Price ($)</label>
+                            <input type="number" id="newPrice" min="0.001" step="0.001" value="0.001">
+                        </div>
+                        <button class="cta-button" id="submitVote">
+                            <i class="fas fa-vote-yea"></i> Submit Vote
+                        </button>
+                        <p class="note">Voting available daily from 6pm - 11:30pm WAT</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        // DOM Elements
-        const loginModal = document.getElementById('loginModal');
-        const signupModal = document.getElementById('signupModal');
-        const loginBtn = document.getElementById('loginBtn');
-        const signupBtn = document.getElementById('signupBtn');
-        const closeModal = document.querySelectorAll('.close-modal');
-        const switchToSignup = document.getElementById('switchToSignup');
-        const switchToLogin = document.getElementById('switchToLogin');
-        const miningBtn = document.getElementById('miningBtn');
-        const loginForm = document.getElementById('loginForm');
-        const signupForm = document.getElementById('signupForm');
+        // Tokenomics Configuration
+        const TOKENOMICS = {
+            totalSupply: 50000000,
+            privateSale: 25000000,
+            currentPrice: 0.001,
+            ngnPrice: 18
+        };
 
-        // Modal functionality
-        loginBtn.addEventListener('click', () => {
-            loginModal.classList.add('active');
-        });
-
-        signupBtn.addEventListener('click', () => {
-            signupModal.classList.add('active');
-        });
-
-        closeModal.forEach(btn => {
-            btn.addEventListener('click', () => {
-                loginModal.classList.remove('active');
-                signupModal.classList.remove('active');
-            });
-        });
-
-        switchToSignup.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginModal.classList.remove('active');
-            signupModal.classList.add('active');
-        });
-
-        switchToLogin.addEventListener('click', (e) => {
-            e.preventDefault();
-            signupModal.classList.remove('active');
-            loginModal.classList.add('active');
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === loginModal) {
-                loginModal.classList.remove('active');
-            }
-            if (e.target === signupModal) {
-                signupModal.classList.remove('active');
-            }
-        });
-
-        // Mining button functionality
-        let miningActive = false;
-        miningBtn.addEventListener('click', () => {
-            miningActive = !miningActive;
-            if (miningActive) {
-                miningBtn.classList.add('on');
-                miningBtn.innerHTML = '<i class="fas fa-power-off"></i> MINING ACTIVE (ON)';
-                // Start mining simulation
-                simulateMining();
-            } else {
-                miningBtn.classList.remove('on');
-                miningBtn.innerHTML = '<i class="fas fa-power-off"></i> START MINING (OFF)';
-                // Stop mining simulation
-                clearInterval(miningInterval);
-            }
-        });
-
-        // Simulate mining
-        let miningInterval;
-        function simulateMining() {
-            let seconds = 0;
-            miningInterval = setInterval(() => {
-                seconds++;
-                if (seconds >= 86400) { // 24 hours
-                    miningActive = false;
-                    miningBtn.classList.remove('on');
-                    miningBtn.innerHTML = '<i class="fas fa-power-off"></i> START MINING (OFF)';
-                    clearInterval(miningInterval);
-                    alert('Mining session completed! 24 hours have passed.');
+        // User Management
+        class UserSystem {
+            static register(email, password, referralCode = null) {
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                
+                if (users.find(u => u.email === email)) {
+                    return { error: 'Email already registered' };
                 }
-            }, 1000);
+                
+                const user = {
+                    email,
+                    password: btoa(password),
+                    memberId: `MSL-F-${Math.floor(100000 + Math.random() * 900000)}`,
+                    cryptoWallet: {
+                        address: this.generateCryptoAddress(),
+                        balance: 0
+                    },
+                    fiatWallet: {
+                        account: `MAS_${Math.floor(1000000000 + Math.random() * 9000000000)}`,
+                        balance: 0
+                    },
+                    notifications: [
+                        {
+                            message: 'Welcome to Masolites! Start by exploring the platform.',
+                            timestamp: new Date().toISOString(),
+                            read: false
+                        }
+                    ],
+                    createdAt: new Date().toISOString(),
+                    referralCode: Math.random().toString(36).substring(2, 10).toUpperCase(),
+                    referredBy: referralCode
+                };
+                
+                users.push(user);
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // Process referral
+                if (referralCode) {
+                    MLMSystem.processReferral(referralCode, user.email, 0);
+                }
+                
+                return user;
+            }
+            
+            static login(email, password) {
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const user = users.find(u => u.email === email && u.password === btoa(password));
+                
+                if (user) {
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    return user;
+                }
+                return null;
+            }
+            
+            static getCurrentUser() {
+                return JSON.parse(localStorage.getItem('currentUser'));
+            }
+            
+            static logout() {
+                localStorage.removeItem('currentUser');
+            }
+            
+            static addNotification(user, message) {
+                if (!user) return;
+                
+                user.notifications.unshift({
+                    message,
+                    timestamp: new Date().toISOString(),
+                    read: false
+                });
+                
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const updatedUsers = users.map(u => u.email === user.email ? user : u);
+                localStorage.setItem('users', JSON.stringify(updatedUsers));
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                return user;
+            }
+            
+            static generateCryptoAddress() {
+                const chars = '0123456789ABCDEF';
+                let address = '0x';
+                for (let i = 0; i < 40; i++) {
+                    address += chars[Math.floor(Math.random() * 16)];
+                }
+                return address;
+            }
         }
 
-        // ICO Countdown Timer (120 days)
-        function startCountdown() {
-            const endDate = new Date();
-            endDate.setDate(endDate.getDate() + 120);
-            
-            function updateTimer() {
-                const now = new Date();
-                const diff = endDate - now;
+        // Save & Earn System
+        class SaveEarn {
+            static submitDeposit(amount, date, time) {
+                const user = UserSystem.getCurrentUser();
+                if (!user) return { error: 'Not authenticated' };
                 
-                if (diff <= 0) {
-                    document.querySelector('.timer-display').textContent = 'ICO LAUNCHED!';
+                const deposit = {
+                    id: Date.now(),
+                    userId: user.email,
+                    amount,
+                    date,
+                    time,
+                    status: 'pending',
+                    timestamp: new Date().toISOString()
+                };
+                
+                const deposits = JSON.parse(localStorage.getItem('deposits') || '[]');
+                deposits.push(deposit);
+                localStorage.setItem('deposits', JSON.stringify(deposits));
+                
+                // Record activity for admin
+                const activity = JSON.parse(localStorage.getItem('activity') || '[]');
+                activity.unshift({
+                    userId: user.email,
+                    action: 'Deposit Submitted',
+                    details: `Manual deposit: ₦${amount}`,
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('activity', JSON.stringify(activity));
+                
+                // Add notification
+                UserSystem.addNotification(user, `Manual deposit of ₦${amount} submitted. Waiting for admin approval.`);
+                
+                return deposit;
+            }
+            
+            static processFlutterwave(amount) {
+                const user = UserSystem.getCurrentUser();
+                if (!user) return { error: 'Not authenticated' };
+                
+                // FLUTTERWAVE KEY LOCATION 1 (LINE 1078)
+                const FLW_PUBLIC_KEY = "YOUR_FLUTTERWAVE_PUBLIC_KEY";
+                
+                FlutterwaveCheckout({
+                    public_key: FLW_PUBLIC_KEY,
+                    tx_ref: "DEPOSIT-" + Date.now(),
+                    amount: amount,
+                    currency: "NGN",
+                    payment_options: "card, banktransfer, ussd",
+                    customer: {
+                        email: user.email,
+                        name: "Masolites User"
+                    },
+                    callback: function(response) {
+                        if (response.status === "successful") {
+                            // Add to user balance
+                            user.fiatWallet.balance += amount;
+                            UserSystem.addNotification(user, `Flutterwave deposit of ₦${amount} successful!`);
+                            
+                            // Record activity
+                            const activity = JSON.parse(localStorage.getItem('activity') || '[]');
+                            activity.unshift({
+                                userId: user.email,
+                                action: 'Flutterwave Deposit',
+                                details: `Amount: ₦${amount}`,
+                                timestamp: new Date().toISOString()
+                            });
+                            localStorage.setItem('activity', JSON.stringify(activity));
+                            
+                            alert(`Successfully deposited ₦${amount}!`);
+                        } else {
+                            alert("Payment failed. Please try again.");
+                        }
+                    },
+                    customizations: {
+                        title: "Masolites Deposit",
+                        description: "Fund your account",
+                        logo: "https://masolites.com/logo.png"
+                    }
+                });
+            }
+        }
+
+        // Mining System
+        class MiningSystem {
+            constructor() {
+                this.miningInterval = null;
+                this.minedAmount = 0;
+                this.totalMined = 0;
+                this.isMining = false;
+                this.baseRate = 0.12 / (24 * 60 * 60 * 1000); // Tokens per ms
+                this.lastMinuteUpdate = Date.now();
+            }
+            
+            startMining() {
+                if (this.isMining) return;
+                
+                const startTime = Date.now();
+                this.lastMinuteUpdate = startTime;
+                
+                this.miningInterval = setInterval(() => {
+                    const now = Date.now();
+                    const elapsed = now - startTime;
+                    this.minedAmount = elapsed * this.baseRate;
+                    
+                    if (now - this.lastMinuteUpdate >= 60000) {
+                        this.totalMined += this.minedAmount;
+                        document.getElementById('miningTotal').textContent = this.totalMined.toFixed(6) + ' MZLx';
+                        this.lastMinuteUpdate = now;
+                        localStorage.setItem('totalMined', this.totalMined.toString());
+                        if (this.totalMined > 0) {
+                            document.getElementById('claimButton').style.display = 'flex';
+                        }
+                    }
+                    
+                    document.getElementById('minedAmount').textContent = (this.minedAmount * 1000).toFixed(6) + ' MZLx/s';
+                }, 50);
+                
+                this.isMining = true;
+                document.getElementById('miningButton').innerHTML = '<i class="fas fa-stop"></i> STOP MINING';
+                document.getElementById('miningButton').classList.add('mining-active');
+            }
+            
+            stopMining() {
+                if (!this.isMining) return;
+                
+                clearInterval(this.miningInterval);
+                this.isMining = false;
+                document.getElementById('miningButton').innerHTML = '<i class="fas fa-play"></i> START MINING';
+                document.getElementById('miningButton').classList.remove('mining-active');
+                localStorage.setItem('totalMined', this.totalMined.toString());
+            }
+            
+            claimTokens() {
+                const user = UserSystem.getCurrentUser();
+                if (!user) {
+                    alert('Please login first!');
                     return;
                 }
                 
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                if (this.totalMined <= 0) {
+                    alert('No tokens to claim!');
+                    return;
+                }
                 
-                document.querySelector('.timer-display').textContent = 
-                    `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                user.cryptoWallet.balance += this.totalMined;
+                UserSystem.addNotification(user, `Claimed ${this.totalMined.toFixed(6)} MZLx from mining!`);
+                
+                this.totalMined = 0;
+                document.getElementById('miningTotal').textContent = '0.000000 MZLx';
+                document.getElementById('claimButton').style.display = 'none';
+                this.stopMining();
+                
+                alert(`Successfully claimed ${this.totalMined.toFixed(6)} MZLx!`);
+            }
+        }
+
+        // MLM System
+        class MLMSystem {
+            static processReferral(referralCode, newUserId, amount) {
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const referrer = users.find(u => u.referralCode === referralCode);
+                
+                if (referrer) {
+                    // 5% referral commission
+                    const commission = amount * 0.05;
+                    referrer.cryptoWallet.balance += commission;
+                    
+                    // Update user
+                    localStorage.setItem('users', JSON.stringify(users));
+                    
+                    // Add notification
+                    const message = `You earned ${commission.toFixed(6)} MZLx from referral!`;
+                    UserSystem.addNotification(referrer, message);
+                }
+            }
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize systems
+            const miningSystem = new MiningSystem();
+            
+            // Load mined data if exists
+            if (localStorage.getItem('totalMined')) {
+                miningSystem.totalMined = parseFloat(localStorage.getItem('totalMined'));
+                document.getElementById('miningTotal').textContent = miningSystem.totalMined.toFixed(6) + ' MZLx';
+                if (miningSystem.totalMined > 0) {
+                    document.getElementById('claimButton').style.display = 'flex';
+                }
             }
             
-            updateTimer();
-            setInterval(updateTimer, 1000);
-        }
-
-        // Form submission handlers
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
+            // Initialize countdown timer
+            function initCountdown() {
+                const endDate = new Date();
+                endDate.setDate(endDate.getDate() + 120);
             
-            // In a real app, this would validate against a backend
-            alert(`Login attempt with:\nEmail: ${email}\nPassword: ${password}`);
-            loginModal.classList.remove('active');
-        });
-
-        signupForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
+                function updateCountdown() {
+                    const now = new Date();
+                    const diff = endDate - now;
+                    
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    
+                    document.getElementById('days').textContent = days;
+                    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                }
             
-            // In a real app, this would create a new account
-            alert(`Account created for:\nName: ${name}\nEmail: ${email}`);
-            signupModal.classList.remove('active');
+                setInterval(updateCountdown, 60000);
+                updateCountdown();
+            }
+            initCountdown();
             
-            // Update UI for logged in user
-            document.querySelector('.user-profile h3').textContent = name;
-            document.querySelector('.user-id').textContent = generateMemberId();
-        });
-
-        // Generate member ID
-        function generateMemberId() {
-            const randomNum = Math.floor(100000 + Math.random() * 900000);
-            return `MSL${randomNum}P`;
-        }
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', () => {
-            startCountdown();
-            generateMemberId();
+            // Auth Event Listeners
+            document.getElementById('loginBtn').addEventListener('click', function() {
+                document.getElementById('loginModal').style.display = 'flex';
+            });
+            
+            document.getElementById('registerBtn').addEventListener('click', function() {
+                document.getElementById('registerModal').style.display = 'flex';
+            });
+            
+            document.getElementById('showRegister').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('loginModal').style.display = 'none';
+                document.getElementById('registerModal').style.display = '极 flex';
+            });
+            
+            document.getElementById('confirmRegister').addEventListener('click', function() {
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+                const referralCode = document.getElementById('referralCode').value || null;
+                
+                const result = UserSystem.register(email, password, referralCode);
+                if (result.error) {
+                    alert(result.error);
+                } else {
+                    alert('Registration successful!');
+                    document.getElementById('registerModal').style.display = 'none';
+                    location.reload();
+                }
+            });
+            
+            document.getElementById('confirmLogin').addEventListener('click', function() {
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                const user = UserSystem.login(email, password);
+                if (user) {
+                    alert('Login successful!');
+                    document.getElementById('loginModal').style.display = 'none';
+                    location.reload();
+                } else {
+                    alert('Invalid email or password');
+                }
+            });
+            
+            // Mining Event Listeners
+            document.getElementById('miningButton').addEventListener('click', function() {
+                if (!UserSystem.getCurrentUser()) {
+                    alert('Please login to start mining');
+                    document.getElementById('loginModal').style.display = 'flex';
+                    return;
+                }
+                
+                if (miningSystem.isMining) {
+                    miningSystem.stopMining();
+                } else {
+                    miningSystem.start极 Mining();
+                }
+            });
+            
+            document.getElementById('claimButton').addEventListener('click', function() {
+                miningSystem.claimTokens();
+            });
+            
+            // Save & Earn
+            document.getElementById('saveEarnBtn').addEventListener('click', function() {
+                if (!UserSystem.getCurrentUser()) {
+                    alert('Please login to use Save & Earn');
+                    document.getElementById('loginModal').style.display = 'flex';
+                    return;
+                }
+                document.getElementById('saveEarnModal').style.display = 'flex';
+            });
+            
+            document.getElementById('submitDeposit').addEventListener('click', function() {
+                const amount = parseFloat(document.getElementById('depositAmount').value);
+                const date = document.getElementById('receiptDate').value;
+                const time = document.getElementById('receiptTime').value;
+                
+                if (amount < 500 || amount > 2000000) {
+                    alert('Amount must be between ₦500 and ₦2,000,000');
+                    return;
+                }
+                
+                if (!date || !time) {
+                    alert('Please provide receipt date and time');
+                    return;
+                }
+                
+                const deposit = SaveEarn.submitDeposit(amount, date, time);
+                if (deposit.error) {
+                    alert(deposit.error);
+                } else {
+                    alert('Deposit submitted for approval!');
+                    document.getElementById('saveEarnModal').style.display = 'none';
+                }
+            });
+            
+            // Flutterwave payment
+            document.getElementById('processFlutterwave').addEventListener('click', function() {
+                const amount = parseFloat(document.getElementById('fwAmount').value);
+                if (amount < 500) {
+                    alert('Minimum deposit is ₦500');
+                    return;
+                }
+                SaveEarn.processFlutterwave(amount);
+            });
+            
+            // Dashboard
+            document.getElementById('platformWalletBtn').addEventListener('click', function() {
+                const user = UserSystem.getCurrentUser();
+                if (!user) {
+                    alert('Please login to view wallet');
+                    document.getElementById('loginModal').style.display = 'flex';
+                    return;
+                }
+                
+                document.getElementById('cryptoAddress').textContent = user.cryptoWallet.address;
+                document.getElementById('cryptoBalance').textContent = user.cryptoWallet.balance.toFixed(6);
+                document.getElementById('fiatAccount').textContent = user.fiatWallet.account;
+                document.getElementById('fiatBalance').textContent = user.fiatWallet.balance.toFixed(2);
+                
+                // Load notifications
+                const notificationList = document.getElementById('notificationList');
+                notificationList.innerHTML = '';
+                user.notifications.forEach(notif => {
+                    const item = document.createElement('div');
+                    item.className = 'notification-item';
+                    item.innerHTML = `
+                        <p>${notif.message}</p>
+                        <p class="notification-time">${new Date(notif.timestamp).toLocaleString()}</p>
+                    `;
+                    notificationList.appendChild(item);
+                });
+                
+                document.getElementById('dashboardModal').style.display = 'flex';
+            });
+            
+            // Voting
+            document.getElementById('voteBtn').addEventListener('click', function() {
+                const user = UserSystem.getCurrentUser();
+                if (!user) {
+                    alert('Please login to vote');
+                    document.getElementById('loginModal').style.display = 'flex';
+                    return;
+                }
+                
+                // Check voting hours (6pm - 11:30pm WAT)
+                const now = new Date();
+                const hours = now.getHours();
+                const canVote = hours >= 18 && hours < 23.5;
+                
+                if (!canVote) {
+                    document.getElementById('votingForm').innerHTML = `
+                        <p class="welcome-message">Voting is only available between 6pm - 11:30pm WAT</p>
+                    `;
+                } else {
+                    document.getElementById('votingForm').innerHTML = `
+                        <div class="vote-form">
+                            <div class="form-group">
+                                <label>New Token Price ($)</label>
+                                <input type="number" id="newPrice" min="0.001" step="0.001" value="0.001">
+                            </div>
+                            <button class="cta-button" id="submitVote">
+                                <i class="fas fa-vote-yea"></i> Submit Vote
+                            </button>
+                        </div>
+                    `;
+                    
+                    // Add event listener to the new button
+                    document.getElementById('submitVote').addEventListener('click', function() {
+                        const newPrice = parseFloat(document.getElementById('newPrice').value);
+                        if (newPrice < 0.001) {
+                            alert('Minimum price is $0.001');
+                            return;
+                        }
+                        
+                        // Update token price
+                        TOKENOMICS.currentPrice = newPrice;
+                        alert(`Vote submitted! New price: $${newPrice.toFixed(3)}`);
+                        document.getElementById('voteModal').style.display = 'none';
+                    });
+                }
+                
+                document.getElementById('voteModal').style.display = 'flex';
+            });
+            
+            // Buy MAZOL
+            document.getElementById('buyButton').addEventListener('click', function() {
+                const user = UserSystem.getCurrentUser();
+                if (!user) {
+                    alert('Please login to buy tokens');
+                    document.getElementById('loginModal').style.display = 'flex';
+                    return;
+                }
+                
+                document.getElementById('buyModal').style.display = 'flex';
+            });
+            
+            // Buy options
+            document.getElementById('bankOption').addEventListener('click', function() {
+                alert('Bank transfer details will be displayed');
+            });
+            
+            document.getElementById('usdtOption').addEventListener('click', function() {
+                alert('USDT wallet address will be displayed');
+            });
+            
+            document.getElementById('flutterOption').addEventListener('click', function() {
+                const user = UserSystem.getCurrentUser();
+                if (!user) return;
+                
+                // FLUTTERWAVE KEY LOCATION 2 (LINE 1667)
+                const FLW_PUBLIC_KEY = "YOUR_FLUTTERWAVE_PUBLIC_KEY";
+                
+                FlutterwaveCheckout({
+                    public_key: FLW_PUBLIC_KEY,
+                    tx_ref: "TOKENPURCHASE-" + Date.now(),
+                    amount: 1000, // Sample amount
+                    currency: "NGN",
+                    payment_options: "card, banktransfer, ussd",
+                    customer: {
+                        email: user.email,
+                        name: "Masolites User"
+                    },
+                    callback: function(response) {
+                        if (response.status === "successful") {
+                            // Add tokens to user
+                            const tokensPurchased = 1000 / TOKENOMICS.ngnPrice;
+                            user.cryptoWallet.balance += tokensPurchased;
+                            UserSystem.addNotification(user, `Purchased ${tokensPurchased.toFixed(2)} MZLx!`);
+                            alert(`Successfully purchased ${tokensPurchased.toFixed(2)} MZLx!`);
+                        } else {
+                            alert("Payment failed. Please try again.");
+                        }
+                    },
+                    customizations: {
+                        title: "MAZOL Token Purchase",
+                        description: "Buying MAZOL tokens",
+                        logo: "https://masolites.com/logo.png"
+                    }
+                });
+            });
+            
+            // Admin button
+            document.getElementById('adminBtn').addEventListener('click', function() {
+                window.location.href = 'admin.html';
+            });
+            
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                UserSystem.logout();
+                location.reload();
+            });
+            
+            // Profile update
+            document.getElementById('updateProfile').addEventListener('click', function() {
+                const user = UserSystem.getCurrentUser();
+                if (!user) return;
+                
+                user.fullName = document.getElementById('userFullName').value;
+                user.phone = document.getElementById('userPhone').value;
+                
+                // Update user
+                const users = JSON.parse(localStorage.getItem('users') || []);
+                const updatedUsers = users.map(u => u.email === user.email ? user : u);
+                localStorage.setItem('users', JSON.stringify(updatedUsers));
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                alert('Profile updated successfully!');
+            });
+            
+            // Modal close buttons
+            document.querySelectorAll('.modal-close').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.modal').forEach(modal => {
+                        modal.style.display = 'none';
+                    });
+                });
+            });
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target.classList.contains('modal')) {
+                    document.querySelectorAll('.modal').forEach(modal => {
+                        modal.style.display = 'none';
+                    });
+                }
+            });
+            
+            // Tab switching
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tab = this.dataset.tab;
+                    
+                    // Update active tab
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show correct content
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(`${tab}Tab`).classList.add('active');
+                });
+            });
+            
+            // Check if user is logged in
+            const user = UserSystem.getCurrentUser();
+            if (user) {
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('registerBtn').style.display = 'none';
+                document.getElementById('logoutBtn').style.display = 'flex';
+                document.getElementById('memberId').textContent = user.memberId;
+                document.getElementById('memberBadge').innerHTML = `<i class="fas fa-gift"></i> ${user.memberId}`;
+            }
         });
     </script>
 </body>
