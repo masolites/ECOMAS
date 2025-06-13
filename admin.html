@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,10 +13,11 @@
             --light-blue: #3e92cc;
             --lemon-green: #a4de02;
             --accent: #d8315b;
-            --card-bg: rgba(26, 26, 46, 0.8);
+            --card-bg: rgba(26, 26, 46, 0.95);
             --text-light: #ffffff;
             --mining-off: #ff9500;
             --mining-on: #4cd964;
+            --admin-bg: linear-gradient(135deg, #0f0c29, #1a1a2e, #24243e);
         }
         
         * {
@@ -26,11 +27,12 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background: var(--admin-bg);
             color: var(--text-light);
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
             padding: 15px;
+            overflow-x: hidden;
         }
         
         .admin-container {
@@ -46,6 +48,7 @@
             padding: 20px 0;
             border-bottom: 1px solid var(--light-blue);
             margin-bottom: 30px;
+            animation: fadeIn 0.8s ease-out;
         }
         
         .admin-logo {
@@ -54,6 +57,9 @@
             background: linear-gradient(to right, var(--lemon-green), var(--light-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
         
         .admin-nav {
@@ -72,10 +78,12 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            font-weight: 600;
         }
         
         .admin-btn:hover {
             background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
         
         .admin-logout-btn {
@@ -87,6 +95,7 @@
             display: grid;
             grid-template-columns: 1fr;
             gap: 25px;
+            animation: slideUp 0.8s ease-out;
         }
         
         .admin-card {
@@ -94,8 +103,13 @@
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease;
+        }
+        
+        .admin-card:hover {
+            transform: translateY(-5px);
         }
         
         .admin-card-title {
@@ -105,6 +119,8 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .stats-grid {
@@ -120,13 +136,27 @@
             padding: 20px;
             text-align: center;
             border: 1px solid var(--accent);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--light-blue);
+            margin-bottom: 15px;
         }
         
         .stat-value {
             font-size: 2.5rem;
             font-weight: 700;
             margin: 15px 0;
-            color: var(--light-blue);
+            color: var(--lemon-green);
+            text-shadow: 0 0 10px rgba(164, 222, 2, 0.3);
         }
         
         .stat-label {
@@ -139,6 +169,8 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
         }
         
         .admin-table th, 
@@ -149,24 +181,32 @@
         }
         
         .admin-table th {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             color: var(--lemon-green);
+            font-weight: 700;
+        }
+        
+        .admin-table tr:nth-child(even) {
+            background: rgba(0, 0, 0, 0.2);
         }
         
         .admin-table tr:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.08);
         }
         
         .status-pending {
             color: var(--mining-off);
+            font-weight: 700;
         }
         
         .status-approved {
             color: var(--mining-on);
+            font-weight: 700;
         }
         
         .status-rejected {
             color: var(--accent);
+            font-weight: 700;
         }
         
         .action-btn {
@@ -179,6 +219,7 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            font-weight: 600;
         }
         
         .approve-btn {
@@ -199,12 +240,19 @@
         
         .search-bar input {
             flex: 1;
-            padding: 14px;
+            padding: 14px 20px;
             border-radius: 50px;
             border: 1px solid var(--light-blue);
             background: rgba(255, 255, 255, 0.1);
             color: white;
             font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--lemon-green);
+            box-shadow: 0 0 10px rgba(164, 222, 2, 0.3);
         }
         
         .search-bar button {
@@ -215,6 +263,15 @@
             border: none;
             cursor: pointer;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar button:hover {
+            background: var(--lemon-green);
+            transform: translateY(-2px);
         }
         
         .token-config {
@@ -232,6 +289,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
+            color: var(--light-blue);
         }
         
         .token-form-group input {
@@ -242,6 +300,13 @@
             background: rgba(255, 255, 255, 0.1);
             color: white;
             font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .token-form-group input:focus {
+            border-color: var(--lemon-green);
+            box-shadow: 0 0 10px rgba(164, 222, 2, 0.3);
+            outline: none;
         }
         
         .update-btn {
@@ -251,28 +316,41 @@
             color: var(--navy);
             border: none;
             cursor: pointer;
-            font-weight: 600;
-            display: flex;
+            font-weight: 700;
+            display: inline-flex;
             align-items: center;
             gap: 10px;
             margin-top: 10px;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        
+        .update-btn:hover {
+            background: #b7f530;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(164, 222, 2, 0.3);
         }
         
         .login-container {
             max-width: 500px;
             margin: 100px auto;
-            padding: 30px;
+            padding: 40px 30px;
             background: var(--card-bg);
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out;
         }
         
         .login-title {
             text-align: center;
             margin-bottom: 30px;
             color: var(--lemon-green);
-            font-size: 2rem;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
         
         .login-form {
@@ -289,16 +367,24 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
+            color: var(--light-blue);
         }
         
         .form-group input {
             width: 100%;
-            padding: 14px;
+            padding: 16px;
             border-radius: 12px;
             border: 1px solid var(--light-blue);
             background: rgba(255, 255, 255, 0.1);
             color: white;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            border-color: var(--lemon-green);
+            box-shadow: 0 0 15px rgba(164, 222, 2, 0.4);
+            outline: none;
         }
         
         .login-btn {
@@ -308,12 +394,20 @@
             color: white;
             border: none;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1.1rem;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .login-btn:hover {
+            background: #e8436d;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(216, 49, 91, 0.4);
         }
         
         .error-message {
@@ -321,12 +415,60 @@
             text-align: center;
             margin-top: 10px;
             display: none;
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(216, 49, 91, 0.15);
+        }
+        
+        .login-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        .admin-welcome {
+            text-align: center;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .admin-welcome strong {
+            color: var(--lemon-green);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
         }
         
         @media (max-width: 768px) {
             .admin-header {
                 flex-direction: column;
                 gap: 15px;
+                text-align: center;
+            }
+            
+            .admin-nav {
+                width: 100%;
+                justify-content: center;
             }
             
             .stats-grid {
@@ -337,6 +479,11 @@
                 display: block;
                 overflow-x: auto;
             }
+            
+            .login-container {
+                margin: 50px auto;
+                padding: 25px 20px;
+            }
         }
     </style>
 </head>
@@ -344,12 +491,15 @@
     <div class="admin-container" id="adminDashboard" style="display: none;">
         <div class="admin-header">
             <div>
-                <h1 class="admin-logo">MASOLITES ECOMAS</h1>
-                <p>Administration Panel</p>
+                <h1 class="admin-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    MASOLITES ECOMAS
+                </h1>
+                <p>Administration Control Panel</p>
             </div>
             <div class="admin-nav">
                 <button class="admin-btn" id="refreshBtn">
-                    <i class="fas fa-sync-alt"></i> Refresh
+                    <i class="fas fa-sync-alt"></i> Refresh Data
                 </button>
                 <button class="admin-btn admin-logout-btn" id="adminLogoutBtn">
                     <i class="fas fa-sign-out-alt"></i> Logout
@@ -357,25 +507,35 @@
             </div>
         </div>
         
+        <div class="admin-welcome">
+            Welcome to the <strong>MASOLITES ECOMAS</strong> administration panel. Manage deposits, users, token settings, 
+            and monitor platform activities. You have full access to all administrative functions. 
+            Use responsibly and ensure all actions are properly documented.
+        </div>
+        
         <div class="admin-main">
             <div class="admin-card">
                 <h2 class="admin-card-title"><i class="fas fa-chart-line"></i> Platform Overview</h2>
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-label">Total Users</div>
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
                         <div class="stat-value" id="totalUsers">0</div>
+                        <div class="stat-label">Total Users</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-label">Total Deposits</div>
+                        <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
                         <div class="stat-value" id="totalDeposits">₦0.00</div>
+                        <div class="stat-label">Total Deposits</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-label">Pending Deposits</div>
+                        <div class="stat-icon"><i class="fas fa-clock"></i></div>
                         <div class="stat-value" id="pendingDeposits">0</div>
+                        <div class="stat-label">Pending Deposits</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-label">Token Supply</div>
+                        <div class="stat-icon"><i class="fas fa-coins"></i></div>
                         <div class="stat-value" id="tokenSupply">0</div>
+                        <div class="stat-label">Token Supply</div>
                     </div>
                 </div>
                 
@@ -484,14 +644,17 @@
     </div>
     
     <div class="login-container" id="adminLogin">
-        <h2 class="login-title">Admin Login</h2>
+        <h2 class="login-title">
+            <i class="fas fa-lock"></i>
+            Admin Login
+        </h2>
         <form class="login-form" id="adminLoginForm">
             <div class="form-group">
-                <label>Admin Username</label>
+                <label><i class="fas fa-user"></i> Admin Username</label>
                 <input type="text" id="adminUsername" placeholder="Enter admin username" required>
             </div>
             <div class="form-group">
-                <label>Password</label>
+                <label><i class="fas fa-key"></i> Password</label>
                 <input type="password" id="adminPassword" placeholder="Enter password" required>
             </div>
             <button type="submit" class="login-btn">
@@ -499,6 +662,9 @@
             </button>
             <div class="error-message" id="loginErrorMessage"></div>
         </form>
+        <div class="login-footer">
+            Secure access to MASOLITES ECOMAS administration
+        </div>
     </div>
 
     <script>
@@ -530,13 +696,22 @@
                 const password = document.getElementById('adminPassword').value;
                 
                 if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                    // Correct credentials
                     localStorage.setItem('adminLoggedIn', 'true');
                     document.getElementById('adminDashboard').style.display = 'block';
                     document.getElementById('adminLogin').style.display = 'none';
                     loadAdminData();
                 } else {
+                    // Incorrect credentials
                     document.getElementById('loginErrorMessage').textContent = 'Invalid admin credentials';
                     document.getElementById('loginErrorMessage').style.display = 'block';
+                    
+                    // Shake animation for error
+                    document.getElementById('adminLoginForm').classList.add('shake');
+                    setTimeout(() => {
+                        document.getElementById('adminLoginForm').classList.remove('shake');
+                    }, 500);
+                    
                     setTimeout(() => {
                         document.getElementById('loginErrorMessage').style.display = 'none';
                     }, 3000);
@@ -552,6 +727,11 @@
             // Refresh button
             document.getElementById('refreshBtn').addEventListener('click', function() {
                 loadAdminData();
+                // Add visual feedback
+                this.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Refreshing...';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Data';
+                }, 1000);
             });
             
             // Update token config
@@ -585,7 +765,11 @@
                 });
                 localStorage.setItem('activity', JSON.stringify(activity));
                 
-                alert('Token configuration updated successfully!');
+                // Visual feedback
+                this.innerHTML = '<i class="fas fa-check"></i> Updated!';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-save"></i> Update Token Configuration';
+                }, 2000);
             });
         });
         
@@ -608,7 +792,9 @@
                 totalSupply: 50000000,
                 privateSale: 25000000,
                 currentPrice: 0.001,
-                ngnPrice: 18
+                ngnPrice: 18,
+                tokenName: "MAZOL",
+                tokenSymbol: "MZLx"
             }));
             
             document.getElementById('tokenSupply').textContent = tokenomics.totalSupply.toLocaleString();
@@ -635,7 +821,10 @@
             const tbody = document.getElementById('depositsTableBody');
             tbody.innerHTML = '';
             
-            deposits.forEach(deposit => {
+            // Show latest deposits first
+            const sortedDeposits = [...deposits].sort((a, b) => b.id - a.id);
+            
+            sortedDeposits.forEach(deposit => {
                 const row = document.createElement('tr');
                 
                 row.innerHTML = `
@@ -688,7 +877,7 @@
                     <td>${user.memberId}</td>
                     <td>${user.email}</td>
                     <td>${user.cryptoWallet?.address?.substring(0, 12) + '...' || 'N/A'}</td>
-                    <td>${user.cryptoWallet?.balance?.toFixed(6) || '0.000000'} ${JSON.parse(localStorage.getItem('tokenomics')?.tokenSymbol || 'MZLx'}</td>
+                    <td>${user.cryptoWallet?.balance?.toFixed(6) || '0.000000'} ${JSON.parse(localStorage.getItem('tokenomics') || '{}').tokenSymbol || 'MZLx'}</td>
                     <td>${new Date(user.createdAt).toLocaleDateString()}</td>
                     <td>
                         <button class="action-btn" style="background: var(--light-blue);" onclick="viewUser('${user.email}')">
@@ -706,8 +895,13 @@
             const tbody = document.getElementById('activityTableBody');
             tbody.innerHTML = '';
             
+            // Show latest activities first
+            const sortedActivities = [...activities].sort((a, b) => 
+                new Date(b.timestamp) - new Date(a.timestamp)
+            );
+            
             // Show latest 20 activities
-            const recentActivities = activities.slice(0, 20);
+            const recentActivities = sortedActivities.slice(0, 20);
             
             recentActivities.forEach(activity => {
                 const row = document.createElement('tr');
@@ -740,7 +934,6 @@
             
             if (user) {
                 user.fiatWallet.balance += deposit.amount;
-                localStorage.setItem('users', JSON.stringify(users));
                 
                 // Add notification to user
                 user.notifications.unshift({
@@ -764,7 +957,9 @@
             
             // Reload data
             loadAdminData();
-            alert('Deposit approved successfully!');
+            
+            // Visual feedback
+            alert(`Deposit #${depositId} approved successfully!`);
         }
         
         // Reject deposit
@@ -790,7 +985,9 @@
             
             // Reload data
             loadAdminData();
-            alert('Deposit rejected!');
+            
+            // Visual feedback
+            alert(`Deposit #${depositId} rejected!`);
         }
         
         // View user details
@@ -800,29 +997,101 @@
             
             if (user) {
                 const userInfo = `
-                    Member ID: ${user.memberId}
-                    Email: ${user.email}
-                    Created: ${new Date(user.createdAt).toLocaleString()}
-                    
-                    Crypto Wallet:
-                    ${user.cryptoWallet?.address || 'N/A'}
-                    Balance: ${user.cryptoWallet?.balance?.toFixed(6) || '0.000000'} ${JSON.parse(localStorage.getItem('tokenomics'))?.tokenSymbol || 'MZLx'}
-                    
-                    Fiat Wallet:
-                    Account: ${user.fiatWallet?.account || 'N/A'}
-                    Balance: ₦${user.fiatWallet?.balance?.toFixed(2) || '0.00'}
-                    
-                    Referral Code: ${user.referralCode || 'N/A'}
-                    Referred By: ${user.referredBy || 'N/A'}
+                    <div style="background: #1a1a2e; padding: 20px; border-radius: 10px; max-width: 500px; margin: 20px auto;">
+                        <h3 style="color: var(--lemon-green); margin-bottom: 15px; text-align: center;">User Details</h3>
+                        
+                        <div style="margin-bottom: 10px;">
+                            <strong>Member ID:</strong> ${user.memberId}
+                        </div>
+                        
+                        <div style="margin-bottom: 10px;">
+                            <strong>Email:</strong> ${user.email}
+                        </div>
+                        
+                        <div style="margin-bottom: 10px;">
+                            <strong>Created:</strong> ${new Date(user.createdAt).toLocaleString()}
+                        </div>
+                        
+                        <h4 style="color: var(--light-blue); margin: 15px 0 10px;">Crypto Wallet</h4>
+                        <div style="margin-bottom: 5px; word-break: break-all;">
+                            <strong>Address:</strong> ${user.cryptoWallet?.address || 'N/A'}
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <strong>Balance:</strong> ${user.cryptoWallet?.balance?.toFixed(6) || '0.000000'} ${JSON.parse(localStorage.getItem('tokenomics') || '{}').tokenSymbol || 'MZLx'}
+                        </div>
+                        
+                        <h4 style="color: var(--light-blue); margin: 15px 0 10px;">Fiat Wallet</h4>
+                        <div style="margin-bottom: 5px;">
+                            <strong>Account:</strong> ${user.fiatWallet?.account || 'N/A'}
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <strong>Balance:</strong> ₦${user.fiatWallet?.balance?.toFixed(2) || '0.00'}
+                        </div>
+                        
+                        <h4 style="color: var(--light-blue); margin: 15px 0 10px;">Referral Info</h4>
+                        <div style="margin-bottom: 5px;">
+                            <strong>Referral Code:</strong> ${user.referralCode || 'N/A'}
+                        </div>
+                        <div>
+                            <strong>Referred By:</strong> ${user.referredBy || 'N/A'}
+                        </div>
+                    </div>
                 `;
                 
-                alert(userInfo);
+                // Create modal
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.8);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 1000;
+                `;
+                
+                const modalContent = document.createElement('div');
+                modalContent.style.cssText = `
+                    background: #1a1a2e;
+                    border-radius: 15px;
+                    padding: 25px;
+                    max-width: 600px;
+                    width: 90%;
+                    max-height: 90vh;
+                    overflow-y: auto;
+                    border: 1px solid var(--light-blue);
+                    box-shadow: 0 0 30px rgba(62, 146, 204, 0.5);
+                `;
+                
+                modalContent.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="color: var(--lemon-green);">User Details</h3>
+                        <button id="closeUserModal" style="background: transparent; border: none; color: white; font-size: 1.5rem; cursor: pointer;">&times;</button>
+                    </div>
+                    ${userInfo}
+                `;
+                
+                modal.appendChild(modalContent);
+                document.body.appendChild(modal);
+                
+                // Close button
+                document.getElementById('closeUserModal').addEventListener('click', function() {
+                    document.body.removeChild(modal);
+                });
+                
+                // Close when clicking outside
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        document.body.removeChild(modal);
+                    }
+                });
             } else {
                 alert('User not found!');
             }
         }
-        
-        // Search functions would be implemented similarly with filtering
     </script>
 </body>
 </html>
