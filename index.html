@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MASOLITES ECOMAS</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://checkout.flutterwave.com/v3.js"></script>
     <style>
@@ -15,16 +14,22 @@
             --light-blue: #3e92cc;
             --lemon-green: #a4de02;
             --accent: #d8315b;
-            --card-bg: rgba(26, 26, 46, 0.8);
+            --card-bg: rgba(26, 26, 46, 0.95);
             --text-light: #ffffff;
             --mining-off: #ff9500;
             --mining-on: #4cd964;
+            --bronze: #cd7f32;
+            --silver: #c0c0c0;
+            --gold: #ffd700;
+            --platinum: #e5e4e2;
+            --admin-bg: linear-gradient(135deg, #0f0c29, #1a1a2e, #24243e);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
@@ -32,53 +37,56 @@
             color: var(--text-light);
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            padding: 15px;
+            padding: 10px;
+            overflow: hidden;
+            position: relative;
         }
         
         .app-container {
-            max-width: 500px;
+            max-width: 100%;
+            height: calc(100vh - 20px);
+            display: flex;
+            flex-direction: column;
             margin: 0 auto;
+            overflow: hidden;
         }
         
-        header {
-            text-align: center;
-            padding: 15px 0;
-            margin-bottom: 15px;
+        /* Header Styles */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            margin-bottom: 10px;
         }
         
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 800;
             background: linear-gradient(to right, var(--lemon-green), var(--light-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 5px;
-        }
-        
-        .tagline {
-            font-size: 0.95rem;
-            color: var(--lemon-green);
-            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .auth-container {
             display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px;
         }
         
         .btn {
-            padding: 10px 20px;
+            padding: 8px 12px;
             border-radius: 50px;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             border: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
         }
         
         .btn-login {
@@ -93,66 +101,73 @@
         }
         
         .admin-btn {
-            width: 45px;
-            height: 45px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             color: var(--text-light);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
-            cursor极: pointer;
+            font-size: 0.9rem;
+            cursor: pointer;
             border: 1px solid var(--light-blue);
         }
         
         .logout-btn {
             background: var(--accent);
             color: white;
-            padding: 10px 20px;
+            padding: 8px 12px;
             border-radius: 50px;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
         }
         
         .member-badge {
             background: rgba(164, 222, 2, 0.2);
             border: 1px solid var(--lemon-green);
             border-radius: 50px;
-            padding: 8px 15px;
-            font-size: 0.8rem;
+            padding: 6px 10px;
+            font-size: 0.7rem;
             display: inline-block;
-            margin-top: 10px;
+            margin-top: 5px;
+        }
+        
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 10px;
         }
         
         .card {
             background: var(--card-bg);
             backdrop-filter: blur(10px);
             border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: 15px;
+            margin-bottom: 10px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
         .card.compact {
-            padding: 15px;
+            padding: 12px;
         }
         
         .card-title {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
+            font-size: 1rem;
+            margin-bottom: 10px;
             color: var(--lemon-green);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         
         .welcome-message {
-            font-size: 0.85rem;
-            line-height: 1.6;
+            font-size: 0.75rem;
+            line-height: 1.5;
             text-align: center;
             opacity: 0.9;
         }
@@ -161,21 +176,22 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .price-info {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 15px;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
         }
         
         .price {
-            font-size: 0.85rem;
+            font-size: 0.7rem;
             font-weight: 700;
             background: rgba(0, 0, 0, 0.3);
-            padding: 8极 15px;
+            padding: 6px 10px;
             border-radius: 50px;
             border: 1px solid var(--accent);
         }
@@ -183,21 +199,21 @@
         .countdown-timer {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin: 15px 0;
+            gap: 8px;
+            margin: 10px 0;
         }
         
         .countdown-item {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 10px;
-            padding: 10px;
-            min-width: 70px;
+            padding: 8px;
+            min-width: 55px;
             text-align: center;
             border: 1px solid var(--accent);
         }
         
         .countdown-value {
-            font-size: 1.4rem;
+            font-size: 1.1rem;
             font-weight: 700;
             font-family: 'Courier New', monospace;
             background: linear-gradient(to bottom, #fff, #ccc);
@@ -206,9 +222,9 @@
         }
         
         .countdown-label {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
-            margin-top: 5px;
+            margin-top: 3px;
             color: var(--text-light);
             opacity: 0.8;
         }
@@ -216,40 +232,39 @@
         .mining-counter {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 15px;
-            padding: 15px;
+            padding: 12px;
             text-align: center;
             border: 1px solid var(--accent);
-            margin: 15px 0;
+            margin: 10px 0;
         }
         
         .mining-display {
             display: flex;
             justify-content: space-between;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 700;
             font-family: 'Courier New', monospace;
         }
         
         .mining-label {
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             font-weight: 600;
             color: var(--text-light);
-            margin-bottom: 5px;
+            margin-bottom: 3px;
             opacity: 0.8;
         }
         
         .mining-actions {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 8px;
+            margin-top: 12px;
         }
         
         .cta-button {
-            padding: 15px;
+            padding: 12px;
             border-radius: 50px;
             width: 100%;
-            max-width: 100%;
             font-weight: 600;
             border: none;
             cursor: pointer;
@@ -257,8 +272,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            font-size: 1rem;
+            gap: 8px;
+            font-size: 0.9rem;
         }
         
         .buy-button {
@@ -284,14 +299,14 @@
         .action-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-top: 10px;
+            gap: 8px;
+            margin-top: 8px;
         }
         
         .action-card {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            padding: 15px 5px;
+            padding: 12px 5px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -302,24 +317,71 @@
         }
         
         .action-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             background: rgba(255, 255, 255, 0.2);
         }
         
         .action-icon {
-            font-size: 1.8rem;
-            margin-bottom: 5px;
+            font-size: 1.4rem;
+            margin-bottom: 3px;
             color: var(--text-light);
         }
         
         .action-label {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 700;
             text-align: center;
             text-transform: uppercase;
             color: var(--text-light);
         }
         
+        /* Badge Styles */
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+        
+        .badge-free {
+            background: var(--light-blue);
+            color: var(--navy);
+        }
+        
+        .badge-bronze {
+            background: var(--bronze);
+            color: white;
+        }
+        
+        .badge-silver {
+            background: var(--silver);
+            color: var(--navy);
+        }
+        
+        .badge-gold {
+            background: var(--gold);
+            color: var(--navy);
+        }
+        
+        .badge-platinum {
+            background: var(--platinum);
+            color: var(--navy);
+        }
+        
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -327,25 +389,27 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
+            overflow-y: auto;
         }
         
         .modal-content {
             background: var(--navy);
             border-radius: 20px;
             width: 100%;
-            max-width: 400px;
+            max-width: 100%;
+            max-height: 90vh;
             overflow: hidden;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
             border: 1px solid var(--light-blue);
         }
         
         .modal-header {
-            padding: 20px;
+            padding: 15px;
             background: rgba(0, 0, 0, 0.3);
             display: flex;
             justify-content: space-between;
@@ -355,6 +419,7 @@
         
         .modal-header h3 {
             color: var(--lemon-green);
+            font-size: 1.1rem;
         }
         
         .modal-close {
@@ -366,15 +431,16 @@
         }
         
         .modal-body {
-            padding: 20px;
-            max-height: 70vh;
+            padding: 15px;
+            max-height: calc(90vh - 60px);
             overflow-y: auto;
         }
         
+        /* Tabs */
         .tabs {
             display: flex;
             gap: 5px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             background: rgba(0, 0, 0, 0.3);
             border-radius: 50px;
             padding: 5px;
@@ -382,7 +448,7 @@
         
         .tab-btn {
             flex: 1;
-            padding: 12px;
+            padding: 10px;
             background: transparent;
             border: none;
             color: var(--text-light);
@@ -392,12 +458,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 5px;
+            font-size: 0.8rem;
         }
         
         .tab-btn.active {
             background: var(--light-blue);
-            color: var(--nav极);
+            color: var(--navy);
         }
         
         .tab-content {
@@ -408,211 +475,134 @@
             display: block;
         }
         
-        .bank-details {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 20px;
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 12px;
         }
         
-        .bank-details h4 {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .save-earn-form .form-group {
-            margin-bottom: 15px;
-        }
-        
-        .save-earn-form label {
+        .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: 600;
+            font-size: 0.8rem;
         }
         
-        .save-earn-form input {
+        .form-group input, 
+        .form-group select {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             border-radius: 12px;
             border: 1px solid var(--light-blue);
             background: rgba(255, 255, 255, 0.1);
             color: white;
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
         
         .form-row {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
         
         .form-row .form-group {
             flex: 1;
         }
         
-        .wallet-info {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .wallet-info h4 {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .wallet-address {
-            word-break: break-all;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 5px;
-        }
-        
-        .notifications {
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        
-        .notification-item {
-            padding: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .notification-time {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.6);
-            margin-top: 5px;
-        }
-        
-        .profile-update {
-            margin-top: 20px;
-        }
-        
-        .profile-update h4 {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .profile-update input {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 15px;
-            border-radius: 12px;
-            border: 1px solid var(--light-blue);
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 1rem;
-        }
-        
-        .buy-options-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .buy-option {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid var(--light-blue);
-        }
-        
-        .buy-option:hover {
-            background: rgba(0, 0, 0, 0.5);
-            transform: translateY(-5px);
-        }
-        
+        /* Vote Form */
         .vote-form {
-            padding: 20px;
+            padding: 15px;
             background: rgba(0, 0, 0, 0.3);
             border-radius: 15px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         
-        .auth-form input {
-            padding: 16px;
-            font-size: 16px;
-            margin-bottom: 15px;
+        .vote-price {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--lemon-green);
         }
         
-        .auth-form button {
-            padding: 16px;
-            font-size: 16px;
+        /* Mining Status */
+        .mining-status {
+            text-align: center;
+            margin-top: 5px;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.7);
         }
         
-        .auth-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        /* AI Price Suggestion */
+        .ai-suggestion {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 0.8rem;
         }
         
+        .ai-title {
+            color: var(--lemon-green);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        /* Responsive Adjustments */
         @media (max-width: 480px) {
-            .form-row {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
             .countdown-item {
-                min-width: 60px;
-                padding: 8px;
+                min-width: 50px;
+                padding: 6px;
             }
             
             .countdown-value {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
             
             .action-icon {
-                font-size: 1.5rem;
+                font-size: 1.2rem;
             }
             
-            .action-label {
-                font-size: 0.6rem;
+            .btn {
+                padding: 6px 10px;
+                font-size: 0.7rem;
             }
+        }
+        
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .main-content::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .main-content {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
         }
     </style>
 </head>
 <body>
     <div class="app-container">
-        <div class="top-section">
-            <header>
-                <h1 class="logo">MASOLITES ECOMAS</h1>
-                <p class="tagline">Building Trust & A Better Society Together</p>
-                <div class="auth-container">
-                    <button class="btn btn-login" id="loginBtn">
-                        <i class="fas fa-sign-in-alt"></i> Login
-                    </button>
-                    <button class="btn btn-register" id="registerBtn">
-                        <i class="fas fa-user-plus"></i> Register
-                    </button>
-                    <div class="admin-btn" id="adminBtn" title="Admin Panel">
-                        <i class="fas fa-cog"></i>
-                    </div>
-                    <button class="logout-btn" id="logoutBtn" style="display:none;">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </button>
+        <div class="top-header">
+            <h1 class="logo">
+                <i class="fas fa-coins"></i>
+                MASOLITES ECOMAS
+            </h1>
+            <div class="auth-container">
+                <button class="btn btn-login" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                <button class="btn btn-register" id="registerBtn">
+                    <i class="fas fa-user-plus"></i> Register
+                </button>
+                <div class="admin-btn" id="adminBtn" title="Admin Panel">
+                    <i class="fas fa-cog"></i>
                 </div>
-                <div id="walletInfo" style="display:none; margin-top:10px;">
-                    <span class="wallet-address" id="walletAddress"></span>
-                    <span class="platform-wallet-indicator">Platform Wallet</span>
-                </div>
-                <div id="memberBadge" class="member-badge">
-                    <i class="fas fa-gift"></i> Free Member | <span id="memberId">MSL-F-000000</span>
-                </div>
-            </header>
-            
+                <button class="logout-btn" id="logoutBtn" style="display:none;">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+        
+        <div class="main-content">
             <div class="card">
                 <p class="welcome-message">ECOMAS is Economic Community Of Masolites. A Trusted Products & Services Hub using MAZOL Token. MAZOL Daily New Price is decided by your vote. Enjoy Free Mining, Discounts & Sell Stuff too.</p>
             </div>
@@ -660,12 +650,19 @@
                 </div>
                 <div class="mining-actions">
                     <button class="cta-button mining-button" id="miningButton">
-                        <i class="fas fa-play"></i> START MINING
+                        <i class="fas fa-play"></i> START MINING (OFF)
                     </button>
                     <button class="cta-button claim-button" id="claimButton" style="display:none;">
                         <i class="fas fa-wallet"></i> CLAIM MZLx
                     </button>
                 </div>
+                <div class="mining-status" id="miningStatus">
+                    Mining will automatically stop after 24 hours
+                </div>
+            </div>
+            
+            <div class="badge-container" id="badgeContainer">
+                <!-- Badges will be populated here -->
             </div>
             
             <div class="card action-buttons-card">
@@ -688,6 +685,27 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-chart-line"></i> TODAY'S PRICE VOTE</h3>
+                <div class="vote-price">
+                    Current Price: $<span id="currentPrice">0.001</span>
+                </div>
+                <div class="ai-suggestion">
+                    <div class="ai-title"><i class="fas fa-robot"></i> AI Price Suggestion</div>
+                    <div>Based on market trends, today's suggested price is $0.0012 to reach $0.1 by Day 120.</div>
+                </div>
+                <div class="vote-form">
+                    <div class="form-group">
+                        <label>New Token Price ($)</label>
+                        <input type="number" id="newPrice" min="0.001" step="0.001" value="0.001">
+                    </div>
+                    <button class="cta-button" id="submitVote">
+                        <i class="fas fa-vote-yea"></i> Submit Vote
+                    </button>
+                    <p class="note" style="font-size:0.7rem; margin-top:8px;">Voting: 6pm - 11:30pm WAT | Results at 11:45pm</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -699,24 +717,22 @@
                 <button class="modal-close">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="auth-form">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="registerEmail" placeholder="your@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" id="registerPassword" placeholder="Create password" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Referral Code (optional)</label>
-                        <input type="text" id="referralCode" placeholder="Enter referral code">
-                    </div>
-                    <button class="cta-button" id="confirmRegister">
-                        <i class="fas fa-check"></i> Register
-                    </button>
-                    <p class="auth-note">By registering, you agree to our Terms of Service</p>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="registerEmail" placeholder="your@email.com" required>
                 </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="registerPassword" placeholder="Create password" required>
+                </div>
+                <div class="form-group">
+                    <label>Referral Code (optional)</label>
+                    <input type="text" id="referralCode" placeholder="Enter referral code">
+                </div>
+                <button class="cta-button" id="confirmRegister">
+                    <i class="fas fa-check"></i> Register
+                </button>
+                <p class="auth-note" style="font-size:0.7rem; margin-top:10px;">By registering, you agree to our Terms of Service</p>
             </div>
         </div>
     </div>
@@ -728,20 +744,18 @@
                 <button class="modal-close">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="auth-form">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="loginEmail" placeholder="your@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" id="loginPassword" placeholder="Your password" required>
-                    </div>
-                    <button class="cta-button" id="confirmLogin">
-                        <i class="fas fa-check"></i> Login
-                    </button>
-                    <p class="auth-note">New user? <a href="#" id="showRegister">Register instead</a></p>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="your@email.com" required>
                 </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Your password" required>
+                </div>
+                <button class="cta-button" id="confirmLogin">
+                    <i class="fas fa-check"></i> Login
+                </button>
+                <p class="auth-note" style="font-size:0.7rem; margin-top:10px; text-align:center;">New user? <a href="#" id="showRegister">Register instead</a></p>
             </div>
         </div>
     </div>
@@ -749,7 +763,7 @@
     <!-- Save & Earn Modal -->
     <div class="modal" id="saveEarnModal">
         <div class="modal-content">
-            <div class极="modal-header">
+            <div class="modal-header">
                 <h3><i class="fas fa-piggy-bank"></i> Save & Earn</h3>
                 <button class="modal-close">&times;</button>
             </div>
@@ -767,60 +781,54 @@
                 </div>
                 
                 <div class="tab-content active" id="manualTab">
-                    <div class="bank-details">
+                    <div class="card" style="background: rgba(0,0,0,0.3); margin-bottom:15px;">
                         <h4><i class="fas fa-university"></i> Pay To Bank:</h4>
                         <p><strong>UBA</strong>: 1026664654</p>
                         <p><strong>Account Name</strong>: Masses Freedom</p>
                     </div>
                     
-                    <div class="save-earn-form">
-                        <div class="form-group">
-                            <label>Amount (₦)</label>
-                            <input type="number" id="depositAmount" min="500" max="2000000" value="1000">
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Date (dd.mm.yy)</label>
-                                <input type="text" id="receiptDate" placeholder="01.01.23">
-                            </div>
-                            <div class="form-group">
-                                <label>Time (hh.mm am/pm)</label>
-                                <input type="text" id="receiptTime" placeholder="12.00 pm">
-                            </div>
-                        </div>
-                        
-                        <button class="cta-button" id="submitDeposit">
-                            <i class="fas fa-paper-plane"></i> Submit Deposit
-                        </button>
-                        <p class="note">Min: ₦500, Max: ₦2,000,000</p>
+                    <div class="form-group">
+                        <label>Amount (₦)</label>
+                        <input type="number" id="depositAmount" min="500" max="2000000" value="1000">
                     </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date (dd.mm.yy)</label>
+                            <input type="text" id="receiptDate" placeholder="01.01.23">
+                        </div>
+                        <div class="form-group">
+                            <label>Time (hh.mm am/pm)</label>
+                            <input type="text" id="receiptTime" placeholder="12.00 pm">
+                        </div>
+                    </div>
+                    
+                    <button class="cta-button" id="submitDeposit">
+                        <i class="fas fa-paper-plane"></i> Submit Deposit
+                    </button>
+                    <p class="note" style="font-size:0.7rem; margin-top:10px;">Min: ₦500, Max: ₦2,000,000</p>
                 </div>
                 
                 <div class="tab-content" id="flutterwaveTab">
-                    <div class="save-earn-form">
-                        <div class="form-group">
-                            <label>Amount (₦)</label>
-                            <input type="number" id="fwAmount" min="500" value="1000">
-                        </div>
-                        
-                        <button class="cta-button" id="processFlutterwave">
-                            <i class="fas fa-credit-card"></i> Pay with Flutterwave
-                        </button>
+                    <div class="form-group">
+                        <label>Amount (₦)</label>
+                        <input type="number" id="fwAmount" min="500" value="1000">
                     </div>
+                    
+                    <button class="cta-button" id="processFlutterwave">
+                        <i class="fas fa-credit-card"></i> Pay with Flutterwave
+                    </button>
                 </div>
                 
                 <div class="tab-content" id="cryptoTab">
-                    <div class="save-earn-form">
-                        <div class="form-group">
-                            <label>Amount (USDT)</label>
-                            <input type="number" id="cryptoAmount" min="10" value="50">
-                        </div>
-                        
-                        <button class="cta-button" id="processCrypto">
-                            <i class="fas fa-coins"></i> Vest Crypto
-                        </button>
+                    <div class="form-group">
+                        <label>Amount (USDT)</label>
+                        <input type="number" id="cryptoAmount" min="10" value="50">
                     </div>
+                    
+                    <button class="cta-button" id="processCrypto">
+                        <i class="fas fa-coins"></i> Vest Crypto
+                    </button>
                 </div>
             </div>
         </div>
@@ -834,30 +842,30 @@
                 <button class="modal-close">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="wallet-info">
+                <div class="card" style="background: rgba(0,0,0,0.3); margin-bottom:15px;">
                     <h4><i class="fas fa-wallet"></i> Crypto Wallet</h4>
                     <p><strong>Address:</strong></p>
-                    <div class="wallet-address" id="cryptoAddress">0x0000000000000000000000000000000000000000</div>
-                    <p><strong>Balance:</strong> <span id="cryptoBalance">0</span> MZLx</p>
+                    <div style="word-break: break-all; font-family: monospace; font-size:0.8rem; background:rgba(0,0,0,0.5); padding:8px; border-radius:8px; margin-top:5px;" id="cryptoAddress">0x000...0000</div>
+                    <p style="margin-top:8px;"><strong>Balance:</strong> <span id="cryptoBalance">0</span> MZLx</p>
                 </div>
                 
-                <div class="wallet-info">
+                <div class="card" style="background: rgba(0,0,0,0.3); margin-bottom:15px;">
                     <h4><i class="fas fa-money-bill-wave"></i> Fiat Wallet</h4>
                     <p><strong>Account:</strong> <span id="fiatAccount">MAS_0000000000</span></p>
                     <p><strong>Balance:</strong> ₦<span id="fiatBalance">0</span></p>
                 </div>
                 
-                <div class="notifications">
+                <div class="card" style="background: rgba(0,0,0,0.3); margin-bottom:15px;">
                     <h4><i class="fas fa-bell"></i> Notifications</h4>
-                    <div id="notificationList">
-                        <div class="notification-item">
+                    <div id="notificationList" style="max-height:150px; overflow-y:auto;">
+                        <div style="padding:10px; border-bottom:1px solid rgba(255,255,255,0.1);">
                             <p>Welcome to Masolites! Start by exploring the platform.</p>
-                            <p class="notification-time">Just now</p>
+                            <p style="font-size:0.7rem; color:rgba(255,255,255,0.6); margin-top:3px;">Just now</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="profile-update">
+                <div class="card" style="background: rgba(0,0,0,0.3);">
                     <h4><i class="fas fa-user-edit"></i> Update Profile</h4>
                     <div class="form-group">
                         <input type="text" id="userFullName" placeholder="Full Name">
@@ -881,47 +889,60 @@
                 <button class="modal-close">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="buy-options-grid">
-                    <div class="buy-option" id="bankOption">
-                        <div class="action-icon"><i class="fas fa-building"></i></div>
-                        <h4>Bank Transfer</h4>
+                <div class="form-group">
+                    <label>Select Membership Level</label>
+                    <select id="membershipLevel">
+                        <option value="bronze">Bronze (25 MZLx minimum)</option>
+                        <option value="silver">Silver (1000 MZLx minimum)</option>
+                        <option value="gold">Gold (2000 MZLx minimum)</option>
+                        <option value="platinum">Platinum (Paid Registration)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Amount (MZLx)</label>
+                    <input type="number" id="buyAmount" min="25" value="25">
+                </div>
+                
+                <div class="tabs" style="margin-top:15px;">
+                    <button class="tab-btn active" data-tab="bankOption">
+                        <i class="fas fa-building"></i> Bank
+                    </button>
+                    <button class="tab-btn" data-tab="usdtOption">
+                        <i class="fab fa-ethereum"></i> USDT
+                    </button>
+                    <button class="tab-btn" data-tab="flutterOption">
+                        <i class="fas fa-bolt"></i> Flutterwave
+                    </button>
+                </div>
+                
+                <div class="tab-content active" id="bankOptionTab">
+                    <div class="card" style="background: rgba(0,0,0,0.3); margin-top:15px;">
+                        <h4><i class="fas fa-university"></i> Bank Transfer</h4>
                         <p>₦18 per MZLx</p>
+                        <p style="margin-top:10px;"><strong>UBA</strong>: 1026664654</p>
+                        <p><strong>Account Name</strong>: Masses Freedom</p>
                     </div>
-                    <div class="buy-option" id="usdtOption">
-                        <div class="action-icon"><i class="fab fa-ethereum"></i></div>
-                        <h4>USDT Payment</h4>
+                </div>
+                
+                <div class="tab-content" id="usdtOptionTab">
+                    <div class="card" style="background: rgba(0,0,0,0.3); margin-top:15px;">
+                        <h4><i class="fab fa-ethereum"></i> USDT Payment</h4>
                         <p>$0.001 per MZLx</p>
+                        <p style="margin-top:10px; word-break:break-all;"><strong>USDT Address</strong>: 0x9a3E0603d8e91dA3f1c5F3B2C3D4E5F6A7B8C9D0</p>
                     </div>
-                    <div class="buy-option" id="flutterOption">
-                        <div class="action-icon"><i class="fas fa-bolt"></i></div>
-                        <h4>Flutterwave</h4>
+                </div>
+                
+                <div class="tab-content" id="flutterOptionTab">
+                    <div class="card" style="background: rgba(0,0,0,0.3); margin-top:15px;">
+                        <h4><i class="fas fa-bolt"></i> Flutterwave Payment</h4>
                         <p>Instant Payment</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Voting Modal -->
-    <div class="modal" id="voteModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-vote-yea"></i> Token Price Voting</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div id="votingForm">
-                    <div class="vote-form">
-                        <div class="form-group">
-                            <label>New Token Price ($)</label>
-                            <input type="number" id="newPrice" min="0.001" step="0.001" value="0.001">
-                        </div>
-                        <button class="cta-button" id="submitVote">
-                            <i class="fas fa-vote-yea"></i> Submit Vote
-                        </button>
-                        <p class="note">Voting available daily from 6pm - 11:30pm WAT</p>
-                    </div>
-                </div>
+                
+                <button class="cta-button" id="confirmBuy" style="margin-top:15px;">
+                    <i class="fas fa-check"></i> Confirm Purchase
+                </button>
             </div>
         </div>
     </div>
@@ -932,7 +953,15 @@
             totalSupply: 50000000,
             privateSale: 25000000,
             currentPrice: 0.001,
-            ngnPrice: 18
+            ngnPrice: 18,
+            miningBaseRate: 0.0000001, // Base mining rate per second
+            badgeMultipliers: {
+                free: 1,
+                bronze: 1.5,
+                silver: 2,
+                gold: 3,
+                platinum: 4
+            }
         };
 
         // User Management
@@ -944,10 +973,13 @@
                     return { error: 'Email already registered' };
                 }
                 
+                // Generate unique member ID
+                const memberId = `MSL-${Math.floor(100000 + Math.random() * 900000)}`;
+                
                 const user = {
                     email,
                     password: btoa(password),
-                    memberId: `MSL-F-${Math.floor(100000 + Math.random() * 900000)}`,
+                    memberId,
                     cryptoWallet: {
                         address: this.generateCryptoAddress(),
                         balance: 0
@@ -956,6 +988,8 @@
                         account: `MAS_${Math.floor(1000000000 + Math.random() * 9000000000)}`,
                         balance: 0
                     },
+                    badges: ['free'],
+                    miningSpeed: TOKENOMICS.miningBaseRate,
                     notifications: [
                         {
                             message: 'Welcome to Masolites! Start by exploring the platform.',
@@ -1018,11 +1052,36 @@
             
             static generateCryptoAddress() {
                 const chars = '0123456789ABCDEF';
-                let address = '0x';
+                let address = 'MZLx';
                 for (let i = 0; i < 40; i++) {
                     address += chars[Math.floor(Math.random() * 16)];
                 }
                 return address;
+            }
+            
+            static addBadge(user, badge) {
+                if (!user.badges.includes(badge)) {
+                    user.badges.push(badge);
+                    
+                    // Update mining speed based on badges
+                    let multiplier = 1;
+                    if (user.badges.includes('platinum')) multiplier = TOKENOMICS.badgeMultipliers.platinum;
+                    else if (user.badges.includes('gold')) multiplier = TOKENOMICS.badgeMultipliers.gold;
+                    else if (user.badges.includes('silver')) multiplier = TOKENOMICS.badgeMultipliers.silver;
+                    else if (user.badges.includes('bronze')) multiplier = TOKENOMICS.badgeMultipliers.bronze;
+                    else multiplier = TOKENOMICS.badgeMultipliers.free;
+                    
+                    user.miningSpeed = TOKENOMICS.miningBaseRate * multiplier;
+                    
+                    // Update user
+                    const users = JSON.parse(localStorage.getItem('users') || '[]');
+                    const updatedUsers = users.map(u => u.email === user.email ? user : u);
+                    localStorage.setItem('users', JSON.stringify(updatedUsers));
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    
+                    return true;
+                }
+                return false;
             }
         }
 
@@ -1066,8 +1125,8 @@
                 const user = UserSystem.getCurrentUser();
                 if (!user) return { error: 'Not authenticated' };
                 
-                // FLUTTERWAVE KEY LOCATION 1 (LINE 1078)
-                const FLW_PUBLIC_KEY = "YOUR_FLUTTERWAVE_PUBLIC_KEY";
+                // FLUTTERWAVE KEY - Replace with your actual key
+                const FLW_PUBLIC_KEY = "FLWPUBK_TEST-XXXXXXXXXXXXXXXXXXXXXXXXXX";
                 
                 FlutterwaveCheckout({
                     public_key: FLW_PUBLIC_KEY,
@@ -1116,22 +1175,34 @@
                 this.minedAmount = 0;
                 this.totalMined = 0;
                 this.isMining = false;
-                this.baseRate = 0.12 / (24 * 60 * 60 * 1000); // Tokens per ms
-                this.lastMinuteUpdate = Date.now();
+                this.startTime = 0;
+                this.miningDuration = 24 * 60 * 60 * 1000; // 24 hours
             }
             
             startMining() {
                 if (this.isMining) return;
                 
-                const startTime = Date.now();
-                this.lastMinuteUpdate = startTime;
+                const user = UserSystem.getCurrentUser();
+                if (!user) return;
+                
+                this.startTime = Date.now();
                 
                 this.miningInterval = setInterval(() => {
                     const now = Date.now();
-                    const elapsed = now - startTime;
-                    this.minedAmount = elapsed * this.baseRate;
+                    const elapsed = now - this.startTime;
                     
-                    if (now - this.lastMinuteUpdate >= 60000) {
+                    // Stop mining after 24 hours
+                    if (elapsed >= this.miningDuration) {
+                        this.stopMining();
+                        alert('Mining session completed after 24 hours!');
+                        return;
+                    }
+                    
+                    // Calculate mined amount based on user's mining speed
+                    this.minedAmount = (elapsed / 1000) * user.miningSpeed;
+                    
+                    // Update every minute
+                    if (now - (this.lastMinuteUpdate || 0) >= 60000) {
                         this.totalMined += this.minedAmount;
                         document.getElementById('miningTotal').textContent = this.totalMined.toFixed(6) + ' MZLx';
                         this.lastMinuteUpdate = now;
@@ -1141,12 +1212,15 @@
                         }
                     }
                     
-                    document.getElementById('minedAmount').textContent = (this.minedAmount * 1000).toFixed(6) + ' MZLx/s';
-                }, 50);
+                    document.getElementById('minedAmount').textContent = (user.miningSpeed * 1000000).toFixed(6) + ' MZLx/s';
+                }, 1000);
                 
                 this.isMining = true;
-                document.getElementById('miningButton').innerHTML = '<i class="fas fa-stop"></i> STOP MINING';
+                document.getElementById('miningButton').innerHTML = '<i class="fas fa-stop"></i> MINING (ON)';
                 document.getElementById('miningButton').classList.add('mining-active');
+                
+                // Add notification
+                UserSystem.addNotification(user, 'Mining session started!');
             }
             
             stopMining() {
@@ -1154,9 +1228,15 @@
                 
                 clearInterval(this.miningInterval);
                 this.isMining = false;
-                document.getElementById('miningButton').innerHTML = '<i class="fas fa-play"></i> START MINING';
+                document.getElementById('miningButton').innerHTML = '<i class="fas fa-play"></i> START MINING (OFF)';
                 document.getElementById('miningButton').classList.remove('mining-active');
                 localStorage.setItem('totalMined', this.totalMined.toString());
+                
+                // Add notification
+                const user = UserSystem.getCurrentUser();
+                if (user) {
+                    UserSystem.addNotification(user, 'Mining session stopped!');
+                }
             }
             
             claimTokens() {
@@ -1190,8 +1270,8 @@
                 const referrer = users.find(u => u.referralCode === referralCode);
                 
                 if (referrer) {
-                    // 5% referral commission
-                    const commission = amount * 0.05;
+                    // 2% referral commission
+                    const commission = amount * 0.02;
                     referrer.cryptoWallet.balance += commission;
                     
                     // Update user
@@ -1201,6 +1281,47 @@
                     const message = `You earned ${commission.toFixed(6)} MZLx from referral!`;
                     UserSystem.addNotification(referrer, message);
                 }
+            }
+        }
+
+        // Voting System
+        class VotingSystem {
+            static submitVote(newPrice) {
+                const user = UserSystem.getCurrentUser();
+                if (!user) return { error: 'Not authenticated' };
+                
+                // Check if user has voting rights (bronze, silver, gold, platinum)
+                const hasVotingRight = user.badges.some(badge => 
+                    badge === 'bronze' || badge === 'silver' || badge === 'gold' || badge === 'platinum'
+                );
+                
+                if (!hasVotingRight) {
+                    return { error: 'Only badge holders can vote' };
+                }
+                
+                // Check voting hours (6pm - 11:30pm Nigeria time)
+                const now = new Date();
+                const nigeriaTime = new Date(now.toLocaleString("en-US", {timeZone: "Africa/Lagos"}));
+                const hours = nigeriaTime.getHours();
+                const minutes = nigeriaTime.getMinutes();
+                
+                if (hours < 18 || (hours === 23 && minutes > 30) || hours >= 24) {
+                    return { error: 'Voting only allowed between 6pm - 11:30pm WAT' };
+                }
+                
+                // Record vote
+                const votes = JSON.parse(localStorage.getItem('votes') || '[]');
+                votes.push({
+                    userId: user.email,
+                    price: newPrice,
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('votes', JSON.stringify(votes));
+                
+                // Add notification
+                UserSystem.addNotification(user, `Vote submitted for new price: $${newPrice}`);
+                
+                return { success: true };
             }
         }
 
@@ -1241,6 +1362,9 @@
             }
             initCountdown();
             
+            // Update current price display
+            document.getElementById('currentPrice').textContent = TOKENOMICS.currentPrice.toFixed(3);
+            
             // Auth Event Listeners
             document.getElementById('loginBtn').addEventListener('click', function() {
                 document.getElementById('loginModal').style.display = 'flex';
@@ -1253,7 +1377,7 @@
             document.getElementById('showRegister').addEventListener('click', function(e) {
                 e.preventDefault();
                 document.getElementById('loginModal').style.display = 'none';
-                document.getElementById('registerModal').style.display = '极 flex';
+                document.getElementById('registerModal').style.display = 'flex';
             });
             
             document.getElementById('confirmRegister').addEventListener('click', function() {
@@ -1296,7 +1420,7 @@
                 if (miningSystem.isMining) {
                     miningSystem.stopMining();
                 } else {
-                    miningSystem.start极 Mining();
+                    miningSystem.startMining();
                 }
             });
             
@@ -1367,10 +1491,11 @@
                 notificationList.innerHTML = '';
                 user.notifications.forEach(notif => {
                     const item = document.createElement('div');
-                    item.className = 'notification-item';
+                    item.style.padding = '10px';
+                    item.style.borderBottom = '1px solid rgba(255,255,255,0.1)';
                     item.innerHTML = `
                         <p>${notif.message}</p>
-                        <p class="notification-time">${new Date(notif.timestamp).toLocaleString()}</p>
+                        <p style="font-size:0.7rem; color:rgba(255,255,255,0.6); margin-top:3px;">${new Date(notif.timestamp).toLocaleString()}</p>
                     `;
                     notificationList.appendChild(item);
                 });
@@ -1379,52 +1504,19 @@
             });
             
             // Voting
-            document.getElementById('voteBtn').addEventListener('click', function() {
-                const user = UserSystem.getCurrentUser();
-                if (!user) {
-                    alert('Please login to vote');
-                    document.getElementById('loginModal').style.display = 'flex';
+            document.getElementById('submitVote').addEventListener('click', function() {
+                const newPrice = parseFloat(document.getElementById('newPrice').value);
+                if (newPrice < 0.001) {
+                    alert('Minimum price is $0.001');
                     return;
                 }
                 
-                // Check voting hours (6pm - 11:30pm WAT)
-                const now = new Date();
-                const hours = now.getHours();
-                const canVote = hours >= 18 && hours < 23.5;
-                
-                if (!canVote) {
-                    document.getElementById('votingForm').innerHTML = `
-                        <p class="welcome-message">Voting is only available between 6pm - 11:30pm WAT</p>
-                    `;
+                const result = VotingSystem.submitVote(newPrice);
+                if (result.error) {
+                    alert(result.error);
                 } else {
-                    document.getElementById('votingForm').innerHTML = `
-                        <div class="vote-form">
-                            <div class="form-group">
-                                <label>New Token Price ($)</label>
-                                <input type="number" id="newPrice" min="0.001" step="0.001" value="0.001">
-                            </div>
-                            <button class="cta-button" id="submitVote">
-                                <i class="fas fa-vote-yea"></i> Submit Vote
-                            </button>
-                        </div>
-                    `;
-                    
-                    // Add event listener to the new button
-                    document.getElementById('submitVote').addEventListener('click', function() {
-                        const newPrice = parseFloat(document.getElementById('newPrice').value);
-                        if (newPrice < 0.001) {
-                            alert('Minimum price is $0.001');
-                            return;
-                        }
-                        
-                        // Update token price
-                        TOKENOMICS.currentPrice = newPrice;
-                        alert(`Vote submitted! New price: $${newPrice.toFixed(3)}`);
-                        document.getElementById('voteModal').style.display = 'none';
-                    });
+                    alert(`Vote submitted for new price: $${newPrice}`);
                 }
-                
-                document.getElementById('voteModal').style.display = 'flex';
             });
             
             // Buy MAZOL
@@ -1439,49 +1531,42 @@
                 document.getElementById('buyModal').style.display = 'flex';
             });
             
-            // Buy options
-            document.getElementById('bankOption').addEventListener('click', function() {
-                alert('Bank transfer details will be displayed');
-            });
-            
-            document.getElementById('usdtOption').addEventListener('click', function() {
-                alert('USDT wallet address will be displayed');
-            });
-            
-            document.getElementById('flutterOption').addEventListener('click', function() {
+            // Confirm purchase
+            document.getElementById('confirmBuy').addEventListener('click', function() {
+                const membershipLevel = document.getElementById('membershipLevel').value;
+                const amount = parseFloat(document.getElementById('buyAmount').value);
+                
+                // Validate minimum amounts
+                let minAmount = 0;
+                switch(membershipLevel) {
+                    case 'bronze': minAmount = 25; break;
+                    case 'silver': minAmount = 1000; break;
+                    case 'gold': minAmount = 2000; break;
+                    case 'platinum': minAmount = 1000; break; // Paid registration
+                }
+                
+                if (amount < minAmount) {
+                    alert(`Minimum amount for ${membershipLevel} is ${minAmount} MZLx`);
+                    return;
+                }
+                
+                // Add badge to user
                 const user = UserSystem.getCurrentUser();
-                if (!user) return;
-                
-                // FLUTTERWAVE KEY LOCATION 2 (LINE 1667)
-                const FLW_PUBLIC_KEY = "YOUR_FLUTTERWAVE_PUBLIC_KEY";
-                
-                FlutterwaveCheckout({
-                    public_key: FLW_PUBLIC_KEY,
-                    tx_ref: "TOKENPURCHASE-" + Date.now(),
-                    amount: 1000, // Sample amount
-                    currency: "NGN",
-                    payment_options: "card, banktransfer, ussd",
-                    customer: {
-                        email: user.email,
-                        name: "Masolites User"
-                    },
-                    callback: function(response) {
-                        if (response.status === "successful") {
-                            // Add tokens to user
-                            const tokensPurchased = 1000 / TOKENOMICS.ngnPrice;
-                            user.cryptoWallet.balance += tokensPurchased;
-                            UserSystem.addNotification(user, `Purchased ${tokensPurchased.toFixed(2)} MZLx!`);
-                            alert(`Successfully purchased ${tokensPurchased.toFixed(2)} MZLx!`);
-                        } else {
-                            alert("Payment failed. Please try again.");
-                        }
-                    },
-                    customizations: {
-                        title: "MAZOL Token Purchase",
-                        description: "Buying MAZOL tokens",
-                        logo: "https://masolites.com/logo.png"
+                if (user) {
+                    UserSystem.addBadge(user, membershipLevel);
+                    
+                    // Add tokens to user's wallet
+                    user.cryptoWallet.balance += amount;
+                    
+                    // Process MLM
+                    if (user.referredBy) {
+                        MLMSystem.processReferral(user.referredBy, user.email, amount);
                     }
-                });
+                    
+                    alert(`Successfully purchased ${amount} MZLx and upgraded to ${membershipLevel} membership!`);
+                    document.getElementById('buyModal').style.display = 'none';
+                    location.reload();
+                }
             });
             
             // Admin button
@@ -1512,6 +1597,27 @@
                 alert('Profile updated successfully!');
             });
             
+            // Tab switching
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tab = this.dataset.tab;
+                    
+                    // Get parent tabs container
+                    const tabsContainer = this.closest('.tabs');
+                    
+                    // Update active tab
+                    tabsContainer.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show correct content
+                    const contentContainer = this.closest('.modal-body');
+                    contentContainer.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(`${tab}Tab`).classList.add('active');
+                });
+            });
+            
             // Modal close buttons
             document.querySelectorAll('.modal-close').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -1530,22 +1636,32 @@
                 }
             });
             
-            // Tab switching
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const tab = this.dataset.tab;
+            // Display user badges
+            function displayBadges() {
+                const user = UserSystem.getCurrentUser();
+                const badgeContainer = document.getElementById('badgeContainer');
+                badgeContainer.innerHTML = '';
+                
+                if (user) {
+                    const badges = {
+                        'free': { icon: 'fas fa-gift', class: 'badge-free' },
+                        'bronze': { icon: 'fas fa-medal', class: 'badge-bronze' },
+                        'silver': { icon: 'fas fa-medal', class: 'badge-silver' },
+                        'gold': { icon: 'fas fa-medal', class: 'badge-gold' },
+                        'platinum': { icon: 'fas fa-star', class: 'badge-platinum' }
+                    };
                     
-                    // Update active tab
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Show correct content
-                    document.querySelectorAll('.tab-content').forEach(content => {
-                        content.classList.remove('active');
+                    user.badges.forEach(badge => {
+                        if (badges[badge]) {
+                            const badgeEl = document.createElement('div');
+                            badgeEl.className = `badge ${badges[badge].class}`;
+                            badgeEl.innerHTML = `<i class="${badges[badge].icon}"></i>`;
+                            badgeEl.title = badge.charAt(0).toUpperCase() + badge.slice(1);
+                            badgeContainer.appendChild(badgeEl);
+                        }
                     });
-                    document.getElementById(`${tab}Tab`).classList.add('active');
-                });
-            });
+                }
+            }
             
             // Check if user is logged in
             const user = UserSystem.getCurrentUser();
@@ -1555,6 +1671,7 @@
                 document.getElementById('logoutBtn').style.display = 'flex';
                 document.getElementById('memberId').textContent = user.memberId;
                 document.getElementById('memberBadge').innerHTML = `<i class="fas fa-gift"></i> ${user.memberId}`;
+                displayBadges();
             }
         });
     </script>
