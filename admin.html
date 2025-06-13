@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASOLITES ECOMAS - Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --deep-blue: #0a2463;
+            --navy: #1a1a2e;
+            --light-blue: #3e92cc;
+            --lemon-green: #a4de02;
+            --accent: #d8315b;
+            --card-bg: rgba(26, 26, 46, 0.8);
+            --text-light: #ffffff;
+            --mining-off: #ff9500;
+            --mining-on: #4cd964;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--light-blue);
+            margin-bottom: 30px;
+        }
+        
+        .admin-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--lemon-green), var(--light-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .admin-nav {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .admin-btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border: 1px solid var(--light-blue);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .admin-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .admin-logout-btn {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .admin-main {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        
+        .admin-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .admin-card-title {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--lemon-green);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--accent);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 15px 0;
+            color: var(--light-blue);
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-light);
+            opacity: 0.8;
+        }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .admin-table th, 
+        .admin-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .admin-table th {
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--lemon-green);
+        }
+        
+        .admin-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .status-pending {
+            color: var(--mining-off);
+        }
+        
+        .status-approved {
+            color: var(--mining-on);
+        }
+        
+        .status-rejected {
+            color: var(--accent);
+        }
+        
+        .action-btn {
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .approve-btn {
+            background: var(--mining-on);
+            color: var(--navy);
+        }
+        
+        .reject-btn {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 14px;
+            border-radius: 50px;
+            border: 1px solid var(--light-blue);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .search-bar button {
+            padding: 14px 25px;
+            border-radius: 50px;
+            background: var(--light-blue);
+            color: var(--navy);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .token-config {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .token-form-group {
+            margin-bottom: 15px;
+        }
+        
+        .token-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .token-form-group input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid var(--light-blue);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .update-btn {
+            padding: 14px 25px;
+            border-radius: 50px;
+            background: var(--lemon-green);
+            color: var(--navy);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .login-container {
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .login-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--lemon-green);
+            font-size: 2rem;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid var(--light-blue);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .login-btn {
+            padding: 16px;
+            border-radius: 50px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .error-message {
+            color: var(--accent);
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container" id="adminDashboard" style="display: none;">
+        <div class="admin-header">
+            <div>
+                <h1 class="admin-logo">MASOLITES ECOMAS</h1>
+                <p>Administration Panel</p>
+            </div>
+            <div class="admin-nav">
+                <button class="admin-btn" id="refreshBtn">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+                <button class="admin-btn admin-logout-btn" id="adminLogoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+        
+        <div class="admin-main">
+            <div class="admin-card">
+                <h2 class="admin-card-title"><i class="fas fa-chart-line"></i> Platform Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Users</div>
+                        <div class="stat-value" id="totalUsers">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total Deposits</div>
+                        <div class="stat-value" id="totalDeposits">₦0.00</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Pending Deposits</div>
+                        <div class="stat-value" id="pendingDeposits">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Token Supply</div>
+                        <div class="stat-value" id="tokenSupply">0</div>
+                    </div>
+                </div>
+                
+                <h2 class="admin-card-title"><i class="fas fa-cog"></i> Token Configuration</h2>
+                <div class="token-config">
+                    <div>
+                        <div class="token-form-group">
+                            <label>Token Name</label>
+                            <input type="text" id="tokenName" value="MAZOL">
+                        </div>
+                        <div class="token-form-group">
+                            <label>Token Symbol</label>
+                            <input type="text" id="tokenSymbol" value="MZLx">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="token-form-group">
+                            <label>Token Price (USD)</label>
+                            <input type="number" id="tokenPriceUSD" value="0.001" step="0.001">
+                        </div>
+                        <div class="token-form-group">
+                            <label>Token Price (NGN)</label>
+                            <input type="number" id="tokenPriceNGN" value="18" step="1">
+                        </div>
+                    </div>
+                </div>
+                <button class="update-btn" id="updateTokenConfig">
+                    <i class="fas fa-save"></i> Update Token Configuration
+                </button>
+            </div>
+            
+            <div class="admin-card">
+                <h2 class="admin-card-title"><i class="fas fa-money-check"></i> Deposit Management</h2>
+                <div class="search-bar">
+                    <input type="text" id="depositSearch" placeholder="Search deposits by email, amount or status...">
+                    <button id="searchDepositsBtn"><i class="fas fa-search"></i> Search</button>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="depositsTableBody">
+                            <!-- Deposits will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="admin-card">
+                <h2 class="admin-card-title"><i class="fas fa-users"></i> User Management</h2>
+                <div class="search-bar">
+                    <input type="text" id="userSearch" placeholder="Search users by email, ID or wallet...">
+                    <button id="searchUsersBtn"><i class="fas fa-search"></i> Search</button>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Member ID</th>
+                                <th>Email</th>
+                                <th>Crypto Wallet</th>
+                                <th>Balance</th>
+                                <th>Join Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- Users will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="admin-card">
+                <h2 class="admin-card-title"><i class="fas fa-list"></i> Activity Log</h2>
+                <div class="search-bar">
+                    <input type="text" id="activitySearch" placeholder="Search activities...">
+                    <button id="searchActivitiesBtn"><i class="fas fa-search"></i> Search</button>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>User</th>
+                                <th>Action</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activityTableBody">
+                            <!-- Activities will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="login-container" id="adminLogin">
+        <h2 class="login-title">Admin Login</h2>
+        <form class="login-form" id="adminLoginForm">
+            <div class="form-group">
+                <label>Admin Username</label>
+                <input type="text" id="adminUsername" placeholder="Enter admin username" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="adminPassword" placeholder="Enter password" required>
+            </div>
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Login to Admin Panel
+            </button>
+            <div class="error-message" id="loginErrorMessage"></div>
+        </form>
+    </div>
+
+    <script>
+        // Admin credentials (for demo purposes)
+        const ADMIN_CREDENTIALS = {
+            username: "admin",
+            password: "Masolites123"
+        };
+        
+        // Initialize admin dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if admin is logged in
+            const isAdminLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+            
+            if (isAdminLoggedIn) {
+                document.getElementById('adminDashboard').style.display = 'block';
+                document.getElementById('adminLogin').style.display = 'none';
+                loadAdminData();
+            } else {
+                document.getElementById('adminDashboard').style.display = 'none';
+                document.getElementById('adminLogin').style.display = 'block';
+            }
+            
+            // Admin login form
+            document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('adminUsername').value;
+                const password = document.getElementById('adminPassword').value;
+                
+                if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                    localStorage.setItem('adminLoggedIn', 'true');
+                    document.getElementById('adminDashboard').style.display = 'block';
+                    document.getElementById('adminLogin').style.display = 'none';
+                    loadAdminData();
+                } else {
+                    document.getElementById('loginErrorMessage').textContent = 'Invalid admin credentials';
+                    document.getElementById('loginErrorMessage').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('loginErrorMessage').style.display = 'none';
+                    }, 3000);
+                }
+            });
+            
+            // Logout button
+            document.getElementById('adminLogoutBtn').addEventListener('click', function() {
+                localStorage.removeItem('adminLoggedIn');
+                location.reload();
+            });
+            
+            // Refresh button
+            document.getElementById('refreshBtn').addEventListener('click', function() {
+                loadAdminData();
+            });
+            
+            // Update token config
+            document.getElementById('updateTokenConfig').addEventListener('click', function() {
+                const tokenName = document.getElementById('tokenName').value;
+                const tokenSymbol = document.getElementById('tokenSymbol').value;
+                const tokenPriceUSD = parseFloat(document.getElementById('tokenPriceUSD').value);
+                const tokenPriceNGN = parseFloat(document.getElementById('tokenPriceNGN').value);
+                
+                if (!tokenName || !tokenSymbol || isNaN(tokenPriceUSD) || isNaN(tokenPriceNGN)) {
+                    alert('Please fill all token configuration fields with valid values');
+                    return;
+                }
+                
+                // Update tokenomics in localStorage
+                const tokenomics = JSON.parse(localStorage.getItem('tokenomics') || '{}');
+                tokenomics.tokenName = tokenName;
+                tokenomics.tokenSymbol = tokenSymbol;
+                tokenomics.currentPrice = tokenPriceUSD;
+                tokenomics.ngnPrice = tokenPriceNGN;
+                
+                localStorage.setItem('tokenomics', JSON.stringify(tokenomics));
+                
+                // Record activity
+                const activity = JSON.parse(localStorage.getItem('activity') || '[]');
+                activity.unshift({
+                    userId: "admin",
+                    action: "Token Configuration Updated",
+                    details: `Token: ${tokenName} (${tokenSymbol}), Price: $${tokenPriceUSD} / ₦${tokenPriceNGN}`,
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('activity', JSON.stringify(activity));
+                
+                alert('Token configuration updated successfully!');
+            });
+        });
+        
+        // Load admin data
+        function loadAdminData() {
+            // Load users
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            document.getElementById('totalUsers').textContent = users.length;
+            
+            // Load deposits
+            const deposits = JSON.parse(localStorage.getItem('deposits') || '[]');
+            const pendingDeposits = deposits.filter(d => d.status === 'pending');
+            const totalDepositAmount = deposits.reduce((sum, deposit) => sum + deposit.amount, 0);
+            
+            document.getElementById('pendingDeposits').textContent = pendingDeposits.length;
+            document.getElementById('totalDeposits').textContent = `₦${totalDepositAmount.toLocaleString()}`;
+            
+            // Load token supply
+            const tokenomics = JSON.parse(localStorage.getItem('tokenomics') || JSON.stringify({
+                totalSupply: 50000000,
+                privateSale: 25000000,
+                currentPrice: 0.001,
+                ngnPrice: 18
+            }));
+            
+            document.getElementById('tokenSupply').textContent = tokenomics.totalSupply.toLocaleString();
+            document.getElementById('tokenName').value = tokenomics.tokenName || "MAZOL";
+            document.getElementById('tokenSymbol').value = tokenomics.tokenSymbol || "MZLx";
+            document.getElementById('tokenPriceUSD').value = tokenomics.currentPrice;
+            document.getElementById('tokenPriceNGN').value = tokenomics.ngnPrice;
+            
+            // Load activity
+            const activity = JSON.parse(localStorage.getItem('activity') || '[]');
+            
+            // Populate deposits table
+            populateDepositsTable(deposits);
+            
+            // Populate users table
+            populateUsersTable(users);
+            
+            // Populate activity table
+            populateActivityTable(activity);
+        }
+        
+        // Populate deposits table
+        function populateDepositsTable(deposits) {
+            const tbody = document.getElementById('depositsTableBody');
+            tbody.innerHTML = '';
+            
+            deposits.forEach(deposit => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${deposit.id}</td>
+                    <td>${deposit.userId || 'Unknown'}</td>
+                    <td>₦${deposit.amount.toLocaleString()}</td>
+                    <td>${deposit.date || 'N/A'}</td>
+                    <td>${deposit.time || 'N/A'}</td>
+                    <td class="status-${deposit.status}">${deposit.status.charAt(0).toUpperCase() + deposit.status.slice(1)}</td>
+                    <td>
+                        ${deposit.status === 'pending' ? `
+                            <button class="action-btn approve-btn" data-id="${deposit.id}">
+                                <i class="fas fa-check"></i> Approve
+                            </button>
+                            <button class="action-btn reject-btn" data-id="${deposit.id}">
+                                <i class="fas fa-times"></i> Reject
+                            </button>
+                        ` : 'No action'}
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            // Add event listeners to action buttons
+            document.querySelectorAll('.approve-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const depositId = this.dataset.id;
+                    approveDeposit(depositId);
+                });
+            });
+            
+            document.querySelectorAll('.reject-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const depositId = this.dataset.id;
+                    rejectDeposit(depositId);
+                });
+            });
+        }
+        
+        // Populate users table
+        function populateUsersTable(users) {
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = '';
+            
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${user.memberId}</td>
+                    <td>${user.email}</td>
+                    <td>${user.cryptoWallet?.address?.substring(0, 12) + '...' || 'N/A'}</td>
+                    <td>${user.cryptoWallet?.balance?.toFixed(6) || '0.000000'} ${JSON.parse(localStorage.getItem('tokenomics')?.tokenSymbol || 'MZLx'}</td>
+                    <td>${new Date(user.createdAt).toLocaleDateString()}</td>
+                    <td>
+                        <button class="action-btn" style="background: var(--light-blue);" onclick="viewUser('${user.email}')">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Populate activity table
+        function populateActivityTable(activities) {
+            const tbody = document.getElementById('activityTableBody');
+            tbody.innerHTML = '';
+            
+            // Show latest 20 activities
+            const recentActivities = activities.slice(0, 20);
+            
+            recentActivities.forEach(activity => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${new Date(activity.timestamp).toLocaleString()}</td>
+                    <td>${activity.userId || 'System'}</td>
+                    <td>${activity.action}</td>
+                    <td>${activity.details || ''}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Approve deposit
+        function approveDeposit(depositId) {
+            const deposits = JSON.parse(localStorage.getItem('deposits') || '[]');
+            const deposit = deposits.find(d => d.id == depositId);
+            
+            if (!deposit) return;
+            
+            // Update deposit status
+            deposit.status = 'approved';
+            localStorage.setItem('deposits', JSON.stringify(deposits));
+            
+            // Find user and add funds
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === deposit.userId);
+            
+            if (user) {
+                user.fiatWallet.balance += deposit.amount;
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                // Add notification to user
+                user.notifications.unshift({
+                    message: `Your deposit of ₦${deposit.amount} has been approved!`,
+                    timestamp: new Date().toISOString(),
+                    read: false
+                });
+                
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+            
+            // Record activity
+            const activity = JSON.parse(localStorage.getItem('activity') || '[]');
+            activity.unshift({
+                userId: "admin",
+                action: "Deposit Approved",
+                details: `Deposit ID: ${depositId}, Amount: ₦${deposit.amount}`,
+                timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('activity', JSON.stringify(activity));
+            
+            // Reload data
+            loadAdminData();
+            alert('Deposit approved successfully!');
+        }
+        
+        // Reject deposit
+        function rejectDeposit(depositId) {
+            const deposits = JSON.parse(localStorage.getItem('deposits') || '[]');
+            const deposit = deposits.find(d => d.id == depositId);
+            
+            if (!deposit) return;
+            
+            // Update deposit status
+            deposit.status = 'rejected';
+            localStorage.setItem('deposits', JSON.stringify(deposits));
+            
+            // Record activity
+            const activity = JSON.parse(localStorage.getItem('activity') || '[]');
+            activity.unshift({
+                userId: "admin",
+                action: "Deposit Rejected",
+                details: `Deposit ID: ${depositId}, Amount: ₦${deposit.amount}`,
+                timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('activity', JSON.stringify(activity));
+            
+            // Reload data
+            loadAdminData();
+            alert('Deposit rejected!');
+        }
+        
+        // View user details
+        function viewUser(email) {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email);
+            
+            if (user) {
+                const userInfo = `
+                    Member ID: ${user.memberId}
+                    Email: ${user.email}
+                    Created: ${new Date(user.createdAt).toLocaleString()}
+                    
+                    Crypto Wallet:
+                    ${user.cryptoWallet?.address || 'N/A'}
+                    Balance: ${user.cryptoWallet?.balance?.toFixed(6) || '0.000000'} ${JSON.parse(localStorage.getItem('tokenomics'))?.tokenSymbol || 'MZLx'}
+                    
+                    Fiat Wallet:
+                    Account: ${user.fiatWallet?.account || 'N/A'}
+                    Balance: ₦${user.fiatWallet?.balance?.toFixed(2) || '0.00'}
+                    
+                    Referral Code: ${user.referralCode || 'N/A'}
+                    Referred By: ${user.referredBy || 'N/A'}
+                `;
+                
+                alert(userInfo);
+            } else {
+                alert('User not found!');
+            }
+        }
+        
+        // Search functions would be implemented similarly with filtering
+    </script>
+</body>
+</html>
