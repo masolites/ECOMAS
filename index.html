@@ -2,404 +2,497 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MASOLITES ECOMAS</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASOLITES ECOMAS - Crypto Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --primary: #0f172a;
-            --secondary: #1e293b;
-            --accent: #00c9a7;
-            --gold: #ffd700;
-            --silver: #c0c0c0;
-            --bronze: #cd7f32;
-            --bull: #ff6b6b;
-            --text: #f8f9fa;
-            --text-secondary: #a0aec0;
+            --primary: #2a0a5e;
+            --secondary: #6a1b9a;
+            --accent: #ff5722;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --danger: #F44336;
+            --light: #f5f5f5;
+            --dark: #121212;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --badge-bronze: #cd7f32;
+            --badge-silver: #c0c0c0;
+            --badge-gold: #ffd700;
+            --badge-bull: #5d4037;
+            --badge-gift: #9c27b0;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'Poppins', sans-serif;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            color: var(--text);
-            height: 100vh;
-            width: 100vw;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--light);
+            min-height: 100vh;
             overflow: hidden;
-            position: fixed;
-            touch-action: manipulation;
+            position: relative;
         }
-        
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="100%" height="100%" fill="%232a0a5e"/><path d="M0,100 Q50,50 100,100 T200,100" stroke="%236a1b9a" stroke-width="2" fill="none"/></svg>') repeat;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
         .container {
-            display: flex;
-            flex-direction: column;
+            max-width: 100%;
             height: 100vh;
-            width: 100vw;
-            overflow: hidden;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            grid-template-rows: 80px 1fr;
+            gap: 15px;
         }
-        
+
         /* Header Styles */
         header {
-            background: rgba(26, 31, 54, 0.95);
-            padding: 0.8rem 1rem;
+            grid-column: 1 / -1;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(0, 201, 167, 0.3);
-            z-index: 100;
-            flex-shrink: 0;
+            padding: 0 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 15px;
         }
-        
+
         .logo h1 {
-            font-size: 1.4rem;
-            background: linear-gradient(to right, var(--accent), #00d4ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-size: 1.8rem;
             font-weight: 700;
-            white-space: nowrap;
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        
+
         .logo i {
-            font-size: 1.5rem;
+            font-size: 2.5rem;
             color: var(--accent);
         }
-        
+
+        .welcome-message {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--light);
+            opacity: 0.9;
+        }
+
         .auth-buttons {
             display: flex;
-            gap: 0.5rem;
+            gap: 15px;
         }
-        
-        .auth-btn {
-            padding: 0.5rem 1rem;
+
+        .btn {
+            padding: 10px 20px;
             border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             border: none;
             outline: none;
-            font-size: 0.9rem;
         }
-        
-        .login-btn {
+
+        .btn-login {
             background: transparent;
             border: 2px solid var(--accent);
             color: var(--accent);
         }
-        
-        .signup-btn {
+
+        .btn-signup {
             background: var(--accent);
-            color: var(--primary);
+            color: white;
         }
-        
-        .admin-toggle {
-            background: transparent;
-            border: none;
-            color: var(--text);
-            cursor: pointer;
-            font-size: 1.3rem;
-            margin-left: 0.5rem;
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            padding: 0.5rem;
-        }
-        
-        /* Dashboard Grid */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows: auto auto auto auto;
-            gap: 0.8rem;
-            height: 100%;
-        }
-        
-        .dashboard-section {
-            background: rgba(26, 31, 54, 0.7);
+
+        /* Sidebar Styles */
+        .sidebar {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
             backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 1rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.05);
-            overflow: hidden;
             display: flex;
             flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
         }
-        
-        .section-header {
+
+        .user-profile {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            margin-bottom: 1rem;
+            gap: 15px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--accent);
-        }
-        
-        .section-icon {
-            width: 36px;
-            height: 36px;
-            background: rgba(0, 201, 167, 0.1);
-            border-radius: 8px;
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
-            color: var(--accent);
+            font-size: 2rem;
+            color: white;
         }
-        
-        /* Countdown Timer */
-        .countdown-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .countdown-box {
+
+        .user-info {
             text-align: center;
         }
-        
-        .countdown-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: rgba(0, 201, 167, 0.2);
-            padding: 0.8rem 0.2rem;
-            border-radius: 10px;
-        }
-        
-        .countdown-label {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            margin-top: 0.3rem;
-        }
-        
-        /* Wallet Section */
-        .wallet-balance {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin: 0.5rem 0;
-            text-align: center;
-        }
-        
-        .wallet-address {
-            background: rgba(0,0,0,0.2);
-            padding: 0.8rem;
-            border-radius: 10px;
-            margin: 0.5rem 0;
-            font-size: 0.75rem;
-            word-break: break-all;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .wallet-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-            margin-top: 0.8rem;
-        }
-        
-        .wallet-btn {
-            padding: 0.8rem;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            background: rgba(0, 201, 167, 0.1);
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            transition: all 0.3s ease;
+
+        .user-id {
             font-size: 0.9rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.3rem;
+            color: rgba(255, 255, 255, 0.7);
         }
-        
-        /* Voting Section */
-        .voting-timer {
-            background: rgba(0,0,0,0.2);
-            padding: 0.7rem;
-            border-radius: 10px;
-            margin-bottom: 0.8rem;
-            font-size: 0.8rem;
-        }
-        
-        .voting-controls {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.5rem;
-        }
-        
-        .vote-btn {
-            padding: 0.7rem;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            background: var(--accent);
-            color: var(--primary);
-            border: none;
-            outline: none;
-            font-size: 0.8rem;
-            text-align: center;
-        }
-        
-        .price-suggestion {
-            background: rgba(0,0,0,0.2);
-            padding: 0.8rem;
-            border-radius: 10px;
-            margin-bottom: 0.8rem;
-            font-size: 0.8rem;
-        }
-        
-        .ai-recommendation {
-            color: var(--accent);
-            font-weight: 600;
-            margin-top: 0.3rem;
-            font-size: 1rem;
-        }
-        
-        /* Mining Section */
-        .mining-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-            text-align: center;
-        }
-        
-        .mining-box {
-            background: rgba(0,0,0,0.2);
-            border-radius: 10px;
-            padding: 0.8rem;
-        }
-        
-        .mining-value {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--accent);
-        }
-        
-        .mining-label {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-        }
-        
-        /* Badges */
+
         .badges {
             display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin: 0.8rem 0;
+            gap: 10px;
+            margin-top: 10px;
         }
-        
+
         .badge {
-            width: 36px;
-            height: 36px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
         }
-        
+
         .badge.bronze {
-            background: var(--bronze);
+            background: var(--badge-bronze);
         }
-        
+
         .badge.silver {
-            background: var(--silver);
+            background: var(--badge-silver);
+            color: #333;
         }
-        
+
         .badge.gold {
-            background: var(--gold);
+            background: var(--badge-gold);
+            color: #333;
         }
-        
+
         .badge.bull {
-            background: var(--bull);
+            background: var(--badge-bull);
         }
-        
+
         .badge.gift {
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            background: var(--badge-gift);
         }
-        
-        /* Membership */
-        .membership-levels {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
-            margin-top: auto;
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
-        
-        .level {
-            background: rgba(0,0,0,0.2);
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
             border-radius: 10px;
-            padding: 0.7rem;
-            text-align: center;
-            font-size: 0.7rem;
-        }
-        
-        .level-icon {
-            font-size: 1.5rem;
-            margin-bottom: 0.3rem;
-        }
-        
-        .level.bronze .level-icon {
-            color: var(--bronze);
-        }
-        
-        .level.silver .level-icon {
-            color: var(--silver);
-        }
-        
-        .level.gold .level-icon {
-            color: var(--gold);
-        }
-        
-        .level-btn {
-            background: var(--accent);
-            color: var(--primary);
-            border: none;
-            border-radius: 20px;
-            padding: 0.3rem 0.5rem;
-            margin-top: 0.5rem;
-            font-size: 0.7rem;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(106, 27, 154, 0.5);
+        }
+
+        .nav-link i {
+            font-size: 1.2rem;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: auto 1fr 1fr;
+            gap: 15px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .main-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .main-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title i {
+            color: var(--accent);
+        }
+
+        .countdown-timer {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+        }
+
+        .timer-display {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 20px 0;
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .timer-labels {
+            display: flex;
+            justify-content: space-around;
             width: 100%;
+            max-width: 500px;
         }
-        
-        /* Footer */
-        footer {
-            background: rgba(26, 31, 54, 0.95);
-            padding: 0.7rem 1rem;
+
+        .timer-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .mining-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .mining-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+
+        .mining-stat {
             text-align: center;
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            border-top: 1px solid rgba(0, 201, 167, 0.3);
-            flex-shrink: 0;
         }
-        
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .mining-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .btn-mining {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background: var(--warning);
+            color: #333;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto;
+        }
+
+        .btn-mining.on {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-mining i {
+            font-size: 1.3rem;
+        }
+
+        .voting-card {
+            grid-row: span 2;
+        }
+
+        .price-info {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .price-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .ai-suggestion {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .ai-suggestion h4 {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .voting-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .vote-option {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .vote-option:hover {
+            background: rgba(106, 27, 154, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .vote-percentage {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .vote-button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 50px;
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .wallet-card {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .balance {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .balance-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 10px 0;
+            color: var(--accent);
+        }
+
+        .wallet-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .wallet-btn {
+            padding: 12px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .wallet-btn:hover {
+            background: rgba(106, 27, 154, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .wallet-btn i {
+            font-size: 1.5rem;
+        }
+
         /* Modals */
         .modal {
             position: fixed;
@@ -407,378 +500,431 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0, 0, 0, 0.8);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 2000;
+            z-index: 1000;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
-            padding: 1rem;
         }
-        
+
         .modal.active {
             opacity: 1;
             pointer-events: all;
         }
-        
+
         .modal-content {
-            background: var(--primary);
-            border-radius: 16px;
-            width: 100%;
-            max-width: 100%;
-            max-height: 100%;
-            overflow-y: auto;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            width: 90%;
+            max-width: 500px;
+            border-radius: 15px;
+            padding: 30px;
             position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            border: 1px solid rgba(0, 201, 167, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
         }
-        
-        .modal-header {
-            padding: 1.2rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            background: var(--primary);
-            z-index: 10;
+
+        .modal.active .modal-content {
+            transform: translateY(0);
         }
-        
-        .modal-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--accent);
-        }
-        
+
         .close-modal {
-            background: transparent;
-            border: none;
-            color: var(--text);
+            position: absolute;
+            top: 20px;
+            right: 20px;
             font-size: 1.5rem;
             cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
         }
-        
-        .modal-body {
-            padding: 1.2rem;
+
+        .close-modal:hover {
+            color: var(--accent);
         }
-        
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
         .form-group {
-            margin-bottom: 1.2rem;
+            margin-bottom: 20px;
         }
-        
-        .form-label {
+
+        .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+            margin-bottom: 8px;
+            font-weight: 500;
         }
-        
-        .form-input {
+
+        .form-control {
             width: 100%;
-            padding: 0.9rem;
-            border-radius: 10px;
-            background: rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: var(--text);
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
             font-size: 1rem;
         }
-        
-        .form-select {
-            width: 100%;
-            padding: 0.9rem;
-            border-radius: 10px;
-            background: rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: var(--text);
-            font-size: 1rem;
-            appearance: none;
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
         }
-        
+
         .submit-btn {
             width: 100%;
-            padding: 1rem;
+            padding: 12px;
             background: var(--accent);
-            color: var(--primary);
+            color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            margin-top: 0.5rem;
+            transition: background 0.3s ease;
         }
-        
-        /* Animations */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+
+        .submit-btn:hover {
+            background: #e64a19;
         }
-        
-        .pulse {
-            animation: pulse 2s infinite;
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
         }
-        
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 5px;
+
+        .form-footer a {
+            color: var(--accent);
+            text-decoration: none;
         }
-        
-        ::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.1);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 10px;
-        }
-        
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        .no-scrollbar::-webkit-scrollbar {
+
+        .admin-panel {
             display: none;
         }
-        
-        /* Hide scrollbar for IE, Edge and Firefox */
-        .no-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .voting-card {
+                grid-row: auto;
+            }
+            
+            .welcome-message {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container no-scrollbar">
+    <div class="container">
         <!-- Header -->
         <header>
             <div class="logo">
                 <i class="fas fa-coins"></i>
                 <h1>MASOLITES ECOMAS</h1>
             </div>
+            <div class="welcome-message">
+                Welcome to the future of cryptocurrency!
+            </div>
             <div class="auth-buttons">
-                <button class="auth-btn login-btn">Login</button>
-                <button class="auth-btn signup-btn">Sign Up</button>
-                <button class="admin-toggle"><i class="fas fa-user-cog"></i></button>
+                <button class="btn btn-login" id="loginBtn">Login</button>
+                <button class="btn btn-signup" id="signupBtn">Sign Up</button>
             </div>
         </header>
-        
-        <!-- Main Content -->
-        <div class="main-content no-scrollbar">
-            <div class="dashboard-grid">
-                <!-- Wallet Section -->
-                <div class="dashboard-section">
-                    <div class="section-header">
-                        <div class="section-title">My Wallet</div>
-                        <div class="section-icon">
-                            <i class="fas fa-wallet"></i>
-                        </div>
-                    </div>
-                    <div class="wallet-balance">12,345.67 MZLx</div>
-                    <div style="text-align: center; margin-bottom: 0.8rem;">≈ $12.35 USD</div>
-                    <div class="wallet-address">
-                        MZLx1A2b3C4d5E6f7G8h9J0kLmN
-                        <i class="fas fa-copy"></i>
-                    </div>
-                    <div class="wallet-actions">
-                        <div class="wallet-btn">
-                            <i class="fas fa-arrow-up"></i>
-                            <span>Send</span>
-                        </div>
-                        <div class="wallet-btn">
-                            <i class="fas fa-arrow-down"></i>
-                            <span>Receive</span>
-                        </div>
-                    </div>
-                    
-                    <div class="badges">
-                        <div class="badge gold">
-                            <i class="fas fa-medal"></i>
-                        </div>
-                        <div class="badge bull">
-                            <i class="fas fa-bullhorn"></i>
-                        </div>
-                    </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
                 </div>
-                
-                <!-- Mining Section -->
-                <div class="dashboard-section">
-                    <div class="section-header">
-                        <div class="section-title">Mining</div>
-                        <div class="section-icon">
-                            <i class="fas fa-digging"></i>
-                        </div>
-                    </div>
-                    <div class="mining-stats">
-                        <div class="mining-box">
-                            <div class="mining-value">4.5 MZLx/s</div>
-                            <div class="mining-label">Mining Speed</div>
-                        </div>
-                        <div class="mining-box">
-                            <div class="mining-value">12,345</div>
-                            <div class="mining-label">Total Mined</div>
-                        </div>
-                    </div>
-                    
-                    <div class="countdown-container">
-                        <div class="countdown-box">
-                            <div class="countdown-value">00</div>
-                            <div class="countdown-label">Minutes</div>
-                        </div>
-                        <div class="countdown-box">
-                            <div class="countdown-value">00</div>
-                            <div class="countdown-label">Seconds</div>
-                        </div>
-                        <div class="countdown-box">
-                            <div class="countdown-value">120</div>
-                            <div class="countdown-label">Days</div>
-                        </div>
-                        <div class="countdown-box">
-                            <div class="countdown-value">23</div>
-                            <div class="countdown-label">Hours</div>
-                        </div>
-                    </div>
+                <div class="user-info">
+                    <h3>Guest User</h3>
+                    <div class="user-id">MSL000000P</div>
                 </div>
-                
-                <!-- Voting Section -->
-                <div class="dashboard-section">
-                    <div class="section-header">
-                        <div class="section-title">Price Voting</div>
-                        <div class="section-icon">
-                            <i class="fas fa-vote-yea"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="voting-timer">
-                        <div><i class="fas fa-clock"></i> Voting: 6PM - 11:30PM (WAT)</div>
-                    </div>
-                    
-                    <div class="price-suggestion">
-                        <div>AI Projection: <span class="ai-recommendation">$0.0012</span></div>
-                        <div>Company Target: $0.0011</div>
-                    </div>
-                    
-                    <div class="voting-controls">
-                        <button class="vote-btn">$0.0010</button>
-                        <button class="vote-btn">$0.0011</button>
-                        <button class="vote-btn">$0.0012</button>
-                        <button class="vote-btn">$0.0013</button>
-                    </div>
+                <div class="badges">
+                    <div class="badge gift" title="Gift Member"><i class="fas fa-gift"></i></div>
                 </div>
-                
-                <!-- Membership Section -->
-                <div class="dashboard-section">
-                    <div class="section-header">
-                        <div class="section-title">Membership</div>
-                        <div class="section-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="membership-levels">
-                        <div class="level bronze">
-                            <div class="level-icon"><i class="fas fa-medal"></i></div>
-                            <div>Bronze</div>
-                            <div>25 MZLx</div>
-                            <button class="level-btn">Upgrade</button>
-                        </div>
-                        <div class="level silver">
-                            <div class="level-icon"><i class="fas fa-medal"></i></div>
-                            <div>Silver</div>
-                            <div>1,000 MZLx</div>
-                            <button class="level-btn">Upgrade</button>
-                        </div>
-                        <div class="level gold">
-                            <div class="level-icon"><i class="fas fa-medal"></i></div>
-                            <div>Gold</div>
-                            <div>2,000 MZLx</div>
-                            <button class="level-btn">Upgrade</button>
-                        </div>
-                    </div>
+            </div>
+            
+            <div class="nav-links">
+                <div class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="nav-link">
+                    <i class="fas fa-wallet"></i>
+                    <span>My Wallet</span>
+                </div>
+                <div class="nav-link">
+                    <i class="fas fa-gem"></i>
+                    <span>Mining Center</span>
+                </div>
+                <div class="nav-link">
+                    <i class="fas fa-vote-yea"></i>
+                    <span>Voting</span>
+                </div>
+                <div class="nav-link">
+                    <i class="fas fa-store"></i>
+                    <span>E-Commerce</span>
+                </div>
+                <div class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Affiliate Program</span>
+                </div>
+                <div class="nav-link">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Exchange</span>
+                </div>
+                <div class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
                 </div>
             </div>
         </div>
-        
-        <!-- Footer -->
-        <footer>
-            <div>© 2023 MASOLITES ECOMAS</div>
-            <div>MAZOL (MZLx) - The Future of Crypto Commerce</div>
-        </footer>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Countdown Timer -->
+            <div class="card countdown-timer">
+                <h2>ICO PRIVATE SALE COUNTDOWN</h2>
+                <div class="timer-display">120:00:00:00</div>
+                <div class="timer-labels">
+                    <span class="timer-label">DAYS</span>
+                    <span class="timer-label">HOURS</span>
+                    <span class="timer-label">MINUTES</span>
+                    <span class="timer-label">SECONDS</span>
+                </div>
+            </div>
+
+            <!-- Mining Card -->
+            <div class="card mining-card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-hard-hat"></i> Mining Center</h3>
+                </div>
+                <div class="mining-stats">
+                    <div class="mining-stat">
+                        <div class="stat-value">0.0001</div>
+                        <div class="stat-label">MZLx/SEC</div>
+                    </div>
+                    <div class="mining-stat">
+                        <div class="stat-value">0.006</div>
+                        <div class="stat-label">MZLx/MIN</div>
+                    </div>
+                    <div class="mining-stat">
+                        <div class="stat-value">0.36</div>
+                        <div class="stat-label">MZLx/HR</div>
+                    </div>
+                </div>
+                <div class="mining-button">
+                    <button class="btn btn-mining" id="miningBtn">
+                        <i class="fas fa-power-off"></i> START MINING (OFF)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Voting Card -->
+            <div class="card voting-card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-vote-yea"></i> Daily Price Voting</h3>
+                    <span>6:00 PM - 11:30 PM (WAT)</span>
+                </div>
+                <div class="price-info">
+                    <div>
+                        <div>Current Price</div>
+                        <div class="price-value">$0.0010</div>
+                    </div>
+                    <div>
+                        <div>Next Day Price</div>
+                        <div class="price-value">$0.0010</div>
+                    </div>
+                </div>
+                <div class="ai-suggestion">
+                    <h4><i class="fas fa-robot"></i> AI Price Suggestion</h4>
+                    <p>Based on market analysis and tokenomics, we suggest a price increase of 0.0002 for tomorrow. This maintains sustainable growth while rewarding early investors.</p>
+                </div>
+                <div class="voting-options">
+                    <div class="vote-option">
+                        <h4>Option 1</h4>
+                        <div class="vote-percentage">$0.0010</div>
+                        <div>+0.0%</div>
+                        <button class="vote-button">VOTE</button>
+                    </div>
+                    <div class="vote-option">
+                        <h4>Option 2</h4>
+                        <div class="vote-percentage">$0.0012</div>
+                        <div>+20.0%</div>
+                        <button class="vote-button">VOTE</button>
+                    </div>
+                    <div class="vote-option">
+                        <h4>Option 3</h4>
+                        <div class="vote-percentage">$0.0014</div>
+                        <div>+40.0%</div>
+                        <button class="vote-button">VOTE</button>
+                    </div>
+                    <div class="vote-option">
+                        <h4>Option 4</h4>
+                        <div class="vote-percentage">$0.0016</div>
+                        <div>+60.0%</div>
+                        <button class="vote-button">VOTE</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wallet Card -->
+            <div class="card wallet-card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-wallet"></i> My Wallet</h3>
+                </div>
+                <div class="balance">
+                    <div>Total Balance</div>
+                    <div class="balance-value">0 MZLx</div>
+                    <div>≈ $0.00</div>
+                </div>
+                <div class="wallet-actions">
+                    <button class="wallet-btn">
+                        <i class="fas fa-arrow-down"></i>
+                        <span>Receive</span>
+                    </button>
+                    <button class="wallet-btn">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>Send</span>
+                    </button>
+                    <button class="wallet-btn">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Swap</span>
+                    </button>
+                    <button class="wallet-btn">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Buy</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-    
+
     <!-- Login Modal -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">User Login</div>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Login to Your Account</h2>
+            <form id="loginForm">
                 <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-input" placeholder="Enter your email">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-input" placeholder="Enter your password">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
                 </div>
-                <button class="submit-btn">Login</button>
-            </div>
+                <button type="submit" class="submit-btn">Login</button>
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="#" id="switchToSignup">Sign Up</a></p>
+                    <p><a href="#">Forgot Password?</a></p>
+                </div>
+            </form>
         </div>
     </div>
-    
+
     <!-- Signup Modal -->
     <div class="modal" id="signupModal">
         <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">Create Account</div>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Create New Account</h2>
+            <form id="signupForm">
                 <div class="form-group">
-                    <label class="form-label">Full Name</label>
-                    <input type="text" class="form-input" placeholder="Enter your full name">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" class="form-control" placeholder="Enter your full name" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-input" placeholder="Enter your email">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" class="form-control" placeholder="Enter your email" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-input" placeholder="Create a password">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" class="form-control" placeholder="Create a password" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Confirm Password</label>
-                    <input type="password" class="form-input" placeholder="Confirm your password">
+                    <label for="signupConfirm">Confirm Password</label>
+                    <input type="password" id="signupConfirm" class="form-control" placeholder="Confirm your password" required>
                 </div>
-                <button class="submit-btn">Create Account</button>
-            </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" required> I agree to the <a href="#">Terms & Conditions</a>
+                    </label>
+                </div>
+                <button type="submit" class="submit-btn">Create Account</button>
+                <div class="form-footer">
+                    <p>Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+                </div>
+            </form>
         </div>
     </div>
-    
+
+    <!-- Admin Panel (Hidden by default) -->
+    <div class="admin-panel">
+        <!-- Admin interface would be implemented here -->
+    </div>
+
     <script>
-        // Modal functionality
+        // DOM Elements
         const loginModal = document.getElementById('loginModal');
         const signupModal = document.getElementById('signupModal');
-        const loginBtn = document.querySelector('.login-btn');
-        const signupBtn = document.querySelector('.signup-btn');
-        const closeBtns = document.querySelectorAll('.close-modal');
-        
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const closeModal = document.querySelectorAll('.close-modal');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const miningBtn = document.getElementById('miningBtn');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+
+        // Modal functionality
         loginBtn.addEventListener('click', () => {
             loginModal.classList.add('active');
         });
-        
+
         signupBtn.addEventListener('click', () => {
             signupModal.classList.add('active');
         });
-        
-        closeBtns.forEach(btn => {
+
+        closeModal.forEach(btn => {
             btn.addEventListener('click', () => {
                 loginModal.classList.remove('active');
                 signupModal.classList.remove('active');
             });
         });
-        
+
+        switchToSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.classList.remove('active');
+            signupModal.classList.add('active');
+        });
+
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupModal.classList.remove('active');
+            loginModal.classList.add('active');
+        });
+
         // Close modal when clicking outside
         window.addEventListener('click', (e) => {
             if (e.target === loginModal) {
@@ -788,67 +934,104 @@
                 signupModal.classList.remove('active');
             }
         });
-        
-        // Update mining counter
-        function updateMiningCounter() {
-            const minutesElement = document.querySelector('.countdown-container .countdown-box:nth-child(1) .countdown-value');
-            const secondsElement = document.querySelector('.countdown-container .countdown-box:nth-child(2) .countdown-value');
-            
-            let minutes = parseInt(minutesElement.textContent);
-            let seconds = parseInt(secondsElement.textContent);
-            
-            seconds++;
-            if (seconds >= 60) {
-                seconds = 0;
-                minutes++;
+
+        // Mining button functionality
+        let miningActive = false;
+        miningBtn.addEventListener('click', () => {
+            miningActive = !miningActive;
+            if (miningActive) {
+                miningBtn.classList.add('on');
+                miningBtn.innerHTML = '<i class="fas fa-power-off"></i> MINING ACTIVE (ON)';
+                // Start mining simulation
+                simulateMining();
+            } else {
+                miningBtn.classList.remove('on');
+                miningBtn.innerHTML = '<i class="fas fa-power-off"></i> START MINING (OFF)';
+                // Stop mining simulation
+                clearInterval(miningInterval);
             }
-            
-            minutesElement.textContent = minutes.toString().padStart(2, '0');
-            secondsElement.textContent = seconds.toString().padStart(2, '0');
-        }
-        
-        setInterval(updateMiningCounter, 1000);
-        
-        // Update ICO countdown
-        function updateICOCountdown() {
-            const daysElement = document.querySelector('.countdown-container .countdown-box:nth-child(3) .countdown-value');
-            const hoursElement = document.querySelector('.countdown-container .countdown-box:nth-child(4) .countdown-value');
-            
-            let days = parseInt(daysElement.textContent);
-            let hours = parseInt(hoursElement.textContent);
-            
-            hours--;
-            if (hours < 0) {
-                hours = 23;
-                days--;
-            }
-            
-            daysElement.textContent = days.toString().padStart(2, '0');
-            hoursElement.textContent = hours.toString().padStart(2, '0');
-        }
-        
-        setInterval(updateICOCountdown, 3600000); // Update every hour
-        
-        // Copy wallet address
-        const copyBtn = document.querySelector('.fa-copy');
-        copyBtn.addEventListener('click', () => {
-            const address = document.querySelector('.wallet-address').firstChild.textContent.trim();
-            navigator.clipboard.writeText(address);
-            
-            // Show copied notification
-            const originalIcon = copyBtn.className;
-            copyBtn.className = 'fas fa-check';
-            setTimeout(() => {
-                copyBtn.className = originalIcon;
-            }, 2000);
         });
-        
-        // Prevent scrolling
-        document.body.addEventListener('touchmove', function(e) {
-            if(!e._isScroller) {
-                e.preventDefault();
+
+        // Simulate mining
+        let miningInterval;
+        function simulateMining() {
+            let seconds = 0;
+            miningInterval = setInterval(() => {
+                seconds++;
+                if (seconds >= 86400) { // 24 hours
+                    miningActive = false;
+                    miningBtn.classList.remove('on');
+                    miningBtn.innerHTML = '<i class="fas fa-power-off"></i> START MINING (OFF)';
+                    clearInterval(miningInterval);
+                    alert('Mining session completed! 24 hours have passed.');
+                }
+            }, 1000);
+        }
+
+        // ICO Countdown Timer (120 days)
+        function startCountdown() {
+            const endDate = new Date();
+            endDate.setDate(endDate.getDate() + 120);
+            
+            function updateTimer() {
+                const now = new Date();
+                const diff = endDate - now;
+                
+                if (diff <= 0) {
+                    document.querySelector('.timer-display').textContent = 'ICO LAUNCHED!';
+                    return;
+                }
+                
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.querySelector('.timer-display').textContent = 
+                    `${days}d ${hours}h ${minutes}m ${seconds}s`;
             }
-        }, { passive: false });
+            
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        }
+
+        // Form submission handlers
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // In a real app, this would validate against a backend
+            alert(`Login attempt with:\nEmail: ${email}\nPassword: ${password}`);
+            loginModal.classList.remove('active');
+        });
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            
+            // In a real app, this would create a new account
+            alert(`Account created for:\nName: ${name}\nEmail: ${email}`);
+            signupModal.classList.remove('active');
+            
+            // Update UI for logged in user
+            document.querySelector('.user-profile h3').textContent = name;
+            document.querySelector('.user-id').textContent = generateMemberId();
+        });
+
+        // Generate member ID
+        function generateMemberId() {
+            const randomNum = Math.floor(100000 + Math.random() * 900000);
+            return `MSL${randomNum}P`;
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            startCountdown();
+            generateMemberId();
+        });
     </script>
 </body>
 </html>
