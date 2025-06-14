@@ -370,6 +370,14 @@
                         <div class="stat-value" id="tokenSupply">0</div>
                         <div class="stat-label">Token Supply</div>
                     </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalProducts">0</div>
+                        <div class="stat-label">Products Listed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalTransfers">0</div>
+                        <div class="stat-label">P2P Transfers</div>
+                    </div>
                 </div>
                 
                 <h2 class="admin-card-title"><i class="fas fa-cog"></i> Token Configuration</h2>
@@ -389,6 +397,10 @@
                     <div class="token-form-group">
                         <label>Token Price (NGN)</label>
                         <input type="number" id="tokenPriceNGN" value="18" step="1">
+                    </div>
+                    <div class="token-form-group">
+                        <label>Platform Fee (%)</label>
+                        <input type="number" id="platformFee" value="0.4" step="0.1">
                     </div>
                 </div>
                 <button class="update-btn" id="updateTokenConfig">
@@ -430,6 +442,55 @@
             </div>
             
             <div class="admin-card">
+                <h2 class="admin-card-title"><i class="fas fa-store"></i> Escrow Shop Management</h2>
+                <div class="search-bar">
+                    <input type="text" id="productSearch" placeholder="Search products...">
+                    <button id="searchProductsBtn"><i class="fas fa-search"></i></button>
+                </div>
+                <div id="productsTableContainer" style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Product</th>
+                                <th>Seller</th>
+                                <th>Price</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <!-- Products will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="admin-card">
+                <h2 class="admin-card-title"><i class="fas fa-exchange-alt"></i> P2P Transfers</h2>
+                <div class="search-bar">
+                    <input type="text" id="transferSearch" placeholder="Search transfers...">
+                    <button id="searchTransfersBtn"><i class="fas fa-search"></i></button>
+                </div>
+                <div id="transfersTableContainer" style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Sender</th>
+                                <th>Recipient</th>
+                                <th>Amount</th>
+                                <th>Fee</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transfersTableBody">
+                            <!-- Transfers will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="admin-card">
                 <h2 class="admin-card-title"><i class="fas fa-users"></i> User Management</h2>
                 <div class="search-bar">
                     <input type="text" id="userSearch" placeholder="Search users...">
@@ -442,6 +503,7 @@
                                 <th>Member ID</th>
                                 <th>Email</th>
                                 <th>Balance</th>
+                                <th>Badges</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -496,8 +558,9 @@
                 const tokenSymbol = document.getElementById('tokenSymbol').value;
                 const tokenPriceUSD = parseFloat(document.getElementById('tokenPriceUSD').value);
                 const tokenPriceNGN = parseFloat(document.getElementById('tokenPriceNGN').value);
+                const platformFee = parseFloat(document.getElementById('platformFee').value);
                 
-                if (!tokenName || !tokenSymbol || isNaN(tokenPriceUSD) || isNaN(tokenPriceNGN)) {
+                if (!tokenName || !tokenSymbol || isNaN(tokenPriceUSD) || isNaN(tokenPriceNGN) || isNaN(platformFee)) {
                     alert('Please fill all token configuration fields with valid values');
                     return;
                 }
@@ -508,6 +571,7 @@
                 tokenomics.tokenSymbol = tokenSymbol;
                 tokenomics.currentPrice = tokenPriceUSD;
                 tokenomics.ngnPrice = tokenPriceNGN;
+                tokenomics.platformFee = platformFee / 100; // Convert to decimal
                 
                 localStorage.setItem('tokenomics', JSON.stringify(tokenomics));
                 
@@ -516,7 +580,7 @@
                 activity.unshift({
                     userId: "admin",
                     action: "Token Configuration Updated",
-                    details: `Token: ${tokenName} (${tokenSymbol}), Price: $${tokenPriceUSD} / ₦${tokenPriceNGN}`,
+                    details: `Token: ${tokenName} (${tokenSymbol}), Price: $${tokenPriceUSD} / ₦${tokenPriceNGN}, Fee: ${platformFee}%`,
                     timestamp: new Date().toISOString()
                 });
                 localStorage.setItem('activity', JSON.stringify(activity));
@@ -566,7 +630,8 @@
                 totalSupply: 50000000,
                 privateSale: 25000000,
                 currentPrice: 0.001,
-                ngnPrice: 18
+                ngnPrice: 18,
+                platformFee: 0.004
             }));
             
             document.getElementById('tokenSupply').textContent = tokenomics.totalSupply.toLocaleString();
@@ -574,12 +639,33 @@
             document.getElementById('tokenSymbol').value = tokenomics.tokenSymbol || "MZLx";
             document.getElementById('tokenPriceUSD').value = tokenomics.currentPrice;
             document.getElementById('tokenPriceNGN').value = tokenomics.ngnPrice;
+            document.getElementById('platformFee').value = (tokenomics.platformFee * 100).toFixed(1);
+            
+            // Load products
+            const products = [];
+            users.forEach(user => {
+                products.push(...user.products);
+            });
+            document.getElementById('totalProducts').textContent = products.length;
+            
+            // Load transfers
+            const transfers = [];
+            users.forEach(user => {
+                transfers.push(...user.transfers);
+            });
+            document.getElementById('totalTransfers').textContent = transfers.length;
             
             // Load initial deposits (pending)
             loadDeposits('pending');
             
             // Load users
             loadUsers();
+            
+            // Load products
+            loadProducts();
+            
+            // Load transfers
+            loadTransfers();
         }
         
         // Load deposits for selected tab
@@ -656,17 +742,72 @@
             tbody.innerHTML = '';
             
             users.forEach(user => {
-                const row = document.createElement('tr');
+                const badges = user.badges.map(b => b.charAt(0).toUpperCase() + b.slice(1)).join(', ');
                 
+                const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${user.memberId}</td>
                     <td>${user.email}</td>
                     <td>${user.cryptoWallet?.balance?.toFixed(6) || '0.000000'} MZLx</td>
+                    <td>${badges}</td>
                     <td>
                         <button class="action-btn" style="background: var(--light-blue);" onclick="viewUser('${user.email}')">
                             <i class="fas fa-eye"></i> View
                         </button>
                     </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Load products
+        function loadProducts() {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const products = [];
+            users.forEach(user => {
+                products.push(...user.products);
+            });
+            
+            const tbody = document.getElementById('productsTableBody');
+            tbody.innerHTML = '';
+            
+            products.forEach(product => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${product.id}</td>
+                    <td>${product.name}</td>
+                    <td>${product.sellerId || 'Unknown'}</td>
+                    <td>${product.price} MZLx</td>
+                    <td>${product.category.charAt(0).toUpperCase() + product.category.slice(1)}</td>
+                    <td class="status-${product.status}">${product.status.charAt(0).toUpperCase() + product.status.slice(1)}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Load transfers
+        function loadTransfers() {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const transfers = [];
+            users.forEach(user => {
+                transfers.push(...user.transfers);
+            });
+            
+            const tbody = document.getElementById('transfersTableBody');
+            tbody.innerHTML = '';
+            
+            transfers.forEach(transfer => {
+                const fee = transfer.amount * TOKENOMICS.platformFee;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${new Date(transfer.timestamp).toLocaleDateString()}</td>
+                    <td>${transfer.sender || 'Unknown'}</td>
+                    <td>${transfer.recipient || 'Unknown'}</td>
+                    <td>${transfer.amount.toFixed(2)} MZLx</td>
+                    <td>${fee.toFixed(4)} MZLx</td>
                 `;
                 
                 tbody.appendChild(row);
@@ -763,6 +904,11 @@
                         </div>
                         <div>
                             <strong>Referred By:</strong> ${user.referredBy || 'N/A'}
+                        </div>
+                        
+                        <h4 style="color: var(--light-blue); margin: 12px 0 6px;">Products Listed</h4>
+                        <div>
+                            <strong>Count:</strong> ${user.products.length}
                         </div>
                     </div>
                 `;
