@@ -7,150 +7,449 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* [All previous CSS remains unchanged] */
-        /* Added new styles for escrow management */
-        
-        .escrow-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 15px;
+        :root {
+            --deep-blue: #0a2463;
+            --navy: #1a1a2e;
+            --light-blue: #3e92cc;
+            --lemon-green: #a4de02;
+            --accent: #d8315b;
+            --card-bg: rgba(26, 26, 46, 0.95);
+            --text-light: #ffffff;
+            --mining-off: #ff9500;
+            --mining-on: #4cd964;
+            --admin-bg: linear-gradient(135deg, #0f0c29, #1a1a2e, #24243e);
         }
         
-        .escrow-form .form-group {
-            margin-bottom: 12px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
         
-        .escrow-form .full-width {
-            grid-column: 1 / span 2;
+        body {
+            background: var(--admin-bg);
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            padding: 10px;
+            overflow: hidden;
         }
         
-        .icon-selector {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 5px;
-            margin-top: 5px;
+        .admin-container {
+            max-width: 100%;
+            height: calc(100vh - 20px);
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            padding: 10px;
+            overflow: hidden;
         }
         
-        .icon-option {
-            padding: 8px;
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--light-blue);
+            margin-bottom: 15px;
+        }
+        
+        .admin-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--lemon-green), var(--light-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .admin-nav {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .admin-btn {
+            padding: 8px 15px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
             border: 1px solid var(--light-blue);
-            border-radius: 8px;
-            text-align: center;
             cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+            font-size: 0.8rem;
         }
         
-        .icon-option.selected {
+        .admin-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .admin-logout-btn {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .admin-main {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 15px;
+        }
+        
+        .admin-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .admin-card-title {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--lemon-green);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid var(--accent);
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+            color: var(--light-blue);
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            opacity: 0.8;
+        }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.8rem;
+        }
+        
+        .admin-table th, 
+        .admin-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .admin-table th {
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--lemon-green);
+        }
+        
+        .admin-table tr:nth-child(even) {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .admin-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .status-pending {
+            color: var(--mining-off);
+            font-weight: 600;
+        }
+        
+        .status-approved {
+            color: var(--mining-on);
+            font-weight: 600;
+        }
+        
+        .status-rejected {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .action-btn {
+            padding: 6px 10px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .approve-btn {
+            background: var(--mining-on);
+            color: var(--navy);
+        }
+        
+        .reject-btn {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .reactivate-btn {
             background: var(--light-blue);
             color: var(--navy);
         }
         
-        .fee-config {
+        .search-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 50px;
+            border: 1px solid var(--light-blue);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .search-bar button {
+            padding: 12px 15px;
+            border-radius: 50px;
+            background: var(--light-blue);
+            color: var(--navy);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .token-config {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .token-form-group {
+            margin-bottom: 12px;
+        }
+        
+        .token-form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--light-blue);
+        }
+        
+        .token-form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--light-blue);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .update-btn {
+            padding: 12px;
+            border-radius: 50px;
+            background: var(--lemon-green);
+            color: var(--navy);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 50px;
+            padding: 5px;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            border-radius: 50px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-size: 0.8rem;
+        }
+        
+        .tab-btn.active {
+            background: var(--light-blue);
+            color: var(--navy);
+        }
+        
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .admin-main::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .admin-main {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
         }
     </style>
 </head>
 <body>
     <div class="admin-container">
         <div class="admin-header">
-            <!-- [Header unchanged] -->
+            <h1 class="admin-logo">
+                <i class="fas fa-shield-alt"></i>
+                MASOLITES ECOMAS
+            </h1>
+            <div class="admin-nav">
+                <button class="admin-btn" id="refreshBtn">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+                <button class="admin-btn admin-logout-btn" id="adminLogoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
         </div>
         
         <div class="admin-main">
-            <!-- [Previous sections unchanged] -->
-            
-            <!-- Escrow Management Section -->
             <div class="admin-card">
-                <h2 class="admin-card-title"><i class="fas fa-store"></i> Escrow Shop Management</h2>
-                <p class="note">You can add up to 3 products/services</p>
-                
-                <div id="escrowProductsContainer">
-                    <!-- Products will be loaded here -->
+                <h2 class="admin-card-title"><i class="fas fa-chart-line"></i> Platform Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalUsers">0</div>
+                        <div class="stat-label">Total Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalDeposits">₦0.00</div>
+                        <div class="stat-label">Total Deposits</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="pendingDeposits">0</div>
+                        <div class="stat-label">Pending Deposits</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="tokenSupply">0</div>
+                        <div class="stat-label">Token Supply</div>
+                    </div>
                 </div>
                 
-                <button class="cta-button" id="addProductBtn" style="margin-top:15px;">
-                    <i class="fas fa-plus"></i> Add Product
+                <h2 class="admin-card-title"><i class="fas fa-cog"></i> Token Configuration</h2>
+                <div class="token-config">
+                    <div class="token-form-group">
+                        <label>Token Name</label>
+                        <input type="text" id="tokenName" value="MAZOL">
+                    </div>
+                    <div class="token-form-group">
+                        <label>Token Symbol</label>
+                        <input type="text" id="tokenSymbol" value="MZLx">
+                    </div>
+                    <div class="token-form-group">
+                        <label>Token Price (USD)</label>
+                        <input type="number" id="tokenPriceUSD" value="0.001" step="0.001">
+                    </div>
+                    <div class="token-form-group">
+                        <label>Token Price (NGN)</label>
+                        <input type="number" id="tokenPriceNGN" value="18" step="1">
+                    </div>
+                </div>
+                <button class="update-btn" id="updateTokenConfig">
+                    <i class="fas fa-save"></i> Update Token Configuration
                 </button>
             </div>
             
-            <!-- Platform Fees Section -->
             <div class="admin-card">
-                <h2 class="admin-card-title"><i class="fas fa-percentage"></i> Platform Fee Configuration</h2>
-                <div class="fee-config">
-                    <div class="form-group">
-                        <label>Deposit Fee (%)</label>
-                        <input type="number" id="depositFee" min="0" max="50" value="5">
-                    </div>
-                    <div class="form-group">
-                        <label>Send Fee (%)</label>
-                        <input type="number" id="sendFee" min="0" max="50" value="5">
-                    </div>
-                </div>
-                <button class="update-btn" id="updateFeesBtn">
-                    <i class="fas fa-save"></i> Update Fees
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Product Form Modal -->
-    <div class="modal" id="productFormModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-box"></i> Product Details</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="productId">
-                <div class="escrow-form">
-                    <div class="form-group full-width">
-                        <label>Product Name</label>
-                        <input type="text" id="productName" required>
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label>Description</label>
-                        <textarea id="productDescription" rows="2"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Price (₦)</label>
-                        <input type="number" id="productPrice" min="0" step="0.01" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Discount for Free Members (%)</label>
-                        <input type="number" id="discountFree" min="0" max="100" value="0">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Discount for Paid Members (%)</label>
-                        <input type="number" id="discountPaid" min="0" max="100" value="10">
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label>Select Icon</label>
-                        <div class="icon-selector">
-                            <div class="icon-option" data-icon="fas fa-tshirt"><i class="fas fa-tshirt"></i></div>
-                            <div class="icon-option" data-icon="fas fa-laptop"><i class="fas fa-laptop"></i></div>
-                            <div class="icon-option" data-icon="fas fa-mobile-alt"><i class="fas fa-mobile-alt"></i></div>
-                            <div class="icon-option" data-icon="fas fa-book"><i class="fas fa-book"></i></div>
-                            <div class="icon-option" data-icon="fas fa-tools"><i class="fas fa-tools"></i></div>
-                            <div class="icon-option" data-icon="fas fa-car"><i class="fas fa-car"></i></div>
-                            <div class="icon-option" data-icon="fas fa-home"><i class="fas fa-home"></i></div>
-                            <div class="icon-option" data-icon="fas fa-utensils"><i class="fas fa-utensils"></i></div>
-                            <div class="icon-option" data-icon="fas fa-gem"><i class="fas fa-gem"></i></div>
-                            <div class="icon-option" data-icon="fas fa-heartbeat"><i class="fas fa-heartbeat"></i></div>
-                        </div>
-                        <input type="hidden" id="selectedIcon" value="fas fa-box">
-                    </div>
+                <h2 class="admin-card-title"><i class="fas fa-money-check"></i> Deposit Management</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="pending">Pending</button>
+                    <button class="tab-btn" data-tab="approved">Approved</button>
+                    <button class="tab-btn" data-tab="rejected">Rejected</button>
                 </div>
                 
-                <button class="cta-button" id="saveProductBtn">
-                    <i class="fas fa-save"></i> Save Product
-                </button>
+                <div class="search-bar">
+                    <input type="text" id="depositSearch" placeholder="Search deposits...">
+                    <button id="searchDepositsBtn"><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div id="depositsTableContainer" style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="depositsTableBody">
+                            <!-- Deposits will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="admin-card">
+                <h2 class="admin-card-title"><i class="fas fa-users"></i> User Management</h2>
+                <div class="search-bar">
+                    <input type="text" id="userSearch" placeholder="Search users...">
+                    <button id="searchUsersBtn"><i class="fas fa-search"></i></button>
+                </div>
+                <div id="usersTableContainer" style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Member ID</th>
+                                <th>Email</th>
+                                <th>Balance</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- Users will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -165,192 +464,314 @@
         
         // Initialize admin dashboard
         document.addEventListener('DOMContentLoaded', function() {
-            // [Previous admin code unchanged]
+            // Check if admin is logged in
+            const isAdminLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
             
-            // Load escrow products
-            function loadEscrowProducts() {
-                const products = JSON.parse(localStorage.getItem('escrowProducts') || '[]');
-                const container = document.getElementById('escrowProductsContainer');
-                container.innerHTML = '';
-                
-                products.forEach((product, index) => {
-                    const productCard = document.createElement('div');
-                    productCard.className = 'card';
-                    productCard.style.marginBottom = '15px';
-                    productCard.style.position = 'relative';
-                    
-                    productCard.innerHTML = `
-                        <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-                            <div style="font-size:1.5rem;"><i class="${product.icon}"></i></div>
-                            <div>
-                                <h4>${product.name}</h4>
-                                <p>₦${product.price.toFixed(2)} | Free: ${product.discountFree}% | Paid: ${product.discountPaid}%</p>
-                            </div>
-                        </div>
-                        <p>${product.description || 'No description'}</p>
-                        <div style="position:absolute; top:10px; right:10px;">
-                            <button class="action-btn" style="background:var(--light-blue);" data-id="${product.id}">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="action-btn" style="background:var(--accent);" data-id="${product.id}">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </div>
-                    `;
-                    
-                    container.appendChild(productCard);
-                });
-                
-                // Add event listeners to edit/delete buttons
-                document.querySelectorAll('[data-id]').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const productId = this.dataset.id;
-                        const action = this.querySelector('i').className.includes('edit') ? 'edit' : 'delete';
-                        
-                        if (action === 'edit') {
-                            editProduct(productId);
-                        } else {
-                            if (confirm('Delete this product?')) {
-                                deleteProduct(productId);
-                            }
-                        }
-                    });
-                });
+            if (!isAdminLoggedIn) {
+                window.location.href = 'index.html';
+                return;
             }
             
-            // Edit product
-            function editProduct(productId) {
-                const products = JSON.parse(localStorage.getItem('escrowProducts') || '[]');
-                const product = products.find(p => p.id == productId);
-                
-                if (product) {
-                    document.getElementById('productId').value = product.id;
-                    document.getElementById('productName').value = product.name;
-                    document.getElementById('productDescription').value = product.description || '';
-                    document.getElementById('productPrice').value = product.price;
-                    document.getElementById('discountFree').value = product.discountFree;
-                    document.getElementById('discountPaid').value = product.discountPaid;
-                    document.getElementById('selectedIcon').value = product.icon;
-                    
-                    // Select icon
-                    document.querySelectorAll('.icon-option').forEach(option => {
-                        option.classList.remove('selected');
-                        if (option.dataset.icon === product.icon) {
-                            option.classList.add('selected');
-                        }
-                    });
-                    
-                    document.getElementById('productFormModal').style.display = 'flex';
-                }
-            }
+            // Load admin data
+            loadAdminData();
             
-            // Delete product
-            function deleteProduct(productId) {
-                let products = JSON.parse(localStorage.getItem('escrowProducts') || '[]');
-                products = products.filter(p => p.id != productId);
-                localStorage.setItem('escrowProducts', JSON.stringify(products));
-                loadEscrowProducts();
-            }
-            
-            // Add new product
-            document.getElementById('addProductBtn').addEventListener('click', function() {
-                document.getElementById('productId').value = '';
-                document.getElementById('productName').value = '';
-                document.getElementById('productDescription').value = '';
-                document.getElementById('productPrice').value = '';
-                document.getElementById('discountFree').value = 0;
-                document.getElementById('discountPaid').value = 10;
-                document.getElementById('selectedIcon').value = 'fas fa-box';
-                
-                // Reset icon selection
-                document.querySelectorAll('.icon-option').forEach(option => {
-                    option.classList.remove('selected');
-                });
-                
-                document.getElementById('productFormModal').style.display = 'flex';
+            // Logout button
+            document.getElementById('adminLogoutBtn').addEventListener('click', function() {
+                localStorage.removeItem('adminLoggedIn');
+                window.location.href = 'index.html';
             });
             
-            // Icon selection
-            document.querySelectorAll('.icon-option').forEach(option => {
-                option.addEventListener('click', function() {
-                    document.querySelectorAll('.icon-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    this.classList.add('selected');
-                    document.getElementById('selectedIcon').value = this.dataset.icon;
-                });
-            });
-            
-            // Save product
-            document.getElementById('saveProductBtn').addEventListener('click', function() {
-                const productId = document.getElementById('productId').value || Date.now();
-                const name = document.getElementById('productName').value;
-                const description = document.getElementById('productDescription').value;
-                const price = parseFloat(document.getElementById('productPrice').value);
-                const discountFree = parseInt(document.getElementById('discountFree').value);
-                const discountPaid = parseInt(document.getElementById('discountPaid').value);
-                const icon = document.getElementById('selectedIcon').value;
-                
-                if (!name || isNaN(price)) {
-                    alert('Please fill in all required fields');
-                    return;
-                }
-                
-                let products = JSON.parse(localStorage.getItem('escrowProducts') || '[]');
-                
-                // Limit to 3 products
-                if (!document.getElementById('productId').value && products.length >= 3) {
-                    alert('Maximum of 3 products allowed');
-                    return;
-                }
-                
-                // Update or add product
-                const existingIndex = products.findIndex(p => p.id == productId);
-                const product = {
-                    id: productId,
-                    name,
-                    description,
-                    price,
-                    discountFree,
-                    discountPaid,
-                    icon
-                };
-                
-                if (existingIndex >= 0) {
-                    products[existingIndex] = product;
-                } else {
-                    products.push(product);
-                }
-                
-                localStorage.setItem('escrowProducts', JSON.stringify(products));
-                loadEscrowProducts();
-                document.getElementById('productFormModal').style.display = 'none';
-            });
-            
-            // Update fees
-            document.getElementById('updateFeesBtn').addEventListener('click', function() {
-                const depositFee = parseInt(document.getElementById('depositFee').value);
-                const sendFee = parseInt(document.getElementById('sendFee').value);
-                
-                if (isNaN(depositFee) || isNaN(sendFee)) {
-                    alert('Please enter valid fee percentages');
-                    return;
-                }
-                
-                localStorage.setItem('platformFees', JSON.stringify({
-                    deposit: depositFee,
-                    send: sendFee
-                }));
-                
-                this.innerHTML = '<i class="fas fa-check"></i> Fees Updated!';
+            // Refresh button
+            document.getElementById('refreshBtn').addEventListener('click', function() {
+                loadAdminData();
+                this.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Refreshing...';
                 setTimeout(() => {
-                    this.innerHTML = '<i class="fas fa-save"></i> Update Fees';
+                    this.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+                }, 1000);
+            });
+            
+            // Update token config
+            document.getElementById('updateTokenConfig').addEventListener('click', function() {
+                const tokenName = document.getElementById('tokenName').value;
+                const tokenSymbol = document.getElementById('tokenSymbol').value;
+                const tokenPriceUSD = parseFloat(document.getElementById('tokenPriceUSD').value);
+                const tokenPriceNGN = parseFloat(document.getElementById('tokenPriceNGN').value);
+                
+                if (!tokenName || !tokenSymbol || isNaN(tokenPriceUSD) || isNaN(tokenPriceNGN)) {
+                    alert('Please fill all token configuration fields with valid values');
+                    return;
+                }
+                
+                // Update tokenomics in localStorage
+                const tokenomics = JSON.parse(localStorage.getItem('tokenomics') || '{}');
+                tokenomics.tokenName = tokenName;
+                tokenomics.tokenSymbol = tokenSymbol;
+                tokenomics.currentPrice = tokenPriceUSD;
+                tokenomics.ngnPrice = tokenPriceNGN;
+                
+                localStorage.setItem('tokenomics', JSON.stringify(tokenomics));
+                
+                // Record activity
+                const activity = JSON.parse(localStorage.getItem('activity') || '[]');
+                activity.unshift({
+                    userId: "admin",
+                    action: "Token Configuration Updated",
+                    details: `Token: ${tokenName} (${tokenSymbol}), Price: $${tokenPriceUSD} / ₦${tokenPriceNGN}`,
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('activity', JSON.stringify(activity));
+                
+                this.innerHTML = '<i class="fas fa-check"></i> Updated!';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-save"></i> Update Token Configuration';
                 }, 2000);
             });
             
-            // Load escrow products on admin panel
-            loadEscrowProducts();
+            // Tab switching
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tab = this.dataset.tab;
+                    
+                    // Update active tab
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Reload deposits for the selected tab
+                    loadDeposits(tab);
+                });
+            });
         });
+        
+        // Load admin data
+        function loadAdminData() {
+            // Load users
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            document.getElementById('totalUsers').textContent = users.length;
+            
+            // Load deposit submissions
+            const deposits = JSON.parse(localStorage.getItem('depositSubmissions') || '[]');
+            
+            // Calculate totals
+            const pendingDeposits = deposits.filter(d => d.status === 'pending');
+            const approvedDeposits = deposits.filter(d => d.status === 'approved');
+            const rejectedDeposits = deposits.filter(d => d.status === 'rejected');
+            
+            const totalDepositAmount = approvedDeposits.reduce((sum, deposit) => sum + deposit.amount, 0);
+            
+            document.getElementById('pendingDeposits').textContent = pendingDeposits.length;
+            document.getElementById('totalDeposits').textContent = `₦${totalDepositAmount.toLocaleString()}`;
+            
+            // Load token supply
+            const tokenomics = JSON.parse(localStorage.getItem('tokenomics') || JSON.stringify({
+                totalSupply: 50000000,
+                privateSale: 25000000,
+                currentPrice: 0.001,
+                ngnPrice: 18
+            }));
+            
+            document.getElementById('tokenSupply').textContent = tokenomics.totalSupply.toLocaleString();
+            document.getElementById('tokenName').value = tokenomics.tokenName || "MAZOL";
+            document.getElementById('tokenSymbol').value = tokenomics.tokenSymbol || "MZLx";
+            document.getElementById('tokenPriceUSD').value = tokenomics.currentPrice;
+            document.getElementById('tokenPriceNGN').value = tokenomics.ngnPrice;
+            
+            // Load initial deposits (pending)
+            loadDeposits('pending');
+            
+            // Load users
+            loadUsers();
+        }
+        
+        // Load deposits for selected tab
+        function loadDeposits(status) {
+            const deposits = JSON.parse(localStorage.getItem('depositSubmissions') || '[]');
+            const filteredDeposits = deposits.filter(d => d.status === status);
+            
+            const tbody = document.getElementById('depositsTableBody');
+            tbody.innerHTML = '';
+            
+            filteredDeposits.forEach(deposit => {
+                const row = document.createElement('tr');
+                
+                let actions = '';
+                if (status === 'pending') {
+                    actions = `
+                        <button class="action-btn approve-btn" data-id="${deposit.id}">
+                            <i class="fas fa-check"></i> Approve
+                        </button>
+                        <button class="action-btn reject-btn" data-id="${deposit.id}">
+                            <i class="fas fa-times"></i> Reject
+                        </button>
+                    `;
+                } else if (status === 'rejected') {
+                    actions = `
+                        <button class="action-btn reactivate-btn" data-id="${deposit.id}">
+                            <i class="fas fa-redo"></i> Reactivate
+                        </button>
+                    `;
+                } else {
+                    actions = 'No action';
+                }
+                
+                row.innerHTML = `
+                    <td>${deposit.id}</td>
+                    <td>${deposit.userId || 'Unknown'}</td>
+                    <td>₦${deposit.amount.toLocaleString()}</td>
+                    <td>${deposit.date || 'N/A'}</td>
+                    <td>${deposit.time || 'N/A'}</td>
+                    <td class="status-${deposit.status}">${deposit.status.charAt(0).toUpperCase() + deposit.status.slice(1)}</td>
+                    <td>${actions}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            // Add event listeners to action buttons
+            document.querySelectorAll('.approve-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const depositId = this.dataset.id;
+                    updateDepositStatus(depositId, 'approved');
+                });
+            });
+            
+            document.querySelectorAll('.reject-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const depositId = this.dataset.id;
+                    updateDepositStatus(depositId, 'rejected');
+                });
+            });
+            
+            document.querySelectorAll('.reactivate-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const depositId = this.dataset.id;
+                    updateDepositStatus(depositId, 'pending');
+                });
+            });
+        }
+        
+        // Load users
+        function loadUsers() {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = '';
+            
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${user.memberId}</td>
+                    <td>${user.email}</td>
+                    <td>${user.cryptoWallet?.balance?.toFixed(6) || '0.000000'} MZLx</td>
+                    <td>
+                        <button class="action-btn" style="background: var(--light-blue);" onclick="viewUser('${user.email}')">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Update deposit status
+        function updateDepositStatus(depositId, status) {
+            const deposits = JSON.parse(localStorage.getItem('depositSubmissions') || '[]');
+            const deposit = deposits.find(d => d.id == depositId);
+            
+            if (!deposit) return;
+            
+            // Update deposit status
+            deposit.status = status;
+            localStorage.setItem('depositSubmissions', JSON.stringify(deposits));
+            
+            if (status === 'approved') {
+                // Find user and add funds
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const user = users.find(u => u.email === deposit.userId);
+                
+                if (user) {
+                    user.fiatWallet.balance += deposit.amount;
+                    localStorage.setItem('users', JSON.stringify(users));
+                    
+                    // Add notification to user
+                    user.notifications.unshift({
+                        message: `Your deposit of ₦${deposit.amount} has been approved!`,
+                        timestamp: new Date().toISOString(),
+                        read: false
+                    });
+                    
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+            }
+            
+            // Record activity
+            const activity = JSON.parse(localStorage.getItem('activity') || '[]');
+            activity.unshift({
+                userId: "admin",
+                action: `Deposit ${status.charAt(0).toUpperCase() + status.slice(1)}`,
+                details: `Deposit ID: ${depositId}, Amount: ₦${deposit.amount}`,
+                timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('activity', JSON.stringify(activity));
+            
+            // Reload data
+            loadAdminData();
+            alert(`Deposit #${depositId} ${status} successfully!`);
+        }
+        
+        // View user details
+        function viewUser(email) {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email);
+            
+            if (user) {
+                const userInfo = `
+                    <div style="background: #1a1a2e; padding: 15px; border-radius: 10px; margin: 10px 0;">
+                        <h3 style="color: var(--lemon-green); margin-bottom: 10px; text-align: center;">User Details</h3>
+                        
+                        <div style="margin-bottom: 8px;">
+                            <strong>Member ID:</strong> ${user.memberId}
+                        </div>
+                        
+                        <div style="margin-bottom: 8px;">
+                            <strong>Email:</strong> ${user.email}
+                        </div>
+                        
+                        <div style="margin-bottom: 8px;">
+                            <strong>Created:</strong> ${new Date(user.createdAt).toLocaleDateString()}
+                        </div>
+                        
+                        <h4 style="color: var(--light-blue); margin: 12px 0 6px;">Crypto Wallet</h4>
+                        <div style="margin-bottom: 5px; word-break: break-all;">
+                            <strong>Address:</strong> ${user.cryptoWallet?.address || 'N/A'}
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                            <strong>Balance:</strong> ${user.cryptoWallet?.balance?.toFixed(6) || '0.000000'} MZLx
+                        </div>
+                        
+                        <h4 style="color: var(--light-blue); margin: 12px 0 6px;">Fiat Wallet</h4>
+                        <div style="margin-bottom: 5px;">
+                            <strong>Account:</strong> ${user.fiatWallet?.account || 'N/A'}
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                            <strong>Balance:</strong> ₦${user.fiatWallet?.balance?.toFixed(2) || '0.00'}
+                        </div>
+                        
+                        <h4 style="color: var(--light-blue); margin: 12px 0 6px;">Referral Info</h4>
+                        <div style="margin-bottom: 5px;">
+                            <strong>Referral Code:</strong> ${user.referralCode || 'N/A'}
+                        </div>
+                        <div>
+                            <strong>Referred By:</strong> ${user.referredBy || 'N/A'}
+                        </div>
+                    </div>
+                `;
+                
+                alert(userInfo);
+            } else {
+                alert('User not found!');
+            }
+        }
     </script>
 </body>
 </html>
