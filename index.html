@@ -497,7 +497,8 @@
         }
         
         .form-group input, 
-        .form-group select {
+        .form-group select,
+        .form-group textarea {
             width: 100%;
             padding: 12px;
             border-radius: 12px;
@@ -568,6 +569,58 @@
             margin: 10px auto;
             border: none;
             cursor: pointer;
+        }
+        
+        /* Product List */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .product-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 10px;
+            border: 1px solid var(--light-blue);
+            cursor: pointer;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        
+        .product-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .product-price {
+            color: var(--lemon-green);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+        
+        .discount-badge {
+            background: var(--accent);
+            color: white;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            margin-top: 3px;
+            display: inline-block;
         }
         
         /* Responsive Adjustments */
@@ -884,6 +937,22 @@
                 </div>
                 
                 <div class="card" style="background: rgba(0,0,0,0.3); margin-bottom:15px;">
+                    <h4><i class="fas fa-exchange-alt"></i> P2P Transfer</h4>
+                    <div class="form-group">
+                        <label>Recipient Wallet Address</label>
+                        <input type="text" id="recipientAddress" placeholder="Enter recipient address">
+                    </div>
+                    <div class="form-group">
+                        <label>Amount (MZLx)</label>
+                        <input type="number" id="transferAmount" min="1" value="10">
+                    </div>
+                    <button class="cta-button" id="transferButton">
+                        <i class="fas fa-paper-plane"></i> Send MZLx
+                    </button>
+                    <p class="note" style="font-size:0.7rem; margin-top:10px;">Platform fee: 0.4% per transaction</p>
+                </div>
+                
+                <div class="card" style="background: rgba(0,0,0,0.3); margin-bottom:15px;">
                     <h4><i class="fas fa-bell"></i> Notifications</h4>
                     <div id="notificationList" style="max-height:150px; overflow-y:auto;">
                         <div style="padding:10px; border-bottom:1px solid rgba(255,255,255,0.1);">
@@ -1003,6 +1072,110 @@
         </div>
     </div>
 
+    <!-- Escrow Shop Modal -->
+    <div class="modal" id="escrowShopModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-store"></i> Escrow Shop</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="buy">
+                        <i class="fas fa-shopping-cart"></i> Buy
+                    </button>
+                    <button class="tab-btn" data-tab="sell">
+                        <i class="fas fa-tag"></i> Sell
+                    </button>
+                </div>
+                
+                <div class="tab-content active" id="buyTab">
+                    <div class="search-bar" style="display:flex; gap:8px; margin-bottom:15px;">
+                        <input type="text" id="productSearch" placeholder="Search products...">
+                        <button class="cta-button" style="padding:10px 15px;" id="searchProductsBtn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="product-grid" id="productGrid">
+                        <!-- Products will be populated here -->
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="sellTab">
+                    <div class="form-group">
+                        <label>Product/Service Name</label>
+                        <input type="text" id="productName" placeholder="Enter product/service name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="productDescription" placeholder="Describe your product/service" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Price (MZLx)</label>
+                        <input type="number" id="productPrice" min="1" value="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="productCategory">
+                            <option value="electronics">Electronics</option>
+                            <option value="fashion">Fashion</option>
+                            <option value="services">Services</option>
+                            <option value="real-estate">Real Estate</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </div>
+                    <button class="cta-button" id="listProductBtn">
+                        <i class="fas fa-plus"></i> List Product/Service
+                    </button>
+                    <p class="note" style="font-size:0.7rem; margin-top:10px;">
+                        <i class="fas fa-info-circle"></i> Free members can list up to 3 products. Premium members have higher limits.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div class="modal" id="productDetailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="productDetailTitle"></h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="product-image" style="margin-bottom:15px; height:200px;">
+                    <i class="fas fa-image" style="font-size:3rem; opacity:0.3;"></i>
+                </div>
+                
+                <div class="form-group">
+                    <label>Description</label>
+                    <p id="productDetailDescription" style="margin-top:5px;"></p>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Price</label>
+                        <p id="productDetailPrice" style="color:var(--lemon-green); font-weight:700; font-size:1.2rem;"></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Seller</label>
+                        <p id="productDetailSeller"></p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Category</label>
+                    <p id="productDetailCategory"></p>
+                </div>
+                
+                <button class="cta-button" id="buyProductBtn">
+                    <i class="fas fa-shopping-cart"></i> Buy Now
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Tokenomics Configuration
         const TOKENOMICS = {
@@ -1017,6 +1190,15 @@
                 silver: 2,
                 gold: 3,
                 platinum: 4
+            },
+            platformFee: 0.004, // 0.4% platform fee
+            maxFreeProducts: 3,
+            discounts: {
+                free: 0,
+                bronze: 0.05,
+                silver: 0.10,
+                gold: 0.15,
+                platinum: 0.20
             }
         };
 
@@ -1062,7 +1244,9 @@
                     ],
                     createdAt: new Date().toISOString(),
                     referralCode: Math.random().toString(36).substring(2, 10).toUpperCase(),
-                    referredBy: referralCode
+                    referredBy: referralCode,
+                    products: [],
+                    transfers: []
                 };
                 
                 users.push(user);
@@ -1145,6 +1329,16 @@
                     return true;
                 }
                 return false;
+            }
+            
+            static getDiscount(user) {
+                if (!user) return 0;
+                
+                if (user.badges.includes('platinum')) return TOKENOMICS.discounts.platinum;
+                else if (user.badges.includes('gold')) return TOKENOMICS.discounts.gold;
+                else if (user.badges.includes('silver')) return TOKENOMICS.discounts.silver;
+                else if (user.badges.includes('bronze')) return TOKENOMICS.discounts.bronze;
+                else return TOKENOMICS.discounts.free;
             }
         }
 
@@ -1342,6 +1536,267 @@
                 } catch (error) {
                     console.error('Error claiming tokens:', error);
                     alert('Failed to claim tokens. Please try again.');
+                }
+            }
+        }
+
+        // Escrow Shop System
+        class EscrowShop {
+            static listProduct(name, description, price, category) {
+                const user = UserSystem.getCurrentUser();
+                if (!user) return { error: 'Not authenticated' };
+                
+                // Check product limit based on membership
+                if (user.badges.includes('free') && user.products.length >= TOKENOMICS.maxFreeProducts) {
+                    return { error: `Free members can only list up to ${TOKENOMICS.maxFreeProducts} products. Upgrade to list more.` };
+                }
+                
+                const product = {
+                    id: Date.now(),
+                    sellerId: user.email,
+                    sellerAddress: user.cryptoWallet.address,
+                    name,
+                    description,
+                    price,
+                    category,
+                    timestamp: new Date().toISOString(),
+                    status: 'active'
+                };
+                
+                user.products.push(product);
+                
+                // Update user
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const updatedUsers = users.map(u => u.email === user.email ? user : u);
+                localStorage.setItem('users', JSON.stringify(updatedUsers));
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // Record activity
+                const activity = JSON.parse(localStorage.getItem('activity') || '[]');
+                activity.unshift({
+                    userId: user.email,
+                    action: 'Product Listed',
+                    details: `Product: ${name}, Price: ${price} MZLx`,
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('activity', JSON.stringify(activity));
+                
+                // Add notification
+                UserSystem.addNotification(user, `Product "${name}" listed successfully!`);
+                
+                return product;
+            }
+            
+            static getAllProducts() {
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const products = [];
+                
+                users.forEach(user => {
+                    user.products.forEach(product => {
+                        if (product.status === 'active') {
+                            products.push({
+                                ...product,
+                                sellerName: user.email
+                            });
+                        }
+                    });
+                });
+                
+                return products;
+            }
+            
+            static async buyProduct(productId) {
+                const user = UserSystem.getCurrentUser();
+                if (!user) return { error: 'Not authenticated' };
+                
+                // Find product
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                let product = null;
+                let seller = null;
+                
+                for (const u of users) {
+                    const p = u.products.find(p => p.id === productId);
+                    if (p) {
+                        product = p;
+                        seller = u;
+                        break;
+                    }
+                }
+                
+                if (!product || !seller) {
+                    return { error: 'Product not found' };
+                }
+                
+                try {
+                    // Connect to Metamask
+                    const provider = new ethers.providers.Web3Provider(window.ethereum);
+                    const signer = provider.getSigner();
+                    
+                    // Create contract instance
+                    const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+                    
+                    // Apply discount based on membership
+                    const discount = UserSystem.getDiscount(user);
+                    const discountedPrice = product.price * (1 - discount);
+                    
+                    // Calculate platform fee
+                    const platformFee = discountedPrice * TOKENOMICS.platformFee;
+                    
+                    // Total amount to transfer (product price + fee)
+                    const totalAmount = discountedPrice + platformFee;
+                    
+                    // Convert tokens to wei
+                    const tokens = ethers.utils.parseUnits(totalAmount.toString(), 18);
+                    
+                    // Check balance
+                    const balance = await contract.balanceOf(user.cryptoWallet.address);
+                    if (balance.lt(tokens)) {
+                        return { error: 'Insufficient balance' };
+                    }
+                    
+                    // Transfer tokens to seller (minus platform fee)
+                    const sellerAmount = ethers.utils.parseUnits((discountedPrice - platformFee).toString(), 18);
+                    const tx1 = await contract.transfer(seller.cryptoWallet.address, sellerAmount);
+                    await tx1.wait();
+                    
+                    // Transfer platform fee to company
+                    const feeAmount = ethers.utils.parseUnits((platformFee * 2).toString(), 18); // 2x for demo
+                    const tx2 = await contract.transfer('0x9a3E0603d8e91dA3f1c5F3B2C3D4E5F6A7B8C9D0', feeAmount);
+                    await tx2.wait();
+                    
+                    // Update product status to sold
+                    product.status = 'sold';
+                    
+                    // Update seller's product list
+                    const updatedUsers = users.map(u => {
+                        if (u.email === seller.email) {
+                            u.products = u.products.map(p => 
+                                p.id === product.id ? product : p
+                            );
+                            return u;
+                        }
+                        return u;
+                    });
+                    
+                    localStorage.setItem('users', JSON.stringify(updatedUsers));
+                    
+                    // Add transfer record for buyer
+                    user.transfers.push({
+                        type: 'out',
+                        amount: totalAmount,
+                        recipient: seller.email,
+                        timestamp: new Date().toISOString(),
+                        productId: product.id
+                    });
+                    
+                    // Add transfer record for seller
+                    seller.transfers.push({
+                        type: 'in',
+                        amount: discountedPrice - platformFee,
+                        sender: user.email,
+                        timestamp: new Date().toISOString(),
+                        productId: product.id
+                    });
+                    
+                    // Update buyer
+                    const updatedUsersWithBuyer = updatedUsers.map(u => 
+                        u.email === user.email ? user : u
+                    );
+                    localStorage.setItem('users', JSON.stringify(updatedUsersWithBuyer));
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    
+                    // Add notifications
+                    UserSystem.addNotification(user, `Purchased "${product.name}" for ${discountedPrice.toFixed(2)} MZLx`);
+                    UserSystem.addNotification(seller, `Sold "${product.name}" for ${(discountedPrice - platformFee).toFixed(2)} MZLx`);
+                    
+                    return { success: true };
+                } catch (error) {
+                    console.error('Error buying product:', error);
+                    return { error: 'Failed to complete transaction' };
+                }
+            }
+        }
+
+        // P2P Transfer System
+        class P2PTransfer {
+            static async transfer(recipientAddress, amount) {
+                const user = UserSystem.getCurrentUser();
+                if (!user) return { error: 'Not authenticated' };
+                
+                if (amount <= 0) {
+                    return { error: 'Invalid amount' };
+                }
+                
+                try {
+                    // Connect to Metamask
+                    const provider = new ethers.providers.Web3Provider(window.ethereum);
+                    const signer = provider.getSigner();
+                    
+                    // Create contract instance
+                    const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+                    
+                    // Calculate platform fee
+                    const platformFee = amount * TOKENOMICS.platformFee;
+                    const totalAmount = amount + platformFee;
+                    
+                    // Convert tokens to wei
+                    const tokens = ethers.utils.parseUnits(totalAmount.toString(), 18);
+                    
+                    // Check balance
+                    const balance = await contract.balanceOf(user.cryptoWallet.address);
+                    if (balance.lt(tokens)) {
+                        return { error: 'Insufficient balance' };
+                    }
+                    
+                    // Transfer tokens to recipient
+                    const recipientAmount = ethers.utils.parseUnits(amount.toString(), 18);
+                    const tx1 = await contract.transfer(recipientAddress, recipientAmount);
+                    await tx1.wait();
+                    
+                    // Transfer platform fee to company
+                    const feeAmount = ethers.utils.parseUnits(platformFee.toString(), 18);
+                    const tx2 = await contract.transfer('0x9a3E0603d8e91dA3f1c5F3B2C3D4E5F6A7B8C9D0', feeAmount);
+                    await tx2.wait();
+                    
+                    // Add transfer record for sender
+                    user.transfers.push({
+                        type: 'out',
+                        amount: totalAmount,
+                        recipient: recipientAddress,
+                        timestamp: new Date().toISOString()
+                    });
+                    
+                    // Find recipient user
+                    const users = JSON.parse(localStorage.getItem('users') || '[]');
+                    const recipientUser = users.find(u => u.cryptoWallet.address === recipientAddress);
+                    
+                    if (recipientUser) {
+                        // Add transfer record for recipient
+                        recipientUser.transfers.push({
+                            type: 'in',
+                            amount: amount,
+                            sender: user.email,
+                            timestamp: new Date().toISOString()
+                        });
+                        
+                        // Update users
+                        const updatedUsers = users.map(u => 
+                            u.email === user.email ? user : 
+                            u.email === recipientUser.email ? recipientUser : u
+                        );
+                        localStorage.setItem('users', JSON.stringify(updatedUsers));
+                    }
+                    
+                    // Update current user
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    
+                    // Add notifications
+                    UserSystem.addNotification(user, `Sent ${amount} MZLx to ${recipientAddress.substring(0, 8)}...`);
+                    
+                    return { success: true };
+                } catch (error) {
+                    console.error('Error transferring tokens:', error);
+                    return { error: 'Failed to complete transfer' };
                 }
             }
         }
@@ -1586,6 +2041,26 @@
                 document.getElementById('dashboardModal').style.display = 'flex';
             });
             
+            // P2P Transfer
+            document.getElementById('transferButton').addEventListener('click', async function() {
+                const recipientAddress = document.getElementById('recipientAddress').value;
+                const amount = parseFloat(document.getElementById('transferAmount').value);
+                
+                if (!recipientAddress || !amount) {
+                    alert('Please fill all fields');
+                    return;
+                }
+                
+                const result = await P2PTransfer.transfer(recipientAddress, amount);
+                if (result.error) {
+                    alert(result.error);
+                } else {
+                    alert(`Successfully sent ${amount} MZLx!`);
+                    document.getElementById('recipientAddress').value = '';
+                    document.getElementById('transferAmount').value = '10';
+                }
+            });
+            
             // Voting
             document.getElementById('submitVote').addEventListener('click', function() {
                 const newPrice = parseFloat(document.getElementById('newPrice').value);
@@ -1742,6 +2217,63 @@
                 alert('Profile updated successfully!');
             });
             
+            // Escrow Shop
+            document.getElementById('escrowShopBtn').addEventListener('click', function() {
+                const user = UserSystem.getCurrentUser();
+                if (!user) {
+                    alert('Please login to use Escrow Shop');
+                    document.getElementById('loginModal').style.display = 'flex';
+                    return;
+                }
+                
+                // Load products
+                loadProducts();
+                document.getElementById('escrowShopModal').style.display = 'flex';
+            });
+            
+            // List product
+            document.getElementById('listProductBtn').addEventListener('click', function() {
+                const name = document.getElementById('productName').value;
+                const description = document.getElementById('productDescription').value;
+                const price = parseFloat(document.getElementById('productPrice').value);
+                const category = document.getElementById('productCategory').value;
+                
+                if (!name || !description || !price) {
+                    alert('Please fill all fields');
+                    return;
+                }
+                
+                const result = EscrowShop.listProduct(name, description, price, category);
+                if (result.error) {
+                    alert(result.error);
+                } else {
+                    alert('Product listed successfully!');
+                    document.getElementById('productName').value = '';
+                    document.getElementById('productDescription').value = '';
+                    document.getElementById('productPrice').value = '10';
+                }
+            });
+            
+            // Search products
+            document.getElementById('searchProductsBtn').addEventListener('click', function() {
+                loadProducts(document.getElementById('productSearch').value);
+            });
+            
+            // Buy product
+            document.getElementById('buyProductBtn').addEventListener('click', async function() {
+                const productId = parseInt(this.dataset.productId);
+                
+                const result = await EscrowShop.buyProduct(productId);
+                if (result.error) {
+                    alert(result.error);
+                } else {
+                    alert('Purchase successful!');
+                    document.getElementById('productDetailModal').style.display = 'none';
+                    document.getElementById('escrowShopModal').style.display = 'flex';
+                    loadProducts();
+                }
+            });
+            
             // Tab switching
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -1808,14 +2340,73 @@
                 }
             }
             
+            // Load products for Escrow Shop
+            function loadProducts(searchTerm = '') {
+                const products = EscrowShop.getAllProducts();
+                const productGrid = document.getElementById('productGrid');
+                productGrid.innerHTML = '';
+                
+                const user = UserSystem.getCurrentUser();
+                const discount = user ? UserSystem.getDiscount(user) : 0;
+                
+                const filteredProducts = products.filter(product => 
+                    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    product.category.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+                
+                filteredProducts.forEach(product => {
+                    const discountedPrice = product.price * (1 - discount);
+                    
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.dataset.id = product.id;
+                    productCard.innerHTML = `
+                        <div class="product-image">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <div class="product-title">${product.name}</div>
+                        <div class="product-price">${discountedPrice.toFixed(2)} MZLx</div>
+                        ${discount > 0 ? `<div class="discount-badge">${(discount * 100).toFixed(0)}% OFF</div>` : ''}
+                    `;
+                    
+                    productCard.addEventListener('click', function() {
+                        const productId = parseInt(this.dataset.id);
+                        showProductDetail(productId);
+                    });
+                    
+                    productGrid.appendChild(productCard);
+                });
+            }
+            
+            // Show product details
+            function showProductDetail(productId) {
+                const products = EscrowShop.getAllProducts();
+                const product = products.find(p => p.id === productId);
+                
+                if (!product) return;
+                
+                const user = UserSystem.getCurrentUser();
+                const discount = user ? UserSystem.getDiscount(user) : 0;
+                const discountedPrice = product.price * (1 - discount);
+                
+                document.getElementById('productDetailTitle').textContent = product.name;
+                document.getElementById('productDetailDescription').textContent = product.description;
+                document.getElementById('productDetailPrice').textContent = `${discountedPrice.toFixed(2)} MZLx (${discount > 0 ? (discount * 100).toFixed(0) + '% OFF' : 'No discount'})`;
+                document.getElementById('productDetailSeller').textContent = product.sellerName || product.sellerAddress.substring(0, 12) + '...';
+                document.getElementById('productDetailCategory').textContent = product.category.charAt(0).toUpperCase() + product.category.slice(1);
+                
+                document.getElementById('buyProductBtn').dataset.productId = productId;
+                
+                document.getElementById('productDetailModal').style.display = 'flex';
+            }
+            
             // Check if user is logged in
             const user = UserSystem.getCurrentUser();
             if (user) {
                 document.getElementById('loginBtn').style.display = 'none';
                 document.getElementById('registerBtn').style.display = 'none';
                 document.getElementById('logoutBtn').style.display = 'flex';
-                document.getElementById('memberId').textContent = user.memberId;
-                document.getElementById('memberBadge').innerHTML = `<i class="fas fa-gift"></i> ${user.memberId}`;
                 displayBadges();
             }
         });
