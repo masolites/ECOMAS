@@ -194,7 +194,7 @@
         
         .action-btn {
             padding: 6px 10px;
-            border-radius: 50极;
+            border-radius: 50px;
             font-size: 0.75rem;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -321,13 +321,15 @@
             color: var(--navy);
         }
         
+        /* Hide scrollbar for Chrome, Safari and Opera */
         .admin-main::-webkit-scrollbar {
             display: none;
         }
         
+        /* Hide scrollbar for IE, Edge and Firefox */
         .admin-main {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
         }
     </style>
 </head>
@@ -365,7 +367,7 @@
                         <div class="stat-label">Pending Deposits</div>
                     </div>
                     <div class="stat-card">
-                        <div class极stat-value" id="tokenSupply">0</div>
+                        <div class="stat-value" id="tokenSupply">0</div>
                         <div class="stat-label">Token Supply</div>
                     </div>
                     <div class="stat-card">
@@ -569,10 +571,11 @@
                 tokenomics.tokenSymbol = tokenSymbol;
                 tokenomics.currentPrice = tokenPriceUSD;
                 tokenomics.ngnPrice = tokenPriceNGN;
-                tokenomics.platformFee = platformFee / 100;
+                tokenomics.platformFee = platformFee / 100; // Convert to decimal
                 
                 localStorage.setItem('tokenomics', JSON.stringify(tokenomics));
                 
+                // Record activity
                 const activity = JSON.parse(localStorage.getItem('activity') || '[]');
                 activity.unshift({
                     userId: "admin",
@@ -592,15 +595,14 @@
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const tab = this.dataset.tab;
+                    
+                    // Update active tab
                     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
+                    
+                    // Reload deposits for the selected tab
                     loadDeposits(tab);
                 });
-            });
-            
-            // Search users
-            document.getElementById('searchUsersBtn').addEventListener('click', function() {
-                loadUsers(document.getElementById('userSearch').value);
             });
         });
         
@@ -734,19 +736,12 @@
         }
         
         // Load users
-        function loadUsers(searchTerm = '') {
+        function loadUsers() {
             const users = JSON.parse(localStorage.getItem('users') || '[]');
             const tbody = document.getElementById('usersTableBody');
             tbody.innerHTML = '';
             
-            const filteredUsers = searchTerm ? 
-                users.filter(u => 
-                    u.email.includes(searchTerm) || 
-                    u.memberId.includes(searchTerm) ||
-                    u.cryptoWallet.address.includes(searchTerm)
-                ) : users;
-            
-            filteredUsers.forEach(user => {
+            users.forEach(user => {
                 const badges = user.badges.map(b => b.charAt(0).toUpperCase() + b.slice(1)).join(', ');
                 
                 const row = document.createElement('tr');
@@ -804,7 +799,7 @@
             tbody.innerHTML = '';
             
             transfers.forEach(transfer => {
-                const fee = transfer.amount * TOKENOMICS.platformFee;
+                const fee = transfer.fee || transfer.amount * 0.004;
                 
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -826,10 +821,12 @@
             
             if (!deposit) return;
             
+            // Update deposit status
             deposit.status = status;
             localStorage.setItem('depositSubmissions', JSON.stringify(deposits));
             
             if (status === 'approved') {
+                // Find user and add funds
                 const users = JSON.parse(localStorage.getItem('users') || '[]');
                 const user = users.find(u => u.email === deposit.userId);
                 
@@ -837,6 +834,7 @@
                     user.fiatWallet.balance += deposit.amount;
                     localStorage.setItem('users', JSON.stringify(users));
                     
+                    // Add notification to user
                     user.notifications.unshift({
                         message: `Your deposit of ₦${deposit.amount} has been approved!`,
                         timestamp: new Date().toISOString(),
@@ -847,6 +845,7 @@
                 }
             }
             
+            // Record activity
             const activity = JSON.parse(localStorage.getItem('activity') || '[]');
             activity.unshift({
                 userId: "admin",
@@ -856,6 +855,7 @@
             });
             localStorage.setItem('activity', JSON.stringify(activity));
             
+            // Reload data
             loadAdminData();
             alert(`Deposit #${depositId} ${status} successfully!`);
         }
