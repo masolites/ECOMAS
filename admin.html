@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,328 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* CSS remains the same as before */
+        :root {
+            --deep-blue: #0a2463;
+            --navy: #1a1a2e;
+            --light-blue: #3e92cc;
+            --lemon-green: #a4de02;
+            --accent: #d8315b;
+            --card-bg: rgba(26, 26, 46, 0.95);
+            --text-light: #ffffff;
+            --mining-off: #ff9500;
+            --mining-on: #4cd964;
+            --admin-bg: linear-gradient(135deg, #0f0c29, #1a1a2e, #24243e);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: var(--admin-bg);
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            padding: 10px;
+            overflow: hidden;
+        }
+        
+        .admin-container {
+            max-width: 100%;
+            height: calc(100vh - 20px);
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            padding: 10px;
+            overflow: hidden;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--light-blue);
+            margin-bottom: 15px;
+        }
+        
+        .admin-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--lemon-green), var(--light-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .admin-nav {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .admin-btn {
+            padding: 8px 15px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border: 1px solid var(--light-blue);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        
+        .admin-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .admin-logout-btn {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .admin-main {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 15px;
+        }
+        
+        .admin-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .admin-card-title {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--lemon-green);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid var(--accent);
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+            color: var(--light-blue);
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            opacity: 0.8;
+        }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.8rem;
+        }
+        
+        .admin-table th, 
+        .admin-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .admin-table th {
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--lemon-green);
+        }
+        
+        .admin-table tr:nth-child(even) {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .admin-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .status-pending {
+            color: var(--mining-off);
+            font-weight: 600;
+        }
+        
+        .status-approved {
+            color: var(--mining-on);
+            font-weight: 600;
+        }
+        
+        .status-rejected {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .action-btn {
+            padding: 6px 10px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .approve-btn {
+            background: var(--mining-on);
+            color: var(--navy);
+        }
+        
+        .reject-btn {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .reactivate-btn {
+            background: var(--light-blue);
+            color: var(--navy);
+        }
+        
+        .search-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 50px;
+            border: 1px solid var(--light-blue);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .search-bar button {
+            padding: 12px 15px;
+            border-radius: 50px;
+            background: var(--light-blue);
+            color: var(--navy);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .token-config {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .token-form-group {
+            margin-bottom: 12px;
+        }
+        
+        .token-form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--light-blue);
+        }
+        
+        .token-form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--light-blue);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .update-btn {
+            padding: 12px;
+            border-radius: 50px;
+            background: var(--lemon-green);
+            color: var(--navy);
+            border: none;
+            cursor: pointer;
+            font-weight: 极600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15极;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 50px;
+            padding: 5px;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            border-radius: 50px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-size: 0.8rem;
+        }
+        
+        .tab-btn.active {
+            background: var(--light-blue);
+            color: var(--navy);
+        }
+        
+        .admin-main::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .admin-main {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
 <body>
@@ -28,7 +349,168 @@
         </div>
         
         <div class="admin-main">
-            <!-- Admin cards remain the same -->
+            <div class="admin-card">
+                <h2 class="admin-card-title"><i class="fas fa-chart-line"></i> Platform Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalUsers">0</div>
+                        <div class="stat-label">Total Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalDeposits">₦0.00</div>
+                        <div class="stat-label">Total Deposits</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="pendingDeposits">0</div>
+                        <div class="stat-label">Pending Deposits</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="tokenSupply">0</div>
+                        <div class="stat-label">Token Supply</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalProducts">0</div>
+                        <div class="stat-label">Products Listed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalTransfers">0</div>
+                        <div class="stat-label">P2P Transfers</div>
+                    </div>
+                </div>
+                
+                <h2 class="admin-card-title"><i class="fas fa-cog"></i> Token Configuration</h2>
+                <div class="token-config">
+                    <div class="token-form-group">
+                        <label>Token Name</label>
+                        <input type="text" id="tokenName" value="MAZOL">
+                    </div>
+                    <div class="token-form-group">
+                        <label>Token Symbol</label>
+                        <input type="text" id="tokenSymbol" value="MZLx">
+                    </div>
+                    <div class="token-form-group">
+                        <label>Token Price (USD)</label>
+                        <input type="number" id="tokenPriceUSD" value="0.001" step="0.001">
+                    </div>
+                    <div class="token-form-group">
+                        <label>Token Price (NGN)</label>
+                        <input type="number" id="tokenPriceNGN" value="18" step="1">
+                    </div>
+                    <div class="token-form-group">
+                        <label>Platform Fee (%)</label>
+                        <input type="number" id="platformFee" value="0.4" step="0.1">
+                    </div>
+                </div>
+                <button class="update-btn" id="updateTokenConfig">
+                    <i class="fas fa-save"></i> Update Token Configuration
+                </button>
+            </div>
+            
+            <div class="admin-card">
+                <h2 class="admin-card-title"><i class="fas fa-money-check"></i> Deposit Management</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="pending">Pending</button>
+                    <button class="tab-btn" data-tab="approved">Approved</button>
+                    <button class="tab-btn" data-tab="rejected">Rejected</button>
+                </div>
+                
+                <div class="search-bar">
+                    <input type="text" id="depositSearch" placeholder="Search deposits...">
+                    <button id="searchDepositsBtn"><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div id="depositsTableContainer" style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="depositsTableBody">
+                            <!-- Deposits will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="admin-card">
+                <h2 class="admin-card-title"><i class="fas fa-store"></i> Escrow Shop Management</h2>
+                <div class="search-bar">
+                    <input type="text" id="productSearch" placeholder="Search products...">
+                    <button id="searchProductsBtn"><i class="fas fa-search"></i></button>
+                </div>
+                <div id="productsTableContainer" style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Product</th>
+                                <th>Seller</th>
+                                <th>Price</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <!-- Products will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="admin-card">
+                <h2 class="admin-card-title"><i class="fas fa-exchange-alt"></i> P2P Transfers</h2>
+                <div class="search-bar">
+                    <input type="text" id="transferSearch" placeholder="Search transfers...">
+                    <button id="searchTransfersBtn"><i class="fas fa-search"></i></button>
+                </div>
+                <div id="transfersTableContainer" style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Sender</th>
+                                <th>Recipient</th>
+                                <th>Amount</th>
+                                <th>Fee</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transfersTableBody">
+                            <!-- Transfers will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="admin-card">
+                <h2 class="admin-card-title"><i class="fas fa-users"></i> User Management</h2>
+                <div class="search-bar">
+                    <input type="text" id="userSearch" placeholder="Search users...">
+                    <button id="searchUsersBtn"><i class="fas fa-search"></i></button>
+                </div>
+                <div id="usersTableContainer" style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Member ID</th>
+                                <th>Email</th>
+                                <th>Balance</th>
+                                <th>Badges</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users极Body">
+                            <!-- Users will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -114,6 +596,11 @@
                     this.classList.add('active');
                     loadDeposits(tab);
                 });
+            });
+            
+            // Search users
+            document.getElementById('searchUsersBtn').addEventListener('click', function() {
+                loadUsers(document.getElementById('userSearch').value);
             });
         });
         
@@ -247,12 +734,19 @@
         }
         
         // Load users
-        function loadUsers() {
+        function loadUsers(searchTerm = '') {
             const users = JSON.parse(localStorage.getItem('users') || '[]');
             const tbody = document.getElementById('usersTableBody');
             tbody.innerHTML = '';
             
-            users.forEach(user => {
+            const filteredUsers = searchTerm ? 
+                users.filter(u => 
+                    u.email.includes(searchTerm) || 
+                    u.memberId.includes(searchTerm) ||
+                    u.cryptoWallet.address.includes(searchTerm)
+                ) : users;
+            
+            filteredUsers.forEach(user => {
                 const badges = user.badges.map(b => b.charAt(0).toUpperCase() + b.slice(1)).join(', ');
                 
                 const row = document.createElement('tr');
