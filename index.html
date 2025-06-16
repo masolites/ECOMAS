@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MASOLITES ECOMAS</title>
+    <!-- Open Graph Meta Tags for Social Sharing -->
     <meta property="og:title" content="MASOLITES ECOMAS - A Better Society Together">
     <meta property="og:description" content="Economic Community Of Masolites. A Trusted Products & Services Hub using MAZOL Token">
     <meta property="og:image" content="https://masolites.github.io/ECOMAS/social-banner.jpg">
@@ -60,6 +61,7 @@
             overflow: hidden;
         }
         
+        /* Social Media Overlay */
         .social-overlay {
             position: fixed;
             top: 0;
@@ -70,117 +72,168 @@
             z-index: 10000;
             display: flex;
             flex-direction: column;
-            padding: 20px;
+            backdrop-filter: blur(10px);
         }
         
         .social-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            border-bottom: 1px solid var(--light-blue);
         }
         
         .social-logo {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 800;
             background: linear-gradient(to right, var(--lemon-green), var(--light-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         
         .social-close {
-            font-size: 1.8rem;
-            color: white;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
             cursor: pointer;
         }
         
         .social-content {
             flex: 1;
             display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .social-video {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
             overflow: hidden;
         }
         
-        .video-placeholder {
+        .social-sidebar {
+            width: 300px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            overflow-y: auto;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .social-video-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            position: relative;
+        }
+        
+        .social-video {
+            width: 100%;
+            height: 100%;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .social-video-placeholder {
             text-align: center;
             padding: 20px;
         }
         
-        .video-placeholder i {
-            font-size: 4rem;
+        .social-video-placeholder i {
+            font-size: 5rem;
             margin-bottom: 20px;
-            color: rgba(255, 255, 255, 0.3);
+            color: var(--light-blue);
         }
         
         .social-actions {
             display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
+            justify-content: center;
+            gap: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .social-action {
+        .social-action-btn {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .social-action-btn i {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .social-feed {
+            padding: 15px;
+            overflow-y: auto;
+        }
+        
+        .social-post {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid var(--light-blue);
+        }
+        
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        
+        .post-user {
+            font-weight: 600;
+        }
+        
+        .post-time {
+            font-size: 0.7rem;
+            opacity: 0.7;
+        }
+        
+        .post-content {
+            margin-bottom: 10px;
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .post-action {
+            display: flex;
             align-items: center;
             gap: 5px;
             cursor: pointer;
         }
         
-        .social-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-        
-        .social-label {
-            font-size: 0.7rem;
-        }
-        
-        .social-features {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 15px;
-        }
-        
-        .social-features h3 {
-            color: var(--lemon-green);
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-        
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 10px;
-            text-align: center;
-        }
-        
+        /* Header Styles */
         .top-header {
             display: flex;
             justify-content: space-between;
@@ -264,6 +317,7 @@
             margin-top: 5px;
         }
         
+        /* Main Content Area */
         .main-content {
             flex: 1;
             overflow-y: auto;
@@ -363,7 +417,7 @@
             padding: 12px;
             text-align: center;
             border: 1px solid var(--accent);
-            margin: 10极 0;
+            margin: 10px 0;
         }
         
         .mining-display {
@@ -463,6 +517,7 @@
             color: var(--text-light);
         }
         
+        /* Badge Styles */
         .badge-container {
             display: flex;
             justify-content: center;
@@ -508,6 +563,7 @@
             color: var(--navy);
         }
         
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -548,7 +604,7 @@
             font-size: 1.1rem;
         }
         
-极        .modal-close {
+        .modal-close {
             background: transparent;
             border: none;
             color: var(--text-light);
@@ -562,6 +618,7 @@
             overflow-y: auto;
         }
         
+        /* Tabs */
         .tabs {
             display: flex;
             gap: 5px;
@@ -600,6 +657,7 @@
             display: block;
         }
         
+        /* Form Elements */
         .form-group {
             margin-bottom: 12px;
         }
@@ -632,6 +690,7 @@
             flex: 1;
         }
         
+        /* Vote Form */
         .vote-form {
             padding: 15px;
             background: rgba(0, 0, 0, 0.3);
@@ -647,6 +706,7 @@
             color: var(--lemon-green);
         }
         
+        /* Mining Status */
         .mining-status {
             text-align: center;
             margin-top: 5px;
@@ -654,6 +714,7 @@
             color: rgba(255, 255, 255, 0.7);
         }
         
+        /* AI Price Suggestion */
         .ai-suggestion {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 10px;
@@ -668,6 +729,7 @@
             font-weight: 600;
         }
         
+        /* Connect Wallet Button */
         .connect-wallet-btn {
             background: var(--lemon-green);
             color: var(--navy);
@@ -682,6 +744,7 @@
             cursor: pointer;
         }
         
+        /* Product List */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -733,6 +796,7 @@
             display: inline-block;
         }
         
+        /* Responsive Adjustments */
         @media (max-width: 480px) {
             .countdown-item {
                 min-width: 50px;
@@ -753,88 +817,108 @@
             }
         }
         
+        /* Hide scrollbar for Chrome, Safari and Opera */
         .main-content::-webkit-scrollbar {
             display: none;
         }
         
+        /* Hide scrollbar for IE, Edge and Firefox */
         .main-content {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
         }
     </style>
 </head>
 <body>
+    <!-- Social Media Overlay -->
     <div class="social-overlay" id="socialOverlay">
         <div class="social-header">
             <h1 class="social-logo">
                 <i class="fas fa-comments"></i>
                 TruYan Social
             </h1>
-            <div class="social-close" id="closeSocial">
+            <button class="social-close" id="socialCloseBtn">
                 <i class="fas fa-times"></i>
-            </div>
+            </button>
         </div>
-        
-        <div class极social-content">
-            <div class="social-video">
-                <div class="video-placeholder">
-                    <i class="fas fa-play-circle"></i>
-                    <h3>Welcome to TruYan Social</h3>
-                    <p>Connect, share, and earn crypto rewards</p>
+        <div class="social-content">
+            <div class="social-sidebar">
+                <h3>Platform Features</h3>
+                <ul>
+                    <li><i class="fas fa-gift"></i> Earn MZL tokens for engagement</li>
+                    <li><i class="fas fa-video"></i> Watch videos to earn rewards</li>
+                    <li><i class="fas fa-users"></i> Join live sessions for bonuses</li>
+                    <li><i class="fas fa-store"></i> Promote products and earn</li>
+                    <li><i class="fas fa-comment-dots"></i> Connect with other members</li>
+                    <li><i class="fas fa-share-alt"></i> Share content for token rewards</li>
+                </ul>
+                
+                <h3>Current Activities</h3>
+                <div class="social-post">
+                    <div class="post-header">
+                        <div class="post-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <div class="post-user">Masolites Team</div>
+                            <div class="post-time">Just now</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        Join our live session tomorrow at 2PM to learn about crypto mining and earn 5 MZL tokens!
+                    </div>
+                    <div class="post-actions">
+                        <div class="post-action">
+                            <i class="fas fa-heart"></i> 24
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-comment"></i> 8
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-share"></i> 3
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="social-actions">
-                <div class="social-action">
-                    <div class="social-icon">
-                        <i class="fas fa-heart"></i>
+            <div class="social-main">
+                <div class="social-video-container">
+                    <div class="social-video">
+                        <div class="social-video-placeholder">
+                            <i class="fas fa-play-circle"></i>
+                            <h3>Welcome to TruYan Social</h3>
+                            <p>Connect with the community and earn rewards</p>
+                            <button class="cta-button" id="socialLoginBtn" style="margin-top: 20px;">
+                                <i class="fas fa-sign-in-alt"></i> Login to Social Platform
+                            </button>
+                        </div>
                     </div>
-                    <div class="social-label">Like</div>
                 </div>
-                <div class="social-action">
-                    <div class="social-icon">
-                        <i class="fas fa-comment"></i>
-                    </div>
-                    <div class="social-label">Comment</div>
-                </div>
-                <div class="social-action">
-                    <div class="social-icon">
-                        <i class="fas fa-share-alt"></i>
-                    </div>
-                    <div class="social-label">Share</div>
-                </div>
-                <div class="social-action">
-                    <div class="social-icon">
-                        <i class="fas fa-gift"></i>
-                    </div>
-                    <div class="social-label">Send Gift</div>
-                </div>
-            </div>
-            
-            <div class="social-features">
-                <h3>ECOMAS Features</h3>
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <i class="fas fa-coins"></i>
-                        <p>Crypto Mining</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-store"></i>
-                        <p>Escrow Shop</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-exchange-alt"></i>
-                        <p>P2P Transfers</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-vote-yea"></i>
-                        <p>Price Voting</p>
-                    </div>
+                <div class="social-actions">
+                    <button class="social-action-btn">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </button>
+                    <button class="social-action-btn">
+                        <i class="fas fa-search"></i>
+                        <span>Discover</span>
+                    </button>
+                    <button class="social-action-btn">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Create</span>
+                    </button>
+                    <button class="social-action-btn">
+                        <i class="fas fa-envelope"></i>
+                        <span>Messages</span>
+                    </button>
+                    <button class="social-action-btn">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <div class="app-container">
         <div class="top-header">
             <h1 class="logo">
@@ -924,7 +1008,7 @@
                 <div class="action-grid">
                     <div class="action-card" id="saveEarnBtn">
                         <div class="action-icon"><i class="fas fa-piggy-bank"></i></div>
-                        <div class="action-label">Save & Earn</极>
+                        <div class="action-label">Save & Earn</div>
                     </div>
                     <div class="action-card" id="escrowShopBtn">
                         <div class="action-icon"><i class="fas fa-store"></i></div>
@@ -968,6 +1052,7 @@
         </div>
     </div>
 
+    <!-- Auth Modals -->
     <div class="modal" id="registerModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1018,6 +1103,7 @@
         </div>
     </div>
 
+    <!-- Save & Earn Modal -->
     <div class="modal" id="saveEarnModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1091,6 +1177,7 @@
         </div>
     </div>
 
+    <!-- Dashboard Modal -->
     <div class="modal" id="dashboardModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1153,6 +1240,7 @@
         </div>
     </div>
 
+    <!-- Buy Options Modal -->
     <div class="modal" id="buyModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1218,6 +1306,7 @@
         </div>
     </div>
 
+    <!-- Admin Access Modal -->
     <div class="modal" id="adminAccessModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1245,6 +1334,7 @@
         </div>
     </div>
 
+    <!-- Escrow Shop Modal -->
     <div class="modal" id="escrowShopModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1308,6 +1398,7 @@
         </div>
     </div>
 
+    <!-- Product Detail Modal -->
     <div class="modal" id="productDetailModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1354,7 +1445,7 @@
             privateSale: 25000000,
             currentPrice: 0.001,
             ngnPrice: 18,
-            miningBaseRate: 0.0000001,
+            miningBaseRate: 0.0000001, // Base mining rate per second
             badgeMultipliers: {
                 free: 1,
                 bronze: 1.5,
@@ -1362,7 +1453,7 @@
                 gold: 3,
                 platinum: 4
             },
-            platformFee: 0.004,
+            platformFee: 0.004, // 0.4% platform fee
             maxFreeProducts: 3,
             discounts: {
                 free: 0,
@@ -1371,120 +1462,328 @@
                 gold: 0.15,
                 platinum: 0.20
             },
-            halvingInterval: 15552000000,
-            initialHalvingTime: Date.now()
+            halvingInterval: 365 * 4, // Halving every 4 years (in days)
+            initialHalvingDate: new Date('2023-01-01'),
+            mlmLevels: 5, // 5 levels deep
+            mlmPercentage: 0.025 // 2.5% per level
         };
 
-        // MLM Configuration
-        const MLM_CONFIG = {
-            levels: 5,
-            commissionRate: 0.025,
-            matrix: {}
-        };
-
-        // FLUTTERWAVE LIVE PUBLIC KEY
+        // FLUTTERWAVE LIVE PUBLIC KEY - REPLACE WITH YOUR ACTUAL KEY
         const FLW_PUBLIC_KEY = "FLWPUBK-XXXXXXXXXXXXXXXXXXXXXXXXXX-X";
         
+        // MAZOL Token Contract Details
+        const CONTRACT_ADDRESS = "0x49F4a728BD98480E92dBfc6a82d595DA9d1F7b83";
+        const CONTRACT_ABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"CurrencyTransferLibFailedNativeTransfer","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"delegator","type":"address"},{"indexed":true,"internalType":"address","name":"fromDelegate","type":"address"},{"indexed":true,"internalType":"address","name":"toDelegate","type":"address"}],"name":"DelegateChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"delegate","type":"address"},{"indexed":false,"internalType":"uint256","name":"previousBalance","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"newBalance","type":"uint256"}],"name":"DelegateVotesChanged","type":"event"},{"anonymous":false,"inputs":[],"name":"EIP712DomainChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"platformFeeRecipient","type":"address"},{"indexed":false,"internalType":"uint256","name":"flatFee","type":"uint256"}],"name":"FlatPlatformFeeUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint8","name":"version","type":"uint8"}],"name":"Initialized","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"platformFeeRecipient","type":"address"},{"indexed":false,"internalType":"uint256","name":"platformFeeBps","type":"uint256"}],"name":"PlatformFeeInfoUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"enum IPlatformFee.PlatformFeeType","name":"feeType","type":"uint8"}],"name":"PlatformFeeTypeUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"recipient","type":"address"}],"name":"PrimarySaleRecipientUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"role","type":"bytes32"},{"indexed":true,"internalType":"bytes32","name":"previousAdminRole","type":"bytes32"},{"indexed":true,"internalType":"bytes32","name":"newAdminRole","type":"bytes32"}],"name":"RoleAdminChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"role","type":"bytes32"},{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":true,"internalType":"address","name":"sender","type":"address"}],"name":"RoleGranted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"role","type":"bytes32"},{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":true,"internalType":"address","name":"sender","type":"address"}],"name":"RoleRevoked","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"mintedTo","type":"address"},{"indexed":false,"internalType":"uint256","name":"quantityMinted","type":"uint256"}],"name":"TokensMinted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"signer","type":"address"},{"indexed":true,"internalType":"address","name":"mintedTo","type":"address"},{"components":[{"internalType":"address","name":"to","type":"address"},{"internalType":"address","name":"primarySaleRecipient","type":"address"},{"internalType":"uint256","name":"quantity","type":"uint256"},{"internalType":"uint256","name":"price","type":"uint256"},{"internalType":"address","name":"currency","type":"address"},{"internalType":"uint128","name":"validityStartTimestamp","type":"uint128"},{"internalType":"uint128","name":"validityEndTimestamp","type":"uint128"},{"internalType":"bytes32","name":"uid","type":"bytes32"}],"indexed":false,"internalType":"struct ITokenERC20.MintRequest","name":"mintRequest","type":"tuple"}],"name":"TokensMintedWithSignature","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"CLOCK_MODE","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"DEFAULT_ADMIN_ROLE","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"DEFAULT_FEE_RECIPIENT","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"burn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"burnFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint32","name":"pos","type":"uint32"}],"name":"checkpoints","outputs":[{"components":[{"internalType":"uint32","name":"fromBlock","type":"uint32"},{"internalType":"uint224","name":"votes","type":"uint224"}],"internalType":"struct ERC20VotesUpgradeable.Checkpoint","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"clock","outputs":[{"internalType":"uint48","name":"","type":"uint48"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"contractType","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"contractURI","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"contractVersion","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"delegatee","type":"address"}],"name":"delegate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"delegatee","type":"address"},{"internalType":"uint256","name":"nonce","type":"uint256"},{"internalType":"uint256","name":"expiry","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"delegateBySig","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"delegates","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"eip712Domain","outputs":[{"internalType":"bytes1","name":"fields","type":"bytes1"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"version","type":"string"},{"internalType":"uint256","name":"chainId","type":"uint256"},{"internalType":"address","name":"verifyingContract","type":"address"},{"internalType":"bytes32","name":"salt","type":"bytes32"},{"internalType":"uint256[]","name":"extensions","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"timepoint","type":"uint256"}],"name":"getPastTotalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"timepoint","type":"uint256"}],"name":"getPastVotes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getPlatformFeeInfo","outputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint16","name":"","type":"uint16"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"}],"name":"getRoleAdmin","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"uint256","name":"index","type":"uint256"}],"name":"getRoleMember","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"}],"name":"getRoleMemberCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"getVotes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"grantRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"hasRole","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_defaultAdmin","type":"address"},{"internalType":"string","name":"_name","type":"string"},{"internalType":"string","name":"_symbol","type":"string"},{"internalType":"string","name":"_contractURI","type":"string"},{"internalType":"address[]","name":"_trustedForwarders","type":"address[]"},{"internalType":"address","name":"_primarySaleRecipient","type":"address"},{"internalType":"address","name":"_platformFeeRecipient","type":"address"},{"internalType":"uint256","name":"_platformFeeBps","type":"uint256"}],"name":"initialize","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"forwarder","type":"address"}],"name":"isTrustedForwarder","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"mintTo","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"components":[{"internalType":"address","name":"to","type":"address"},{"internalType":"address","name":"primarySaleRecipient","type":"address"},{"internalType":"uint256","name":"quantity","type":"uint256"},{"internalType":"uint256","name":"price","type":"uint256"},{"internalType":"address","name":"currency","type":"address"},{"internalType":"uint128","name":"validityStartTimestamp","type":"uint128"},{"internalType":"uint128","name":"validityEndTimestamp","type":"uint128"},{"internalType":"bytes32","name":"uid","type":"bytes32"}],"internalType":"struct ITokenERC20.MintRequest","name":"_req","type":"tuple"},{"internalType":"bytes","name":"_signature","type":"bytes"}],"name":"mintWithSignature","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"bytes[]","name":"data","type":"bytes[]"}],"name":"multicall","outputs":[{"internalType":"bytes[]","name":"results","type":"bytes[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"numCheckpoints","outputs":[{"internalType":"uint32","name":"","type":"uint32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"primarySaleRecipient","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"renounceRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"revokeRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"_uri","type":"string"}],"name":"setContractURI","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_platformFeeRecipient","type":"address"},{"internalType":"uint256","name":"_platformFeeBps","type":"uint256"}],"name":"setPlatformFeeInfo","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_saleRecipient","type":"address"}],"name":"setPrimarySaleRecipient","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"components":[{"internalType":"address","name":"to","type":"address"},{"internalType":"address","name":"primarySaleRecipient","type":"address"},{"internalType":"uint256","name":"quantity","type":"uint256"},{"internalType":"uint256","name":"price","type":"uint256"},{"internalType":"address","name":"currency","type":"address"},{"internalType":"uint128","name":"validityStartTimestamp","type":"uint128"},{"internalType":"uint128","name":"validityEndTimestamp","type":"uint128"},{"internalType":"bytes32","name":"uid","type":"bytes32"}],"internalType":"struct ITokenERC20.MintRequest","name":"_req","type":"tuple"},{"internalType":"bytes","name":"_signature","type":"bytes"}],"name":"verify","outputs":[{"internalType":"bool","name":"","type":"bool"},{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}];
+
+        // User Management
+        class UserSystem {
+            static register(email, password, referralCode = null) {
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                
+                if (users.find(u => u.email === email)) {
+                    return { error: 'Email already registered' };
+                }
+                
+                // Generate unique member ID
+                const memberId = `MSL-${Math.floor(100000 + Math.random() * 900000)}`;
+                
+                const user = {
+                    email,
+                    password: btoa(password),
+                    memberId,
+                    cryptoWallet: {
+                        address: this.generateCryptoAddress(),
+                        balance: 0
+                    },
+                    fiatWallet: {
+                        account: `MAS_${Math.floor(1000000000 + Math.random() * 9000000000)}`,
+                        balance: 0
+                    },
+                    badges: ['free'],
+                    miningSpeed: TOKENOMICS.miningBaseRate,
+                    notifications: [
+                        {
+                            message: 'Welcome to Masolites! Start by exploring the platform.',
+                            timestamp: new Date().toISOString(),
+                            read: false
+                        }
+                    ],
+                    createdAt: new Date().toISOString(),
+                    referralCode: Math.random().toString(36).substring(2, 10).toUpperCase(),
+                    referredBy: referralCode,
+                    products: [],
+                    transfers: [],
+                    upline: null,
+                    downlines: []
+                };
+                
+                users.push(user);
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // Process referral
+                if (referralCode) {
+                    MLMSystem.processReferral(referralCode, user.email, 0);
+                }
+                
+                return user;
+            }
+            
+            static login(email, password) {
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const user = users.find(u => u.email === email && u.password === btoa(password));
+                
+                if (user) {
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    return user;
+                }
+                return null;
+            }
+            
+            static getCurrentUser() {
+                return JSON.parse(localStorage.getItem('currentUser'));
+            }
+            
+            static logout() {
+                localStorage.removeItem('currentUser');
+            }
+            
+            static addNotification(user, message) {
+                if (!user) return;
+                
+                user.notifications.unshift({
+                    message,
+                    timestamp: new Date().toISOString(),
+                    read: false
+                });
+                
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const updatedUsers = users.map(u => u.email === user.email ? user : u);
+                localStorage.setItem('users', JSON.stringify(updatedUsers));
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                return user;
+            }
+            
+            static generateCryptoAddress() {
+                const chars = '0123456789ABCDEF';
+                let address = 'MZLx';
+                for (let i = 0; i < 40; i++) {
+                    address += chars[Math.floor(Math.random() * 16)];
+                }
+                return address;
+            }
+            
+            static addBadge(user, badge) {
+                if (!user.badges.includes(badge)) {
+                    user.badges.push(badge);
+                    
+                    // Update mining speed based on badges
+                    let multiplier = 1;
+                    if (user.badges.includes('platinum')) multiplier = TOKENOMICS.badgeMultipliers.platinum;
+                    else if (user.badges.includes('gold')) multiplier = TOKENOMICS.badgeMultipliers.gold;
+                    else if (user.badges.includes('silver')) multiplier = TOKENOMICS.badgeMultipliers.silver;
+                    else if (user.badges.includes('bronze')) multiplier = TOKENOMICS.badgeMultipliers.bronze;
+                    else multiplier = TOKENOMICS.badgeMultipliers.free;
+                    
+                    user.miningSpeed = TOKENOMICS.miningBaseRate * multiplier;
+                    
+                    // Update user
+                    const users = JSON.parse(localStorage.getItem('users') || '[]');
+                    const updatedUsers = users.map(u => u.email === user.email ? user : u);
+                    localStorage.setItem('users', JSON.stringify(updatedUsers));
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    
+                    return true;
+                }
+                return false;
+            }
+            
+            static getDiscount(user) {
+                if (!user) return 0;
+                
+                if (user.badges.includes('platinum')) return TOKENOMICS.discounts.platinum;
+                else if (user.badges.includes('gold')) return TOKENOMICS.discounts.gold;
+                else if (user.badges.includes('silver')) return TOKENOMICS.discounts.silver;
+                else if (user.badges.includes('bronze')) return TOKENOMICS.discounts.bronze;
+                else return TOKENOMICS.discounts.free;
+            }
+        }
+
+        // Mining System
+        class MiningSystem {
+            constructor() {
+                this.miningInterval = null;
+                this.minedAmount = 0;
+                this.totalMined = 0;
+                this.isMining = false;
+                this.startTime = 0;
+                this.miningDuration = 24 * 60 * 60 * 1000; // 24 hours
+                this.lastTotalUpdate = 0;
+            }
+            
+            startMining() {
+                if (this.isMining) return;
+                
+                const user = UserSystem.getCurrentUser();
+                if (!user) return;
+                
+                this.startTime = Date.now();
+                this.lastTotalUpdate = this.startTime;
+                
+                // Apply halving
+                const halvingFactor = this.getHalvingFactor();
+                const effectiveMiningRate = user.miningSpeed * halvingFactor;
+                
+                this.miningInterval = setInterval(() => {
+                    const now = Date.now();
+                    const elapsed = now - this.startTime;
+                    
+                    // Stop mining after 24 hours
+                    if (elapsed >= this.miningDuration) {
+                        this.stopMining();
+                        alert('Mining session completed after 24 hours!');
+                        return;
+                    }
+                    
+                    // Calculate mined amount based on user's mining speed
+                    this.minedAmount = (elapsed / 1000) * effectiveMiningRate;
+                    
+                    // Update speed display every 100ms
+                    document.getElementById('minedAmount').textContent = (effectiveMiningRate * 1000000).toFixed(6) + ' MZLx/s';
+                    
+                    // Update total display every minute
+                    if (now - this.lastTotalUpdate >= 60000) {
+                        this.totalMined = (elapsed / 1000) * effectiveMiningRate;
+                        document.getElementById('miningTotal').textContent = this.totalMined.toFixed(6) + ' MZLx';
+                        localStorage.setItem('totalMined', this.totalMined.toString());
+                        if (this.totalMined > 0) {
+                            document.getElementById('claimButton').style.display = 'flex';
+                        }
+                        this.lastTotalUpdate = now;
+                    }
+                }, 100); // Update every 100ms
+                
+                this.isMining = true;
+                document.getElementById('miningButton').innerHTML = '<i class="fas fa-stop"></i> MINING (ON)';
+                document.getElementById('miningButton').classList.add('mining-active');
+                
+                // Add notification
+                UserSystem.addNotification(user, 'Mining session started!');
+            }
+            
+            stopMining() {
+                if (!this.isMining) return;
+                
+                clearInterval(this.miningInterval);
+                this.isMining = false;
+                document.getElementById('miningButton').innerHTML = '<i class="fas fa-play"></i> START MINING (OFF)';
+                document.getElementById('miningButton').classList.remove('mining-active');
+                localStorage.setItem('totalMined', this.totalMined.toString());
+                
+                // Add notification
+                const user = UserSystem.getCurrentUser();
+                if (user) {
+                    UserSystem.addNotification(user, 'Mining session stopped!');
+                }
+            }
+            
+            async claimTokens() {
+                const user = UserSystem.getCurrentUser();
+                if (!user) {
+                    alert('Please login first!');
+                    return;
+                }
+                
+                if (this.totalMined <= 0) {
+                    alert('No tokens to claim!');
+                    return;
+                }
+                
+                try {
+                    // Connect to Metamask
+                    const provider = new ethers.providers.Web3Provider(window.ethereum);
+                    const signer = provider.getSigner();
+                    
+                    // Create contract instance
+                    const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+                    
+                    // Convert tokens to wei
+                    const tokens = ethers.utils.parseUnits(this.totalMined.toString(), 18);
+                    
+                    // Transfer tokens to user
+                    const tx = await contract.transfer(user.cryptoWallet.address, tokens);
+                    await tx.wait();
+                    
+                    // Update local balance
+                    user.cryptoWallet.balance += this.totalMined;
+                    UserSystem.addNotification(user, `Claimed ${this.totalMined.toFixed(6)} MZLx from mining!`);
+                    
+                    this.totalMined = 0;
+                    document.getElementById('miningTotal').textContent = '0.000000 MZLx';
+                    document.getElementById('claimButton').style.display = 'none';
+                    this.stopMining();
+                    
+                    alert(`Successfully claimed ${this.totalMined.toFixed(6)} MZLx!`);
+                } catch (error) {
+                    console.error('Error claiming tokens:', error);
+                    alert('Failed to claim tokens. Please try again.');
+                }
+            }
+            
+            getHalvingFactor() {
+                const now = new Date();
+                const daysSinceStart = Math.floor((now - TOKENOMICS.initialHalvingDate) / (1000 * 60 * 60 * 24));
+                const halvings = Math.floor(daysSinceStart / TOKENOMICS.halvingInterval);
+                return Math.pow(0.5, halvings);
+            }
+        }
+
+        // MLM System
+        class MLMSystem {
+            static processReferral(referralCode, newUserId, amount) {
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const referrer = users.find(u => u.referralCode === referralCode);
+                
+                if (!referrer) return;
+                
+                // Add new user as downline
+                const newUser = users.find(u => u.email === newUserId);
+                if (newUser) {
+                    newUser.upline = referrer.email;
+                    referrer.downlines.push(newUser.email);
+                }
+                
+                // Distribute rewards through 5 levels
+                let currentUpline = referrer;
+                for (let level = 0; level < TOKENOMICS.mlmLevels; level++) {
+                    if (!currentUpline) break;
+                    
+                    // Calculate reward
+                    const reward = amount * TOKENOMICS.mlmPercentage;
+                    currentUpline.cryptoWallet.balance += reward;
+                    
+                    // Add notification
+                    const message = `You earned ${reward.toFixed(6)} MZLx from level ${level+1} referral!`;
+                    UserSystem.addNotification(currentUpline, message);
+                    
+                    // Move to next upline
+                    if (currentUpline.upline) {
+                        currentUpline = users.find(u => u.email === currentUpline.upline);
+                    } else {
+                        currentUpline = null;
+                    }
+                }
+                
+                // Update users
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+        }
+
         // Initialize when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize systems
-            const miningSystem = {
-                miningInterval: null,
-                minedAmount: 0,
-                totalMined: 0,
-                isMining: false,
-                startTime: 0,
-                miningDuration: 24 * 60 * 60 * 1000,
-                lastTotalUpdate: 0,
-                
-                startMining: function() {
-                    if (this.isMining) return;
-                    
-                    const user = getCurrentUser();
-                    if (!user) return;
-                    
-                    this.startTime = Date.now();
-                    this.lastTotalUpdate = this.startTime;
-                    
-                    this.miningInterval = setInterval(() => {
-                        const now = Date.now();
-                        const elapsed = now - this.startTime;
-                        
-                        if (elapsed >= this.miningDuration) {
-                            this.stopMining();
-                            alert('Mining session completed after 24 hours!');
-                            return;
-                        }
-                        
-                        const halvings = Math.floor((now - TOKENOMICS.initialHalvingTime) / TOKENOMICS.halvingInterval);
-                        const halvingFactor = Math.pow(0.5, halvings);
-                        
-                        const currentMiningRate = user.miningSpeed * halvingFactor;
-                        this.minedAmount = (elapsed / 1000) * currentMiningRate;
-                        
-                        document.getElementById('minedAmount').textContent = (currentMiningRate * 1000000).toFixed(6) + ' MZLx/s';
-                        
-                        if (now - this.lastTotalUpdate >= 60000) {
-                            this.totalMined = (elapsed / 1000) * currentMiningRate;
-                            document.getElementById('miningTotal').textContent = this.total极ined.toFixed(6) + ' MZLx';
-                            localStorage.setItem('totalMined', this.totalMined.toString());
-                            if (this.totalMined > 0) {
-                                document.getElementById('claimButton').style.display = 'flex';
-                            }
-                            this.lastTotalUpdate = now;
-                        }
-                    }, 100);
-                    
-                    this.isMining = true;
-                    document.getElementById('miningButton').innerHTML = '<i class="fas fa-stop"></i> MINING (ON)';
-                    document.getElementById('miningButton').classList.add('mining-active');
-                    
-                    addNotification(user, 'Mining session started!');
-                },
-                
-                stopMining: function() {
-                    if (!this.isMining) return;
-                    
-                    clearInterval(this.miningInterval);
-                    this.isMining = false;
-                    document.getElementById('miningButton').innerHTML = '<i class="fas fa-play"></i> START MINING (OFF)';
-                    document.getElementById('miningButton').classList.remove('mining-active');
-                    localStorage.setItem('totalMined', this.totalMined.toString());
-                    
-                    const user = getCurrentUser();
-                    if (user) {
-                        addNotification(user, 'Mining session stopped!');
-                    }
-                },
-                
-                claimTokens: function() {
-                    const user = getCurrentUser();
-                    if (!user) {
-                        alert('Please login first!');
-                        return;
-                    }
-                    
-                    if (this.totalMined <= 0) {
-                        alert('No tokens to claim!');
-                        return;
-                    }
-                    
-                    try {
-                        user.cryptoWallet.balance += this.totalMined;
-                        addNotification(user, `Claimed ${this.totalMined.toFixed(6)} MZLx from mining!`);
-                        
-                        this.totalMined = 0;
-                        document.getElementById('miningTotal').textContent = '0.000000 MZLx';
-                        document.getElementById('claimButton').style.display = 'none';
-                        this.stopMining();
-                        
-                        alert(`Successfully claimed ${this.totalMined.toFixed(6)} MZLx!`);
-                    } catch (error) {
-                        console.error('Error claiming tokens:', error);
-                        alert('Failed to claim tokens. Please try again.');
-                    }
-                }
-            };
+            const miningSystem = new MiningSystem();
             
             // Load mined data if exists
             if (localStorage.getItem('totalMined')) {
@@ -1521,538 +1820,6 @@
             // Update current price display
             document.getElementById('currentPrice').textContent = TOKENOMICS.currentPrice.toFixed(3);
             
-            // Social Media Overlay
-            const socialOverlay = document.getElementById('socialOverlay');
-            const closeSocial = document.getElementById('closeSocial');
-            
-            // Check if user is logged in
-            const user = getCurrentUser();
-            if (user) {
-                socialOverlay.style.display = 'none';
-            } else {
-                socialOverlay.style.display = 'flex';
-            }
-            
-            closeSocial.addEventListener('click', function() {
-                socialOverlay.style.display = 'none';
-            });
-            
-            // Social interactions
-            document.querySelectorAll('.social-action').forEach(action => {
-                action.addEventListener('click', function() {
-                    const type = this.querySelector('.social-label').textContent.toLowerCase();
-                    rewardSocialActivity(type);
-                });
-            });
-            
-            // User Management Functions
-            function register(email, password, referralCode = null) {
-                const users = JSON.parse(localStorage.getItem('users') || '[]');
-                
-                if (users.find(u => u.email === email)) {
-                    return { error: 'Email already registered' };
-                }
-                
-                const memberId = `MSL-${Math.floor(100000 + Math.random() * 900000)}`;
-                
-                const user = {
-                    email,
-                    password: btoa(password),
-                    memberId,
-                    cryptoWallet: {
-                        address: generateCryptoAddress(),
-                        balance: 0
-                    },
-                    fiatWallet: {
-                        account: `MAS_${Math.floor(1000000000 + Math.random() * 9000000000)}`,
-                        balance: 0
-                    },
-                    badges: ['free'],
-                    miningSpeed: TOKENOMICS.miningBaseRate,
-                    notifications: [
-                        {
-                            message: 'Welcome to Masolites! Start by exploring the platform.',
-                            timestamp: new Date().toISOString(),
-                            read: false
-                        }
-                    ],
-                    createdAt: new Date().toISOString(),
-                    referralCode: Math.random().toString(36).substring(2, 10).toUpperCase(),
-                    referredBy: referralCode,
-                    products: [],
-                    transfers: [],
-                    socialPoints: 0,
-                    mlmLevel: 0
-                };
-                
-                users.push(user);
-                localStorage.setItem('users', JSON.stringify(users));
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                
-                if (referralCode) {
-                    processReferral(referralCode, user.email, 'registration', 0);
-                }
-                
-                return user;
-            }
-            
-            function login(email, password) {
-                const users = JSON.parse(localStorage.getItem('users') || '[]');
-                const user = users.find(u => u.email === email && u.password === btoa(password));
-                
-                if (user) {
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    return user;
-                }
-                return null;
-            }
-            
-            function getCurrentUser() {
-                return JSON.parse(localStorage.getItem('currentUser'));
-            }
-            
-            function logout() {
-                localStorage.removeItem('currentUser');
-            }
-            
-            function addNotification(user, message) {
-                if (!user) return;
-                
-                user.notifications.unshift({
-                    message,
-                    timestamp: new Date().toISOString(),
-                    read: false
-                });
-                
-                const users = JSON.parse(localStorage.getItem('users') || '[]');
-                const updatedUsers = users.map(u => u.email === user.email ? user : u);
-                localStorage.setItem('users', JSON.stringify(updatedUsers));
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                
-                return user;
-            }
-            
-            function generateCryptoAddress() {
-                const chars = '0123456789ABCDEF';
-                let address = 'MZLx';
-                for (let i = 0; i < 40; i++) {
-                    address += chars[Math.floor(Math.random() * 16)];
-                }
-                return address;
-            }
-            
-            function addBadge(user, badge) {
-                if (!user.badges.includes(badge)) {
-                    user.badges.push(badge);
-                    
-                    let multiplier = 1;
-                    if (user.badges.includes('platinum')) multiplier = TOKENOMICS.badgeMultipliers.platinum;
-                    else if (user.badges.includes('gold')) multiplier = TOKENOMICS.badgeMultipliers.gold;
-                    else if (user.badges.includes('silver')) multiplier = TOKENOMICS.badgeMultipliers.silver;
-                    else if (user.badges.includes('bronze')) multiplier = TOKENOMICS.badgeMultipliers.bronze;
-                    else multiplier = TOKENOMICS.badgeMultipliers.free;
-                    
-                    user.miningSpeed = TOKENOMICS.miningBaseRate * multiplier;
-                    
-                    const users = JSON.parse(localStorage.getItem('users') || '[]');
-                    const updatedUsers = users.map(u => u.email === user.email ? user : u);
-                    localStorage.setItem('users', JSON.stringify(updatedUsers));
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    
-                    return true;
-                }
-                return false;
-            }
-            
-            function getDiscount(user) {
-                if (!user) return 0;
-                
-                if (user.badges.includes('platinum')) return TOKENOMICS.discounts.platinum;
-                else if (user.badges.includes('gold')) return TOKENOMICS.discounts.gold;
-                else if (user.badges.includes('silver')) return TOKENOMICS.discounts.silver;
-                else if (user.badges.includes('bronze')) return TOKENOMICS.discounts.bronze;
-                else return TOKENOMICS.discounts.free;
-            }
-            
-            // Save & Earn Functions
-            function submitDeposit(amount, date, time) {
-                const user = getCurrentUser();
-                if (!user) return { error: 'Not authenticated' };
-                
-                const deposit = {
-                    id: Date.now(),
-                    userId: user.email,
-                    amount,
-                    date,
-                    time,
-                    status: 'pending',
-                    timestamp: new Date().toISOString()
-                };
-                
-                const deposits = JSON.parse(localStorage.getItem('depositSubmissions') || '[]');
-                deposits.push(deposit);
-                localStorage.setItem('depositSubmissions', JSON.stringify(deposits));
-                
-                const activity = JSON.parse(localStorage.getItem('activity') || '[]');
-                activity.unshift({
-                    userId: user.email,
-                    action: 'Deposit Submitted',
-                    details: `Manual deposit: ₦${amount}`,
-                    timestamp: new Date().toISOString()
-                });
-                localStorage.setItem('activity', JSON.stringify(activity));
-                
-                addNotification(user, `Manual deposit of ₦${amount} submitted. Waiting for admin approval.`);
-                
-                return deposit;
-            }
-            
-            function processFlutterwave(amount) {
-                const user = getCurrentUser();
-                if (!user) return { error: 'Not authenticated' };
-                
-                FlutterwaveCheckout({
-                    public_key: FLW_PUBLIC_KEY,
-                    tx_ref: "DEPOSIT-" + Date.now(),
-                    amount: amount,
-                    currency: "NGN",
-                    payment_options: "card, banktransfer, ussd",
-                    customer: {
-                        email: user.email,
-                        name: "Masolites User"
-                    },
-                    callback: function(response) {
-                        if (response.status === "successful") {
-                            user.fiatWallet.balance += amount;
-                            addNotification(user, `Flutterwave deposit of ₦${amount} successful!`);
-                            
-                            const activity = JSON.parse(localStorage.getItem('activity') || '[]');
-                            activity.unshift({
-                                userId: user.email,
-                                action: 'Flutterwave Deposit',
-                                details: `Amount: ₦${amount}`,
-                                timestamp: new Date().toISOString()
-                            });
-                            localStorage.setItem('activity', JSON.stringify(activity));
-                            
-                            alert(`Successfully deposited ₦${amount}!`);
-                        } else {
-                            alert("Payment failed. Please try again.");
-                        }
-                    },
-                    customizations: {
-                        title: "Masolites Deposit",
-                        description: "Fund your account",
-                        logo: "https://masolites.com/logo.png"
-                    }
-                });
-            }
-            
-            // Escrow Shop Functions
-            function listProduct(name, description, price, category) {
-                const user = getCurrentUser();
-                if (!user) return { error: 'Not authenticated' };
-                
-                if (user.badges.includes('free') && user.products.length >= TOKENOMICS.maxFreeProducts) {
-                    return { error: `Free members can only list up to ${TOKENOMICS.maxFreeProducts} products. Upgrade to list more.` };
-                }
-                
-                const product = {
-                    id: Date.now(),
-                    sellerId: user.email,
-                    sellerAddress: user.cryptoWallet.address,
-                    name,
-                    description,
-                    price,
-                    category,
-                    timestamp: new Date().toISOString(),
-                    status: 'active'
-                };
-                
-                user.products.push(product);
-                
-                const users = JSON.parse(localStorage.getItem('users') || '[]');
-                const updatedUsers = users.map(u => u.email === user.email ? user : u);
-                localStorage.setItem('users', JSON.stringify(updatedUsers));
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                
-                const activity = JSON.parse(localStorage.getItem('activity') || '[]');
-                activity.unshift({
-                    userId: user.email,
-                    action: 'Product Listed',
-                    details: `Product: ${name}, Price: ${price} MZLx`,
-                    timestamp: new Date().toISOString()
-                });
-                localStorage.setItem('activity', JSON.stringify(activity));
-                
-                addNotification(user, `Product "${name}" listed successfully!`);
-                
-                return product;
-            }
-            
-            function getAllProducts() {
-                const users = JSON.parse(localStorage.getItem('users') || '[]');
-                const products = [];
-                
-                users.forEach(user => {
-                    user.products.forEach(product => {
-                        if (product.status === 'active') {
-                            products.push({
-                                ...product,
-                                sellerName: user.email
-                            });
-                        }
-                    });
-                });
-                
-                return products;
-            }
-            
-            function buyProduct(productId) {
-                const user = getCurrentUser();
-                if (!user) return { error: 'Not authenticated' };
-                
-                const users = JSON.parse(localStorage.getItem('users') || '[]');
-                let product = null;
-                let seller = null;
-                
-                for (const u of users) {
-                    const p = u.products.find(p => p.id === productId);
-                    if (p) {
-                        product = p;
-                        seller = u;
-                        break;
-                    }
-                }
-                
-                if (!product || !seller) {
-                    return { error: 'Product not found' };
-                }
-                
-                try {
-                    const discount = getDiscount(user);
-                    const discountedPrice = product.price * (1 - discount);
-                    
-                    user.cryptoWallet.balance -= discountedPrice;
-                    seller.cryptoWallet.balance += discountedPrice;
-                    
-                    product.status = 'sold';
-                    
-                    const updatedUsers = users.map(u => {
-                        if (u.email === seller.email) {
-                            u.products = u.products.map(p => 
-                                p.id === product.id ? product : p
-                            );
-                            return u;
-                        }
-                        return u;
-                    });
-                    
-                    localStorage.setItem('users', JSON.stringify(updatedUsers));
-                    
-                    user.transfers.push({
-                        type: 'out',
-                        amount: discountedPrice,
-                        recipient: seller.email,
-                        timestamp: new Date().toISOString(),
-                        productId: product.id
-                    });
-                    
-                    seller.transfers.push({
-                        type: 'in',
-                        amount: discountedPrice,
-                        sender: user.email,
-                        timestamp: new Date().toISOString(),
-                        productId: product.id
-                    });
-                    
-                    const updatedUsersWithBuyer = updatedUsers.map(u => 
-                        u.email === user.email ? user : u
-                    );
-                    localStorage.setItem('users', JSON.stringify(updatedUsersWithBuyer));
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    
-                    addNotification(user, `Purchased "${product.name}" for ${discountedPrice.toFixed(2)} MZLx`);
-                    addNotification(seller, `Sold "${product.name}" for ${discountedPrice.toFixed(2)} MZLx`);
-                    
-                    return { success: true };
-                } catch (error) {
-                    console.error('Error buying product:', error);
-                    return { error: 'Failed to complete transaction' };
-                }
-            }
-            
-            // P2P Transfer Functions
-            function transferTokens(recipientAddress, amount) {
-                const user = getCurrentUser();
-                if (!user) return { error: 'Not authenticated' };
-                
-                if (amount <= 0) {
-                    return { error: 'Invalid amount' };
-                }
-                
-                try {
-                    const users = JSON.parse(localStorage.getItem('users') || '[]');
-                    const recipientUser = users.find(u => u.cryptoWallet.address === recipientAddress);
-                    
-                    if (!recipientUser) {
-                        return { error: 'Recipient not found' };
-                    }
-                    
-                    user.cryptoWallet.balance -= amount;
-                    recipientUser.cryptoWallet.balance += amount;
-                    
-                    user.transfers.push({
-                        type: 'out',
-                        amount: amount,
-                        recipient: recipientAddress,
-                        timestamp: new Date().toISOString()
-                    });
-                    
-                    recipientUser.transfers.push({
-                        type: 'in',
-                        amount: amount,
-                        sender: user.email,
-                        timestamp: new Date().toISOString()
-                    });
-                    
-                    const updatedUsers = users.map(u => 
-                        u.email === user.email ? user : 
-                        u.email === recipientUser.email ? recipientUser : u
-                    );
-                    localStorage.setItem('users', JSON.stringify(updatedUsers));
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    
-                    addNotification(user, `Sent ${amount} MZLx to ${recipientAddress.substring(0, 8)}...`);
-                    
-                    return { success: true };
-                } catch (error) {
-                    console.error('Error transferring tokens:', error);
-                    return { error: 'Failed to complete transfer' };
-                }
-            }
-            
-            // MLM Functions
-            function processReferral(referralCode, newUserId, type, amount = 0) {
-                const users = JSON.parse(localStorage.getItem('users') || '[]');
-                const referrer = users.find(u => u.referralCode === referralCode);
-                
-                if (!referrer) return;
-                
-                const uplineChain = getUplineChain(referrer.email, MLM_CONFIG.levels);
-                
-                let commissionBase = 0;
-                if (type === 'registration') {
-                    commissionBase = 10;
-                } else if (type === 'purchase') {
-                    commissionBase = amount * MLM_CONFIG.commissionRate;
-                }
-                
-                uplineChain.forEach((upline, level) => {
-                    if (level >= MLM_CONFIG.levels) return;
-                    
-                    const commission = commissionBase * Math.pow(0.5, level);
-                    const uplineUser = users.find(u => u.email === upline);
-                    
-                    if (uplineUser) {
-                        uplineUser.cryptoWallet.balance += commission;
-                        
-                        uplineUser.transfers.push({
-                            type: 'mlm',
-                            amount: commission,
-                            from: newUserId,
-                            level: level + 1,
-                            timestamp: new Date().toISOString()
-                        });
-                        
-                        addNotification(uplineUser, `You earned ${commission.toFixed(6)} MZLx from level ${level + 1} referral!`);
-                    }
-                });
-                
-                localStorage.setItem('users', JSON.stringify(users));
-            }
-            
-            function getUplineChain(startEmail, levels) {
-                const users = JSON.parse(localStorage.getItem('users') || '[]');
-                const chain = [];
-                let currentEmail = startEmail;
-                
-                for (let i = 0; i < levels; i++) {
-                    const user = users.find(u => u.email === currentEmail);
-                    if (!user || !user.referredBy) break;
-                    
-                    const upline = users.find(u => u.referralCode === user.referredBy);
-                    if (!upline) break;
-                    
-                    chain.push(upline.email);
-                    currentEmail = upline.email;
-                }
-                
-                return chain;
-            }
-            
-            // Voting Functions
-            function submitVote(newPrice) {
-                const user = getCurrentUser();
-                if (!user) return { error: 'Not authenticated' };
-                
-                const hasVotingRight = user.badges.some(badge => 
-                    badge === 'bronze' || badge === 'silver' || badge === 'gold' || badge === 'platinum'
-                );
-                
-                if (!hasVotingRight) {
-                    return { error: 'Only badge holders can vote' };
-                }
-                
-                const now = new Date();
-                const nigeriaTime = new Date(now.toLocaleString("en-US", {timeZone: "Africa/Lagos"}));
-                const hours = nigeriaTime.getHours();
-                const minutes = nigeriaTime.getMinutes();
-                
-                if (hours < 18 || (hours === 23 && minutes > 30) || hours >= 24) {
-                    return { error: 'Voting only allowed between 6pm - 11:30pm WAT' };
-                }
-                
-                const votes = JSON.parse(localStorage.getItem('votes') || '[]');
-                votes.push({
-                    userId: user.email,
-                    price: newPrice,
-                    timestamp: new Date().toISOString()
-                });
-                localStorage.setItem('votes', JSON.stringify(votes));
-                
-                addNotification(user, `Vote submitted for new price: $${newPrice}`);
-                
-                return { success: true };
-            }
-            
-            // Social Media Functions
-            function rewardSocialActivity(type) {
-                const user = getCurrentUser();
-                if (!user) return;
-                
-                let points = 0;
-                
-                switch(type) {
-                    case 'like': points = 1; break;
-                    case 'comment': points = 2; break;
-                    case 'share': points = 3; break;
-                    case 'watch': points = 5; break;
-                    case 'live': points = 10; break;
-                }
-                
-                user.socialPoints += points;
-                
-                addNotification(user, `You earned ${points} social points for ${type} activity!`);
-                
-                const users = JSON.parse(localStorage.getItem('users') || '[]');
-                const updatedUsers = users.map(u => u.email === user.email ? user : u);
-                localStorage.setItem('users', JSON.stringify(updatedUsers));
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                
-                return points;
-            }
-            
             // Auth Event Listeners
             document.getElementById('loginBtn').addEventListener('click', function() {
                 document.getElementById('loginModal').style.display = 'flex';
@@ -2073,7 +1840,7 @@
                 const password = document.getElementById('registerPassword').value;
                 const referralCode = document.getElementById('referralCode').value || null;
                 
-                const result = register(email, password, referralCode);
+                const result = UserSystem.register(email, password, referralCode);
                 if (result.error) {
                     alert(result.error);
                 } else {
@@ -2087,7 +1854,7 @@
                 const email = document.getElementById('loginEmail').value;
                 const password = document.getElementById('loginPassword').value;
                 
-                const user = login(email, password);
+                const user = UserSystem.login(email, password);
                 if (user) {
                     alert('Login successful!');
                     document.getElementById('loginModal').style.display = 'none';
@@ -2099,7 +1866,7 @@
             
             // Mining Event Listeners
             document.getElementById('miningButton').addEventListener('click', function() {
-                if (!getCurrentUser()) {
+                if (!UserSystem.getCurrentUser()) {
                     alert('Please login to start mining');
                     document.getElementById('loginModal').style.display = 'flex';
                     return;
@@ -2118,7 +1885,7 @@
             
             // Save & Earn
             document.getElementById('saveEarnBtn').addEventListener('click', function() {
-                if (!getCurrentUser()) {
+                if (!UserSystem.getCurrentUser()) {
                     alert('Please login to use Save & Earn');
                     document.getElementById('loginModal').style.display = 'flex';
                     return;
@@ -2126,43 +1893,9 @@
                 document.getElementById('saveEarnModal').style.display = 'flex';
             });
             
-            document.getElementById('submitDeposit').addEventListener('click', function() {
-                const amount = parseFloat(document.getElementById('depositAmount').value);
-                const date = document.getElementById('receiptDate').value;
-                const time = document.getElementById('receiptTime').value;
-                
-                if (amount < 500 || amount > 2000000) {
-                    alert('Amount must be between ₦500 and ₦2,000,000');
-                    return;
-                }
-                
-                if (!date || !time) {
-                    alert('Please provide receipt date and time');
-                    return;
-                }
-                
-                const deposit = submitDeposit(amount, date, time);
-                if (deposit.error) {
-                    alert(deposit.error);
-                } else {
-                    alert('Deposit submitted for approval!');
-                    document.getElementById('saveEarnModal').style.display = 'none';
-                }
-            });
-            
-            // Flutterwave payment
-            document.getElementById('processFlutterwave').addEventListener('click', function() {
-                const amount = parseFloat(document.getElementById('fwAmount').value);
-                if (amount < 500) {
-                    alert('Minimum deposit is ₦500');
-                    return;
-                }
-                processFlutterwave(amount);
-            });
-            
             // Dashboard
             document.getElementById('platformWalletBtn').addEventListener('click', function() {
-                const user = getCurrentUser();
+                const user = UserSystem.getCurrentUser();
                 if (!user) {
                     alert('Please login to view wallet');
                     document.getElementById('loginModal').style.display = 'flex';
@@ -2201,14 +1934,58 @@
                     return;
                 }
                 
-                const result = await transferTokens(recipientAddress, amount);
-                if (result.error) {
-                    alert(result.error);
-                } else {
-                    alert(`Successfully sent ${amount} MZLx!`);
-                    document.getElementById('recipientAddress').value = '';
-                    document.getElementById('transferAmount').value = '10';
+                // This would be handled by the blockchain in a real app
+                const user = UserSystem.getCurrentUser();
+                if (user.cryptoWallet.balance < amount) {
+                    alert('Insufficient balance');
+                    return;
                 }
+                
+                // Deduct amount + fee
+                const fee = amount * TOKENOMICS.platformFee;
+                const total = amount + fee;
+                
+                if (user.cryptoWallet.balance < total) {
+                    alert(`Insufficient balance to cover amount + fee (${fee.toFixed(6)} MZLx)`);
+                    return;
+                }
+                
+                user.cryptoWallet.balance -= total;
+                
+                // Add transfer record
+                user.transfers.push({
+                    type: 'out',
+                    amount,
+                    recipient: recipientAddress,
+                    fee,
+                    timestamp: new Date().toISOString()
+                });
+                
+                // Find recipient and credit them
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const recipient = users.find(u => u.cryptoWallet.address === recipientAddress);
+                if (recipient) {
+                    recipient.cryptoWallet.balance += amount;
+                    recipient.transfers.push({
+                        type: 'in',
+                        amount,
+                        sender: user.email,
+                        timestamp: new Date().toISOString()
+                    });
+                    
+                    // Update recipient
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+                
+                // Update sender
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                alert(`Successfully sent ${amount.toFixed(6)} MZLx to ${recipientAddress.substring(0, 8)}...`);
+                document.getElementById('cryptoBalance').textContent = user.cryptoWallet.balance.toFixed(6);
+                
+                // Add notification
+                UserSystem.addNotification(user, `Sent ${amount.toFixed(6)} MZLx to ${recipientAddress.substring(0, 8)}...`);
             });
             
             // Voting
@@ -2219,17 +1996,16 @@
                     return;
                 }
                 
-                const result = submitVote(newPrice);
-                if (result.error) {
-                    alert(result.error);
-                } else {
-                    alert(`Vote submitted for new price: $${newPrice}`);
-                }
+                // This would be handled by the blockchain in a real app
+                TOKENOMICS.currentPrice = newPrice;
+                document.getElementById('currentPrice').textContent = newPrice.toFixed(3);
+                
+                alert(`Vote submitted for new price: $${newPrice}`);
             });
             
             // Buy MAZOL
             document.getElementById('buyButton').addEventListener('click', function() {
-                const user = getCurrentUser();
+                const user = UserSystem.getCurrentUser();
                 if (!user) {
                     alert('Please login to buy tokens');
                     document.getElementById('loginModal').style.display = 'flex';
@@ -2244,12 +2020,13 @@
                 const membershipLevel = document.getElementById('membershipLevel').value;
                 const amount = parseFloat(document.getElementById('buyAmount').value);
                 
+                // Validate minimum amounts
                 let minAmount = 0;
                 switch(membershipLevel) {
                     case 'bronze': minAmount = 25; break;
                     case 'silver': minAmount = 1000; break;
                     case 'gold': minAmount = 2000; break;
-                    case 'platinum': minAmount = 1000; break;
+                    case 'platinum': minAmount = 1000; break; // Paid registration
                 }
                 
                 if (amount < minAmount) {
@@ -2257,13 +2034,17 @@
                     return;
                 }
                 
-                const user = getCurrentUser();
+                // Add badge to user
+                const user = UserSystem.getCurrentUser();
                 if (user) {
-                    addBadge(user, membershipLevel);
+                    UserSystem.addBadge(user, membershipLevel);
+                    
+                    // Add tokens to user's wallet
                     user.cryptoWallet.balance += amount;
                     
+                    // Process MLM
                     if (user.referredBy) {
-                        processReferral(user.referredBy, user.email, 'purchase', amount);
+                        MLMSystem.processReferral(user.referredBy, user.email, amount);
                     }
                     
                     alert(`Successfully purchased ${amount} MZLx and upgraded to ${membershipLevel} membership!`);
@@ -2272,7 +2053,7 @@
                 }
             });
             
-            // Admin button
+            // Admin button with enhanced security
             document.getElementById('adminBtn').addEventListener('click', function() {
                 document.getElementById('adminAccessModal').style.display = 'flex';
             });
@@ -2283,6 +2064,7 @@
                 const password = document.getElementById('adminPassword').value;
                 const pin = document.getElementById('adminPin').value;
                 
+                // Hardcoded admin credentials
                 const ADMIN_CREDENTIALS = {
                     username: "admin",
                     password: "Masolites123",
@@ -2308,13 +2090,30 @@
                 }
                 
                 try {
-                    // Simulated connection for demo
-                    const user = getCurrentUser();
+                    // Request account access
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const userAddress = accounts[0];
+                    
+                    // Create provider and signer
+                    const provider = new ethers.providers.Web3Provider(window.ethereum);
+                    const signer = provider.getSigner();
+                    
+                    // Create contract instance
+                    const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+                    
+                    // Get token balance
+                    const balance = await contract.balanceOf(userAddress);
+                    const formattedBalance = ethers.utils.formatUnits(balance, 18);
+                    
+                    // Update UI
+                    const user = UserSystem.getCurrentUser();
                     if (user) {
-                        alert('Wallet connected successfully!');
-                    } else {
-                        alert('Please login first');
+                        user.cryptoWallet.balance = parseFloat(formattedBalance);
+                        localStorage.setItem('currentUser', JSON.stringify(user));
+                        document.getElementById('cryptoBalance').textContent = formattedBalance;
                     }
+                    
+                    alert(`Successfully connected to wallet! Balance: ${formattedBalance} MZLx`);
                 } catch (error) {
                     console.error('Error connecting to Metamask:', error);
                     alert('Failed to connect to wallet. Please try again.');
@@ -2323,18 +2122,19 @@
             
             // Logout
             document.getElementById('logoutBtn').addEventListener('click', function() {
-                logout();
+                UserSystem.logout();
                 location.reload();
             });
             
             // Profile update
             document.getElementById('updateProfile').addEventListener('click', function() {
-                const user = getCurrentUser();
+                const user = UserSystem.getCurrentUser();
                 if (!user) return;
                 
                 user.fullName = document.getElementById('userFullName').value;
                 user.phone = document.getElementById('userPhone').value;
                 
+                // Update user
                 const users = JSON.parse(localStorage.getItem('users') || []);
                 const updatedUsers = users.map(u => u.email === user.email ? user : u);
                 localStorage.setItem('users', JSON.stringify(updatedUsers));
@@ -2345,7 +2145,7 @@
             
             // Escrow Shop
             document.getElementById('escrowShopBtn').addEventListener('click', function() {
-                const user = getCurrentUser();
+                const user = UserSystem.getCurrentUser();
                 if (!user) {
                     alert('Please login to use Escrow Shop');
                     document.getElementById('loginModal').style.display = 'flex';
@@ -2357,179 +2157,126 @@
                 document.getElementById('escrowShopModal').style.display = 'flex';
             });
             
-            // List product
-            document.getElementById('listProductBtn').addEventListener('click', function() {
-                const name = document.getElementById('productName').value;
-                const description = document.getElementById('productDescription').value;
-                const price = parseFloat(document.getElementById('productPrice').value);
-                const category = document.getElementById('productCategory').value;
-                
-                if (!name || !description || !price) {
-                    alert('Please fill all fields');
-                    return;
-                }
-                
-                const result = listProduct(name, description, price, category);
-                if (result.error) {
-                    alert(result.error);
-                } else {
-                    alert('Product listed successfully!');
-                    document.getElementById('productName').value = '';
-                    document.getElementById('productDescription').value = '';
-                    document.getElementById('productPrice').value = '10';
-                }
+            // Social Media Overlay
+            document.getElementById('socialCloseBtn').addEventListener('click', function() {
+                document.getElementById('socialOverlay').style.display = 'none';
             });
             
-            // Search products
-            document.getElementById('searchProductsBtn').addEventListener('click', function() {
-                loadProducts(document.getElementById('productSearch').value);
+            document.getElementById('socialLoginBtn').addEventListener('click', function() {
+                document.getElementById('loginModal').style.display = 'flex';
+                document.getElementById('socialOverlay').style.display = 'none';
             });
-            
-            // Buy product
-            document.getElementById('buyProductBtn').addEventListener('click', async function() {
-                const productId = parseInt(this.dataset.productId);
-                
-                const result = await buyProduct(productId);
-                if (result.error) {
-                    alert(result.error);
-                } else {
-                    alert('Purchase successful!');
-                    document.getElementById('productDetailModal').style.display = 'none';
-                    document.getElementById('escrowShopModal').style.display = 'flex';
-                    loadProducts();
-                }
-            });
-            
-            // Tab switching
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const tab = this.dataset.tab;
-                    const tabsContainer = this.closest('.tabs');
-                    
-                    tabsContainer.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const contentContainer = this.closest('.modal-body');
-                    contentContainer.querySelectorAll('.tab-content').forEach(content => {
-                        content.classList.remove('active');
-                    });
-                    document.getElementById(`${tab}Tab`).classList.add('active');
-                });
-            });
-            
-            // Modal close buttons
-            document.querySelectorAll('.modal-close').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    this.closest('.modal').style.display = 'none';
-                });
-            });
-            
-            // Close modals when clicking outside
-            window.addEventListener('click', function(e) {
-                if (e.target.classList.contains('modal')) {
-                    document.querySelectorAll('.modal').forEach(modal => {
-                        modal.style.display = 'none';
-                    });
-                }
-            });
-            
-            // Display user badges
-            function displayBadges() {
-                const user = getCurrentUser();
-                const badgeContainer = document.getElementById('badgeContainer');
-                badgeContainer.innerHTML = '';
-                
-                if (user) {
-                    const badges = {
-                        'free': { icon: 'fas fa-gift', class: 'badge-free' },
-                        'bronze': { icon: 'fas fa-medal', class: 'badge-bronze' },
-                        'silver': { icon: 'fas fa-medal', class: 'badge-silver' },
-                        'gold': { icon: 'fas fa-medal', class: 'badge-gold' },
-                        'platinum': { icon: 'fas fa-star', class: 'badge-platinum' }
-                    };
-                    
-                    user.badges.forEach(badge => {
-                        if (badges[badge]) {
-                            const badgeEl = document.createElement('div');
-                            badgeEl.className = `badge ${badges[badge].class}`;
-                            badgeEl.innerHTML = `<i class="${badges[badge].icon}"></i>`;
-                            badgeEl.title = badge.charAt(0).toUpperCase() + badge.slice(1);
-                            badgeContainer.appendChild(badgeEl);
-                        }
-                    });
-                }
-            }
-            
-            // Load products for Escrow Shop
-            function loadProducts(searchTerm = '') {
-                const products = getAllProducts();
-                const productGrid = document.getElementById('productGrid');
-                productGrid.innerHTML = '';
-                
-                const user = getCurrentUser();
-                const discount = user ? getDiscount(user) : 0;
-                
-                const filteredProducts = products.filter(product => 
-                    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    product.category.toLowerCase().includes(searchTerm.toLowerCase())
-                );
-                
-                filteredProducts.forEach(product => {
-                    const discountedPrice = product.price * (1 - discount);
-                    
-                    const productCard = document.createElement('div');
-                    productCard.className = 'product-card';
-                    productCard.dataset.id = product.id;
-                    productCard.innerHTML = `
-                        <div class="product-image">
-                            <i class="fas fa-image"></i>
-                        </div>
-                        <div class="product-title">${product.name}</div>
-                        <div class="product-price">${discountedPrice.toFixed(2)} MZLx</div>
-                        ${discount > 0 ? `<div class="discount-badge">${(discount * 100).toFixed(0)}% OFF</div>` : ''}
-                    `;
-                    
-                    productCard.addEventListener('click', function() {
-                        const productId = parseInt(this.dataset.id);
-                        showProductDetail(productId);
-                    });
-                    
-                    productGrid.appendChild(productCard);
-                });
-            }
-            
-            // Show product details
-            function showProductDetail(productId) {
-                const products = getAllProducts();
-                const product = products.find(p => p.id === productId);
-                
-                if (!product) return;
-                
-                const user = getCurrentUser();
-                const discount = user ? getDiscount(user) : 0;
-                const discountedPrice = product.price * (1 - discount);
-                
-                document.getElementById('productDetailTitle').textContent = product.name;
-                document.getElementById('productDetailDescription').textContent = product.description;
-                document.getElementById('productDetailPrice').textContent = `${discountedPrice.toFixed(2)} MZLx (${discount > 0 ? (discount * 100).toFixed(0) + '% OFF' : 'No discount'})`;
-                document.getElementById('productDetailSeller').textContent = product.sellerName || product.sellerAddress.substring(0, 12) + '...';
-                document.getElementById('productDetailCategory').textContent = product.category.charAt(0).toUpperCase() + product.category.slice(1);
-                
-                document.getElementById('buyProductBtn').dataset.productId = productId;
-                
-                document.getElementById('productDetailModal').style.display = 'flex';
-            }
             
             // Check if user is logged in
-            const user = getCurrentUser();
+            const user = UserSystem.getCurrentUser();
             if (user) {
                 document.getElementById('loginBtn').style.display = 'none';
                 document.getElementById('registerBtn').style.display = 'none';
                 document.getElementById('logoutBtn').style.display = 'flex';
                 displayBadges();
+            } else {
+                // Show social media overlay for new visitors
+                document.getElementById('socialOverlay').style.display = 'flex';
             }
         });
+        
+        // Display user badges
+        function displayBadges() {
+            const user = UserSystem.getCurrentUser();
+            const badgeContainer = document.getElementById('badgeContainer');
+            badgeContainer.innerHTML = '';
+            
+            if (user) {
+                const badges = {
+                    'free': { icon: 'fas fa-gift', class: 'badge-free' },
+                    'bronze': { icon: 'fas fa-medal', class: 'badge-bronze' },
+                    'silver': { icon: 'fas fa-medal', class: 'badge-silver' },
+                    'gold': { icon: 'fas fa-medal', class: 'badge-gold' },
+                    'platinum': { icon: 'fas fa-star', class: 'badge-platinum' }
+                };
+                
+                user.badges.forEach(badge => {
+                    if (badges[badge]) {
+                        const badgeEl = document.createElement('div');
+                        badgeEl.className = `badge ${badges[badge].class}`;
+                        badgeEl.innerHTML = `<i class="${badges[badge].icon}"></i>`;
+                        badgeEl.title = badge.charAt(0).toUpperCase() + badge.slice(1);
+                        badgeContainer.appendChild(badgeEl);
+                    }
+                });
+            }
+        }
+        
+        // Load products for Escrow Shop
+        function loadProducts() {
+            // This would come from a database in a real app
+            const products = [
+                { id: 1, name: "iPhone 13 Pro", price: 1500, category: "electronics", seller: "TechDeals" },
+                { id: 2, name: "Designer Watch", price: 800, category: "fashion", seller: "FashionHub" },
+                { id: 3, name: "Web Development", price: 500, category: "services", seller: "DevServices" },
+                { id: 4, name: "Apartment for Rent", price: 5000, category: "real-estate", seller: "PropertyPlus" },
+                { id: 5, name: "Laptop Bag", price: 120, category: "others", seller: "AccessoriesRUs" },
+                { id: 6, name: "Smart TV 55\"", price: 1200, category: "electronics", seller: "ElectroWorld" }
+            ];
+            
+            const productGrid = document.getElementById('productGrid');
+            productGrid.innerHTML = '';
+            
+            const user = UserSystem.getCurrentUser();
+            const discount = user ? UserSystem.getDiscount(user) : 0;
+            
+            products.forEach(product => {
+                const discountedPrice = product.price * (1 - discount);
+                
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.dataset.id = product.id;
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <div class="product-title">${product.name}</div>
+                    <div class="product-price">${discountedPrice.toFixed(2)} MZLx</div>
+                    ${discount > 0 ? `<div class="discount-badge">${(discount * 100).toFixed(0)}% OFF</div>` : ''}
+                `;
+                
+                productCard.addEventListener('click', function() {
+                    const productId = parseInt(this.dataset.id);
+                    showProductDetail(productId);
+                });
+                
+                productGrid.appendChild(productCard);
+            });
+        }
+        
+        // Show product details
+        function showProductDetail(productId) {
+            const products = [
+                { id: 1, name: "iPhone 13 Pro", description: "Brand new iPhone 13 Pro with 256GB storage", price: 1500, category: "electronics", seller: "TechDeals" },
+                { id: 2, name: "Designer Watch", description: "Luxury designer watch with leather strap", price: 800, category: "fashion", seller: "FashionHub" },
+                { id: 3, name: "Web Development", description: "Professional website development services", price: 500, category: "services", seller: "DevServices" },
+                { id: 4, name: "Apartment for Rent", description: "2-bedroom apartment in city center", price: 5000, category: "real-estate", seller: "PropertyPlus" },
+                { id: 5, name: "Laptop Bag", description: "Premium leather laptop bag", price: 120, category: "others", seller: "AccessoriesRUs" },
+                { id: 6, name: "Smart TV 55\"", description: "4K Smart TV with HDR", price: 1200, category: "electronics", seller: "ElectroWorld" }
+            ];
+            
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const user = UserSystem.getCurrentUser();
+            const discount = user ? UserSystem.getDiscount(user) : 0;
+            const discountedPrice = product.price * (1 - discount);
+            
+            document.getElementById('productDetailTitle').textContent = product.name;
+            document.getElementById('productDetailDescription').textContent = product.description;
+            document.getElementById('productDetailPrice').textContent = `${discountedPrice.toFixed(2)} MZLx (${discount > 0 ? (discount * 100).toFixed(0) + '% OFF' : 'No discount'})`;
+            document.getElementById('productDetailSeller').textContent = product.seller;
+            document.getElementById('productDetailCategory').textContent = product.category.charAt(0).toUpperCase() + product.category.slice(1);
+            
+            document.getElementById('buyProductBtn').dataset.productId = productId;
+            
+            document.getElementById('productDetailModal').style.display = 'flex';
+        }
     </script>
 </body>
 </html>
