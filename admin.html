@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MASOLITES ECOMAS - Admin Panel</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -321,15 +321,13 @@
             color: var(--navy);
         }
         
-        /* Hide scrollbar for Chrome, Safari and Opera */
         .admin-main::-webkit-scrollbar {
             display: none;
         }
         
-        /* Hide scrollbar for IE, Edge and Firefox */
         .admin-main {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
@@ -513,6 +511,25 @@
                     </table>
                 </div>
             </div>
+
+            <div class="admin-card">
+                <h2 class="admin-card-title"><i class="fas fa-comments"></i> TruYan Social Settings</h2>
+                <div class="form-group">
+                    <label>Daily Reward Limit</label>
+                    <input type="number" id="dailyRewardLimit" value="10">
+                </div>
+                <div class="form-group">
+                    <label>Video Watch Reward (MZLx)</label>
+                    <input type="number" id="videoReward" value="0.01" step="0.001">
+                </div>
+                <div class="form-group">
+                    <label>Post Engagement Reward (MZLx)</label>
+                    <input type="number" id="engagementReward" value="0.005" step="0.001">
+                </div>
+                <button class="update-btn" id="updateSocialSettings">
+                    <i class="fas fa-save"></i> Update Social Settings
+                </button>
+            </div>
         </div>
     </div>
 
@@ -575,19 +592,35 @@
                 
                 localStorage.setItem('tokenomics', JSON.stringify(tokenomics));
                 
-                // Record activity
-                const activity = JSON.parse(localStorage.getItem('activity') || '[]');
-                activity.unshift({
-                    userId: "admin",
-                    action: "Token Configuration Updated",
-                    details: `Token: ${tokenName} (${tokenSymbol}), Price: $${tokenPriceUSD} / ₦${tokenPriceNGN}, Fee: ${platformFee}%`,
-                    timestamp: new Date().toISOString()
-                });
-                localStorage.setItem('activity', JSON.stringify(activity));
-                
                 this.innerHTML = '<i class="fas fa-check"></i> Updated!';
                 setTimeout(() => {
                     this.innerHTML = '<i class="fas fa-save"></i> Update Token Configuration';
+                }, 2000);
+            });
+            
+            // Update social settings
+            document.getElementById('updateSocialSettings').addEventListener('click', function() {
+                const dailyRewardLimit = parseInt(document.getElementById('dailyRewardLimit').value);
+                const videoReward = parseFloat(document.getElementById('videoReward').value);
+                const engagementReward = parseFloat(document.getElementById('engagementReward').value);
+                
+                if (isNaN(dailyRewardLimit) || isNaN(videoReward) || isNaN(engagementReward)) {
+                    alert('Please enter valid values for social settings');
+                    return;
+                }
+                
+                // Save social settings
+                const socialSettings = {
+                    dailyRewardLimit,
+                    videoReward,
+                    engagementReward
+                };
+                
+                localStorage.setItem('socialSettings', JSON.stringify(socialSettings));
+                
+                this.innerHTML = '<i class="fas fa-check"></i> Updated!';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-save"></i> Update Social Settings';
                 }, 2000);
             });
             
@@ -640,6 +673,17 @@
             document.getElementById('tokenPriceUSD').value = tokenomics.currentPrice;
             document.getElementById('tokenPriceNGN').value = tokenomics.ngnPrice;
             document.getElementById('platformFee').value = (tokenomics.platformFee * 100).toFixed(1);
+            
+            // Load social settings
+            const socialSettings = JSON.parse(localStorage.getItem('socialSettings') || JSON.stringify({
+                dailyRewardLimit: 10,
+                videoReward: 0.01,
+                engagementReward: 0.005
+            }));
+            
+            document.getElementById('dailyRewardLimit').value = socialSettings.dailyRewardLimit;
+            document.getElementById('videoReward').value = socialSettings.videoReward;
+            document.getElementById('engagementReward').value = socialSettings.engagementReward;
             
             // Load products
             const products = [];
@@ -844,16 +888,6 @@
                     localStorage.setItem('users', JSON.stringify(users));
                 }
             }
-            
-            // Record activity
-            const activity = JSON.parse(localStorage.getItem('activity') || '[]');
-            activity.unshift({
-                userId: "admin",
-                action: `Deposit ${status.charAt(0).toUpperCase() + status.slice(1)}`,
-                details: `Deposit ID: ${depositId}, Amount: ₦${deposit.amount}`,
-                timestamp: new Date().toISOString()
-            });
-            localStorage.setItem('activity', JSON.stringify(activity));
             
             // Reload data
             loadAdminData();
