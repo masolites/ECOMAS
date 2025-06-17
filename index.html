@@ -2,19 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MASOLITES ECOMAS</title>
-    <!-- Open Graph Meta Tags for Social Sharing -->
-    <meta property="og:title" content="MASOLITES ECOMAS - A Better Society Together">
-    <meta property="og:description" content="Economic Community Of Masolites. A Trusted Products & Services Hub using MAZOL Token">
-    <meta property="og:image" content="https://masolites.github.io/ECOMAS/social-banner.jpg">
-    <meta property="og:url" content="https://masolites.github.io/ECOMAS">
-    <meta name="twitter:card" content="summary_large_image">
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js" type="application/javascript"></script>
-    <script src="https://checkout.flutterwave.com/v3.js"></script>
     <style>
         :root {
             --deep-blue: #0a2463;
@@ -30,7 +22,7 @@
             --silver: #c0c0c0;
             --gold: #ffd700;
             --platinum: #e5e4e2;
-            --social-bg: rgba(0, 0, 0, 0.85);
+            --social-bg: rgba(0, 0, 0, 0.95);
         }
         
         * {
@@ -41,9 +33,7 @@
         }
         
         body {
-            background: linear-gradient(rgba(15, 12, 41, 0.85), rgba(48, 43, 99, 0.85)), 
-                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 800 400"><rect fill="%231a1a2e" width="800" height="400"/><text fill="rgba(255,255,255,0.8)" font-family="Arial" font-size="40" x="400" y="200" text-anchor="middle">MASOLITES ECOMAS</text><text fill="rgba(164,222,2,0.8)" font-family="Arial" font-size="24" x="400" y="240" text-anchor="middle">A Better Society Together</text></svg>');
-            background-size: cover;
+            background: linear-gradient(rgba(15, 12, 41, 0.85), rgba(48, 43, 99, 0.85));
             color: var(--text-light);
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
@@ -61,7 +51,6 @@
             overflow: hidden;
         }
         
-        /* Social Media Overlay */
         .social-overlay {
             position: fixed;
             top: 0;
@@ -106,20 +95,6 @@
         .social-content {
             flex: 1;
             display: flex;
-            overflow: hidden;
-        }
-        
-        .social-sidebar {
-            width: 300px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 15px;
-            overflow-y: auto;
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .social-main {
-            flex: 1;
-            display: flex;
             flex-direction: column;
             overflow: hidden;
         }
@@ -141,11 +116,31 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+        }
+        
+        .video-player {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
         
         .social-video-placeholder {
             text-align: center;
             padding: 20px;
+            max-width: 90%;
         }
         
         .social-video-placeholder i {
@@ -156,8 +151,7 @@
         
         .social-actions {
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            justify-content: space-around;
             padding: 15px;
             background: rgba(0, 0, 0, 0.5);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -171,6 +165,8 @@
             background: none;
             border: none;
             cursor: pointer;
+            font-size: 0.8rem;
+            min-width: 60px;
         }
         
         .social-action-btn i {
@@ -178,62 +174,30 @@
             margin-bottom: 5px;
         }
         
-        .social-feed {
-            padding: 15px;
-            overflow-y: auto;
-        }
-        
-        .social-post {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid var(--light-blue);
-        }
-        
-        .post-header {
+        .video-stats {
+            position: absolute;
+            right: 15px;
+            bottom: 100px;
             display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .video-stat {
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            margin-bottom: 10px;
         }
         
-        .post-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--light-blue);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
+        .video-stat i {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
         }
         
-        .post-user {
-            font-weight: 600;
+        .video-stat span {
+            font-size: 0.8rem;
         }
         
-        .post-time {
-            font-size: 0.7rem;
-            opacity: 0.7;
-        }
-        
-        .post-content {
-            margin-bottom: 10px;
-        }
-        
-        .post-actions {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .post-action {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-        }
-        
-        /* Header Styles */
         .top-header {
             display: flex;
             justify-content: space-between;
@@ -256,6 +220,7 @@
         .auth-container {
             display: flex;
             gap: 8px;
+            align-items: center;
         }
         
         .btn {
@@ -317,7 +282,6 @@
             margin-top: 5px;
         }
         
-        /* Main Content Area */
         .main-content {
             flex: 1;
             overflow-y: auto;
@@ -517,7 +481,6 @@
             color: var(--text-light);
         }
         
-        /* Badge Styles */
         .badge-container {
             display: flex;
             justify-content: center;
@@ -563,7 +526,6 @@
             color: var(--navy);
         }
         
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -583,7 +545,7 @@
             background: var(--navy);
             border-radius: 20px;
             width: 100%;
-            max-width: 100%;
+            max-width: 500px;
             max-height: 90vh;
             overflow: hidden;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
@@ -618,7 +580,6 @@
             overflow-y: auto;
         }
         
-        /* Tabs */
         .tabs {
             display: flex;
             gap: 5px;
@@ -657,7 +618,6 @@
             display: block;
         }
         
-        /* Form Elements */
         .form-group {
             margin-bottom: 12px;
         }
@@ -690,7 +650,6 @@
             flex: 1;
         }
         
-        /* Vote Form */
         .vote-form {
             padding: 15px;
             background: rgba(0, 0, 0, 0.3);
@@ -706,7 +665,6 @@
             color: var(--lemon-green);
         }
         
-        /* Mining Status */
         .mining-status {
             text-align: center;
             margin-top: 5px;
@@ -714,7 +672,6 @@
             color: rgba(255, 255, 255, 0.7);
         }
         
-        /* AI Price Suggestion */
         .ai-suggestion {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 10px;
@@ -729,7 +686,6 @@
             font-weight: 600;
         }
         
-        /* Connect Wallet Button */
         .connect-wallet-btn {
             background: var(--lemon-green);
             color: var(--navy);
@@ -744,7 +700,6 @@
             cursor: pointer;
         }
         
-        /* Product List */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -796,7 +751,26 @@
             display: inline-block;
         }
         
-        /* Responsive Adjustments */
+        .wallet-status {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            display: none;
+        }
+        
+        .wallet-connected {
+            background: rgba(76, 217, 100, 0.2);
+            border: 1px solid #4cd964;
+        }
+        
+        .wallet-error {
+            background: rgba(216, 49, 91, 0.2);
+            border: 1px solid #d8315b;
+        }
+        
         @media (max-width: 480px) {
             .countdown-item {
                 min-width: 50px;
@@ -815,17 +789,19 @@
                 padding: 6px 10px;
                 font-size: 0.7rem;
             }
+            
+            .social-content {
+                flex-direction: column;
+            }
         }
         
-        /* Hide scrollbar for Chrome, Safari and Opera */
         .main-content::-webkit-scrollbar {
             display: none;
         }
         
-        /* Hide scrollbar for IE, Edge and Firefox */
         .main-content {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
@@ -842,79 +818,61 @@
             </button>
         </div>
         <div class="social-content">
-            <div class="social-sidebar">
-                <h3>Platform Features</h3>
-                <ul>
-                    <li><i class="fas fa-gift"></i> Earn MZL tokens for engagement</li>
-                    <li><i class="fas fa-video"></i> Watch videos to earn rewards</li>
-                    <li><i class="fas fa-users"></i> Join live sessions for bonuses</li>
-                    <li><i class="fas fa-store"></i> Promote products and earn</li>
-                    <li><i class="fas fa-comment-dots"></i> Connect with other members</li>
-                    <li><i class="fas fa-share-alt"></i> Share content for token rewards</li>
-                </ul>
-                
-                <h3>Current Activities</h3>
-                <div class="social-post">
-                    <div class="post-header">
-                        <div class="post-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div>
-                            <div class="post-user">Masolites Team</div>
-                            <div class="post-time">Just now</div>
+            <div class="social-video-container">
+                <div class="social-video">
+                    <div class="video-player">
+                        <div class="video-placeholder">
+                            <div class="social-video-placeholder">
+                                <i class="fas fa-play-circle"></i>
+                                <h3>Welcome to TruYan Social</h3>
+                                <p>Connect with the community and earn rewards</p>
+                                <button class="cta-button" id="socialLoginBtn" style="margin-top: 20px;">
+                                    <i class="fas fa-sign-in-alt"></i> Login to Social Platform
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="post-content">
-                        Join our live session tomorrow at 2PM to learn about crypto mining and earn 5 MZL tokens!
-                    </div>
-                    <div class="post-actions">
-                        <div class="post-action">
-                            <i class="fas fa-heart"></i> 24
+                    <div class="video-stats">
+                        <div class="video-stat">
+                            <i class="fas fa-heart"></i>
+                            <span>2.4K</span>
                         </div>
-                        <div class="post-action">
-                            <i class="fas fa-comment"></i> 8
+                        <div class="video-stat">
+                            <i class="fas fa-comment"></i>
+                            <span>148</span>
                         </div>
-                        <div class="post-action">
-                            <i class="fas fa-share"></i> 3
+                        <div class="video-stat">
+                            <i class="fas fa-share"></i>
+                            <span>32</span>
+                        </div>
+                        <div class="video-stat">
+                            <i class="fas fa-gift"></i>
+                            <span>5 MZL</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="social-main">
-                <div class="social-video-container">
-                    <div class="social-video">
-                        <div class="social-video-placeholder">
-                            <i class="fas fa-play-circle"></i>
-                            <h3>Welcome to TruYan Social</h3>
-                            <p>Connect with the community and earn rewards</p>
-                            <button class="cta-button" id="socialLoginBtn" style="margin-top: 20px;">
-                                <i class="fas fa-sign-in-alt"></i> Login to Social Platform
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="social-actions">
-                    <button class="social-action-btn">
-                        <i class="fas fa-home"></i>
-                        <span>Home</span>
-                    </button>
-                    <button class="social-action-btn">
-                        <i class="fas fa-search"></i>
-                        <span>Discover</span>
-                    </button>
-                    <button class="social-action-btn">
-                        <i class="fas fa-plus-circle"></i>
-                        <span>Create</span>
-                    </button>
-                    <button class="social-action-btn">
-                        <i class="fas fa-envelope"></i>
-                        <span>Messages</span>
-                    </button>
-                    <button class="social-action-btn">
-                        <i class="fas fa-user"></i>
-                        <span>Profile</span>
-                    </button>
-                </div>
+            <div class="social-actions">
+                <button class="social-action-btn">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="social-action-btn">
+                    <i class="fas fa-search"></i>
+                    <span>Discover</span>
+                </button>
+                <button class="social-action-btn">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Create</span>
+                </button>
+                <button class="social-action-btn">
+                    <i class="fas fa-envelope"></i>
+                    <span>Messages</span>
+                </button>
+                <button class="social-action-btn">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </button>
             </div>
         </div>
     </div>
@@ -1049,6 +1007,7 @@
             <button class="connect-wallet-btn" id="connectWalletBtn">
                 <i class="fas fa-plug"></i> Connect Metamask Wallet
             </button>
+            <div class="wallet-status" id="walletStatus"></div>
         </div>
     </div>
 
@@ -1251,16 +1210,12 @@
                 <div class="form-group">
                     <label>Select Membership Level</label>
                     <select id="membershipLevel">
-                        <option value="bronze">Bronze (25 MZLx minimum)</option>
-                        <option value="silver">Silver (1000 MZLx minimum)</option>
-                        <option value="gold">Gold (2000 MZLx minimum)</option>
-                        <option value="platinum">Platinum (Paid Registration)</option>
+                        <option value="free">Free (0 MZLx)</option>
+                        <option value="bronze">Bronze (₦1,000)</option>
+                        <option value="silver">Silver (₦5,000)</option>
+                        <option value="gold">Gold (₦10,000)</option>
+                        <option value="platinum">Platinum (₦25,000)</option>
                     </select>
-                </div>
-                
-                <div class="form-group">
-                    <label>Amount (MZLx)</label>
-                    <input type="number" id="buyAmount" min="25" value="25">
                 </div>
                 
                 <div class="tabs" style="margin-top:15px;">
@@ -1278,16 +1233,15 @@
                 <div class="tab-content active" id="bankOptionTab">
                     <div class="card" style="background: rgba(0,0,0,0.3); margin-top:15px;">
                         <h4><i class="fas fa-university"></i> Bank Transfer</h4>
-                        <p>₦18 per MZLx</p>
                         <p style="margin-top:10px;"><strong>UBA</strong>: 1026664654</p>
                         <p><strong>Account Name</strong>: Masses Freedom</p>
+                        <p class="note" style="font-size:0.8rem; margin-top:10px;">After payment, submit proof using the Save & Earn section</p>
                     </div>
                 </div>
                 
                 <div class="tab-content" id="usdtOptionTab">
                     <div class="card" style="background: rgba(0,0,0,0.3); margin-top:15px;">
                         <h4><i class="fab fa-ethereum"></i> USDT Payment</h4>
-                        <p>$0.001 per MZLx</p>
                         <p style="margin-top:10px; word-break:break-all;"><strong>USDT Address</strong>: 0x9a3E0603d8e91dA3f1c5F3B2C3D4E5F6A7B8C9D0</p>
                     </div>
                 </div>
@@ -1295,7 +1249,7 @@
                 <div class="tab-content" id="flutterOptionTab">
                     <div class="card" style="background: rgba(0,0,0,0.3); margin-top:15px;">
                         <h4><i class="fas fa-bolt"></i> Flutterwave Payment</h4>
-                        <p>Instant Payment</p>
+                        <p>Instant Payment Gateway</p>
                     </div>
                 </div>
                 
@@ -1326,7 +1280,7 @@
                     <label>6-Digit PIN</label>
                     <input type="text" id="adminPin" placeholder="Enter 6-digit PIN" maxlength="6" required>
                 </div>
-                <div class="error-message" id="adminError" style="display:none;"></div>
+                <div class="error-message" id="adminError" style="display:none; color: var(--accent); padding: 10px; margin-bottom: 10px;"></div>
                 <button class="cta-button" id="adminLoginBtn">
                     <i class="fas fa-sign-in-alt"></i> Access Admin Panel
                 </button>
@@ -1445,7 +1399,7 @@
             privateSale: 25000000,
             currentPrice: 0.001,
             ngnPrice: 18,
-            miningBaseRate: 0.0000001, // Base mining rate per second
+            miningBaseRate: 0.0000001,
             badgeMultipliers: {
                 free: 1,
                 bronze: 1.5,
@@ -1453,7 +1407,7 @@
                 gold: 3,
                 platinum: 4
             },
-            platformFee: 0.004, // 0.4% platform fee
+            platformFee: 0.004,
             maxFreeProducts: 3,
             discounts: {
                 free: 0,
@@ -1462,15 +1416,19 @@
                 gold: 0.15,
                 platinum: 0.20
             },
-            halvingInterval: 365 * 4, // Halving every 4 years (in days)
+            halvingInterval: 365 * 4,
             initialHalvingDate: new Date('2023-01-01'),
-            mlmLevels: 5, // 5 levels deep
-            mlmPercentage: 0.025 // 2.5% per level
+            mlmLevels: 5,
+            mlmPercentage: 0.025,
+            membershipPrices: {
+                free: 0,
+                bronze: 1000,
+                silver: 5000,
+                gold: 10000,
+                platinum: 25000
+            }
         };
 
-        // FLUTTERWAVE LIVE PUBLIC KEY - REPLACE WITH YOUR ACTUAL KEY
-        const FLW_PUBLIC_KEY = "FLWPUBK-XXXXXXXXXXXXXXXXXXXXXXXXXX-X";
-        
         // MAZOL Token Contract Details
         const CONTRACT_ADDRESS = "0x49F4a728BD98480E92dBfc6a82d595DA9d1F7b83";
         const CONTRACT_ABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"CurrencyTransferLibFailedNativeTransfer","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"delegator","type":"address"},{"indexed":true,"internalType":"address","name":"fromDelegate","type":"address"},{"indexed":true,"internalType":"address","name":"toDelegate","type":"address"}],"name":"DelegateChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"delegate","type":"address"},{"indexed":false,"internalType":"uint256","name":"previousBalance","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"newBalance","type":"uint256"}],"name":"DelegateVotesChanged","type":"event"},{"anonymous":false,"inputs":[],"name":"EIP712DomainChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"platformFeeRecipient","type":"address"},{"indexed":false,"internalType":"uint256","name":"flatFee","type":"uint256"}],"name":"FlatPlatformFeeUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint8","name":"version","type":"uint8"}],"name":"Initialized","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"platformFeeRecipient","type":"address"},{"indexed":false,"internalType":"uint256","name":"platformFeeBps","type":"uint256"}],"name":"PlatformFeeInfoUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"enum IPlatformFee.PlatformFeeType","name":"feeType","type":"uint8"}],"name":"PlatformFeeTypeUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"recipient","type":"address"}],"name":"PrimarySaleRecipientUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"role","type":"bytes32"},{"indexed":true,"internalType":"bytes32","name":"previousAdminRole","type":"bytes32"},{"indexed":true,"internalType":"bytes32","name":"newAdminRole","type":"bytes32"}],"name":"RoleAdminChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"role","type":"bytes32"},{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":true,"internalType":"address","name":"sender","type":"address"}],"name":"RoleGranted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"role","type":"bytes32"},{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":true,"internalType":"address","name":"sender","type":"address"}],"name":"RoleRevoked","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"mintedTo","type":"address"},{"indexed":false,"internalType":"uint256","name":"quantityMinted","type":"uint256"}],"name":"TokensMinted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"signer","type":"address"},{"indexed":true,"internalType":"address","name":"mintedTo","type":"address"},{"components":[{"internalType":"address","name":"to","type":"address"},{"internalType":"address","name":"primarySaleRecipient","type":"address"},{"internalType":"uint256","name":"quantity","type":"uint256"},{"internalType":"uint256","name":"price","type":"uint256"},{"internalType":"address","name":"currency","type":"address"},{"internalType":"uint128","name":"validityStartTimestamp","type":"uint128"},{"internalType":"uint128","name":"validityEndTimestamp","type":"uint128"},{"internalType":"bytes32","name":"uid","type":"bytes32"}],"indexed":false,"internalType":"struct ITokenERC20.MintRequest","name":"mintRequest","type":"tuple"}],"name":"TokensMintedWithSignature","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"CLOCK_MODE","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"DEFAULT_ADMIN_ROLE","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"DEFAULT_FEE_RECIPIENT","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"burn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"burnFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint32","name":"pos","type":"uint32"}],"name":"checkpoints","outputs":[{"components":[{"internalType":"uint32","name":"fromBlock","type":"uint32"},{"internalType":"uint224","name":"votes","type":"uint224"}],"internalType":"struct ERC20VotesUpgradeable.Checkpoint","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"clock","outputs":[{"internalType":"uint48","name":"","type":"uint48"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"contractType","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"contractURI","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"contractVersion","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"delegatee","type":"address"}],"name":"delegate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"delegatee","type":"address"},{"internalType":"uint256","name":"nonce","type":"uint256"},{"internalType":"uint256","name":"expiry","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"delegateBySig","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"delegates","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"eip712Domain","outputs":[{"internalType":"bytes1","name":"fields","type":"bytes1"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"version","type":"string"},{"internalType":"uint256","name":"chainId","type":"uint256"},{"internalType":"address","name":"verifyingContract","type":"address"},{"internalType":"bytes32","name":"salt","type":"bytes32"},{"internalType":"uint256[]","name":"extensions","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"timepoint","type":"uint256"}],"name":"getPastTotalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"timepoint","type":"uint256"}],"name":"getPastVotes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getPlatformFeeInfo","outputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint16","name":"","type":"uint16"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"}],"name":"getRoleAdmin","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"uint256","name":"index","type":"uint256"}],"name":"getRoleMember","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"}],"name":"getRoleMemberCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"getVotes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"grantRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"hasRole","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_defaultAdmin","type":"address"},{"internalType":"string","name":"_name","type":"string"},{"internalType":"string","name":"_symbol","type":"string"},{"internalType":"string","name":"_contractURI","type":"string"},{"internalType":"address[]","name":"_trustedForwarders","type":"address[]"},{"internalType":"address","name":"_primarySaleRecipient","type":"address"},{"internalType":"address","name":"_platformFeeRecipient","type":"address"},{"internalType":"uint256","name":"_platformFeeBps","type":"uint256"}],"name":"initialize","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"forwarder","type":"address"}],"name":"isTrustedForwarder","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"mintTo","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"components":[{"internalType":"address","name":"to","type":"address"},{"internalType":"address","name":"primarySaleRecipient","type":"address"},{"internalType":"uint256","name":"quantity","type":"uint256"},{"internalType":"uint256","name":"price","type":"uint256"},{"internalType":"address","name":"currency","type":"address"},{"internalType":"uint128","name":"validityStartTimestamp","type":"uint128"},{"internalType":"uint128","name":"validityEndTimestamp","type":"uint128"},{"internalType":"bytes32","name":"uid","type":"bytes32"}],"internalType":"struct ITokenERC20.MintRequest","name":"_req","type":"tuple"},{"internalType":"bytes","name":"_signature","type":"bytes"}],"name":"mintWithSignature","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"bytes[]","name":"data","type":"bytes[]"}],"name":"multicall","outputs":[{"internalType":"bytes[]","name":"results","type":"bytes[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"numCheckpoints","outputs":[{"internalType":"uint32","name":"","type":"uint32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"primarySaleRecipient","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"renounceRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"revokeRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"_uri","type":"string"}],"name":"setContractURI","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_platformFeeRecipient","type":"address"},{"internalType":"uint256","name":"_platformFeeBps","type":"uint256"}],"name":"setPlatformFeeInfo","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_saleRecipient","type":"address"}],"name":"setPrimarySaleRecipient","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"components":[{"internalType":"address","name":"to","type":"address"},{"internalType":"address","name":"primarySaleRecipient","type":"address"},{"internalType":"uint256","name":"quantity","type":"uint256"},{"internalType":"uint256","name":"price","type":"uint256"},{"internalType":"address","name":"currency","type":"address"},{"internalType":"uint128","name":"validityStartTimestamp","type":"uint128"},{"internalType":"uint128","name":"validityEndTimestamp","type":"uint128"},{"internalType":"bytes32","name":"uid","type":"bytes32"}],"internalType":"struct ITokenERC20.MintRequest","name":"_req","type":"tuple"},{"internalType":"bytes","name":"_signature","type":"bytes"}],"name":"verify","outputs":[{"internalType":"bool","name":"","type":"bool"},{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}];
@@ -1820,6 +1778,22 @@
             // Update current price display
             document.getElementById('currentPrice').textContent = TOKENOMICS.currentPrice.toFixed(3);
             
+            // Close modals functionality
+            document.querySelectorAll('.modal-close').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', function(event) {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
+            
             // Auth Event Listeners
             document.getElementById('loginBtn').addEventListener('click', function() {
                 document.getElementById('loginModal').style.display = 'flex';
@@ -2018,42 +1992,24 @@
             // Confirm purchase
             document.getElementById('confirmBuy').addEventListener('click', function() {
                 const membershipLevel = document.getElementById('membershipLevel').value;
-                const amount = parseFloat(document.getElementById('buyAmount').value);
-                
-                // Validate minimum amounts
-                let minAmount = 0;
-                switch(membershipLevel) {
-                    case 'bronze': minAmount = 25; break;
-                    case 'silver': minAmount = 1000; break;
-                    case 'gold': minAmount = 2000; break;
-                    case 'platinum': minAmount = 1000; break; // Paid registration
-                }
-                
-                if (amount < minAmount) {
-                    alert(`Minimum amount for ${membershipLevel} is ${minAmount} MZLx`);
-                    return;
-                }
                 
                 // Add badge to user
                 const user = UserSystem.getCurrentUser();
                 if (user) {
                     UserSystem.addBadge(user, membershipLevel);
                     
-                    // Add tokens to user's wallet
-                    user.cryptoWallet.balance += amount;
-                    
                     // Process MLM
                     if (user.referredBy) {
-                        MLMSystem.processReferral(user.referredBy, user.email, amount);
+                        MLMSystem.processReferral(user.referredBy, user.email, TOKENOMICS.membershipPrices[membershipLevel]);
                     }
                     
-                    alert(`Successfully purchased ${amount} MZLx and upgraded to ${membershipLevel} membership!`);
+                    alert(`Successfully upgraded to ${membershipLevel} membership!`);
                     document.getElementById('buyModal').style.display = 'none';
                     location.reload();
                 }
             });
             
-            // Admin button with enhanced security
+            // Admin button
             document.getElementById('adminBtn').addEventListener('click', function() {
                 document.getElementById('adminAccessModal').style.display = 'flex';
             });
@@ -2064,7 +2020,6 @@
                 const password = document.getElementById('adminPassword').value;
                 const pin = document.getElementById('adminPin').value;
                 
-                // Hardcoded admin credentials
                 const ADMIN_CREDENTIALS = {
                     username: "admin",
                     password: "Masolites123",
@@ -2085,7 +2040,9 @@
             // Connect to Metamask
             document.getElementById('connectWalletBtn').addEventListener('click', async function() {
                 if (typeof window.ethereum === 'undefined') {
-                    alert('Metamask not detected! Please install Metamask first.');
+                    document.getElementById('walletStatus').textContent = 'Metamask not detected! Please install Metamask first.';
+                    document.getElementById('walletStatus').className = 'wallet-status wallet-error';
+                    document.getElementById('walletStatus').style.display = 'block';
                     return;
                 }
                 
@@ -2113,10 +2070,14 @@
                         document.getElementById('cryptoBalance').textContent = formattedBalance;
                     }
                     
-                    alert(`Successfully connected to wallet! Balance: ${formattedBalance} MZLx`);
+                    document.getElementById('walletStatus').textContent = `Successfully connected to wallet! Balance: ${formattedBalance} MZLx`;
+                    document.getElementById('walletStatus').className = 'wallet-status wallet-connected';
+                    document.getElementById('walletStatus').style.display = 'block';
                 } catch (error) {
                     console.error('Error connecting to Metamask:', error);
-                    alert('Failed to connect to wallet. Please try again.');
+                    document.getElementById('walletStatus').textContent = 'Failed to connect to wallet. Please try again.';
+                    document.getElementById('walletStatus').className = 'wallet-status wallet-error';
+                    document.getElementById('walletStatus').style.display = 'block';
                 }
             });
             
@@ -2157,6 +2118,48 @@
                 document.getElementById('escrowShopModal').style.display = 'flex';
             });
             
+            // List product
+            document.getElementById('listProductBtn').addEventListener('click', function() {
+                const name = document.getElementById('productName').value;
+                const description = document.getElementById('productDescription').value;
+                const price = parseFloat(document.getElementById('productPrice').value);
+                const category = document.getElementById('productCategory').value;
+                
+                if (!name || !description || !price || !category) {
+                    alert('Please fill all fields');
+                    return;
+                }
+                
+                const user = UserSystem.getCurrentUser();
+                if (!user) return;
+                
+                // Check product limit for free members
+                if (user.badges.includes('free') && user.products.length >= TOKENOMICS.maxFreeProducts) {
+                    alert(`Free members can only list up to ${TOKENOMICS.maxFreeProducts} products. Upgrade to list more.`);
+                    return;
+                }
+                
+                // Add product
+                user.products.push({
+                    id: user.products.length + 1,
+                    name,
+                    description,
+                    price,
+                    category,
+                    status: 'active',
+                    sellerId: user.email
+                });
+                
+                // Update user
+                const users = JSON.parse(localStorage.getItem('users') || []);
+                const updatedUsers = users.map(u => u.email === user.email ? user : u);
+                localStorage.setItem('users', JSON.stringify(updatedUsers));
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                alert('Product listed successfully!');
+                document.getElementById('escrowShopModal').style.display = 'none';
+            });
+            
             // Social Media Overlay
             document.getElementById('socialCloseBtn').addEventListener('click', function() {
                 document.getElementById('socialOverlay').style.display = 'none';
@@ -2167,6 +2170,26 @@
                 document.getElementById('socialOverlay').style.display = 'none';
             });
             
+            // Tab switching
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabId = this.dataset.tab;
+                    
+                    // Hide all tab contents
+                    this.closest('.tabs').querySelectorAll('.tab-btn').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    
+                    this.closest('.tabs').parentElement.querySelectorAll('.tab-content').forEach(c => {
+                        c.classList.remove('active');
+                    });
+                    
+                    // Show selected tab
+                    this.classList.add('active');
+                    document.getElementById(`${tabId}Tab`).classList.add('active');
+                });
+            });
+            
             // Check if user is logged in
             const user = UserSystem.getCurrentUser();
             if (user) {
@@ -2174,8 +2197,8 @@
                 document.getElementById('registerBtn').style.display = 'none';
                 document.getElementById('logoutBtn').style.display = 'flex';
                 displayBadges();
+                document.getElementById('socialOverlay').style.display = 'none';
             } else {
-                // Show social media overlay for new visitors
                 document.getElementById('socialOverlay').style.display = 'flex';
             }
         });
