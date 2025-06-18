@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/social.css">
     <link rel="stylesheet" href="styles/ecomas.css">
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
 </head>
 <body>
     <!-- Social Media Overlay -->
@@ -20,7 +21,7 @@
             </h1>
             <div class="social-actions-top" id="socialActionsTop" style="display:none;">
                 <button class="social-action-btn" id="startMiningBtn" title="Start Mining">
-                    <i class="fas fa-hard-hat"></i> Mine
+                    <i class="fas fa-hard-hat"></极> Mine
                 </button>
                 <button class="social-action-btn" id="buyMazolBtn" title="Buy MAZOL">
                     <i class="fas fa-coins"></i> Buy
@@ -32,6 +33,11 @@
         </div>
         <div class="social-content">
             <div class="social-video-container">
+                <div class="gift-container">
+                    <button class="gift-button" id="giftButton">
+                        <i class="fas fa-gift"></i> Send Gift
+                    </button>
+                </div>
                 <div class="social-video">
                     <div class="video-player">
                         <div class="video-placeholder">
@@ -173,7 +179,7 @@
                 </div>
                 <div class="mining-status" id="miningStatus">
                     Mining will automatically stop after 24 hours
-                </div>
+                </极>
             </div>
             
             <div class="badge-container" id="badgeContainer">
@@ -284,7 +290,7 @@
     <div class="modal" id="buyModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3><i极="fas fa-shopping-cart"></i> Buy MAZOL Tokens</h3>
+                <h3><i class="fas fa-shopping-cart"></i> Buy MAZOL Tokens</h3>
                 <p style="font-size: 0.8rem; margin-top: 5px;">Buy More, Mine Faster!</p>
                 <button class="modal-close">&times;</button>
             </div>
@@ -295,11 +301,17 @@
                         <h4>Bronze Membership</h4>
                     </div>
                     <div class="purchase-min">Minimum Purchase: 25 MZLx</div>
-                    <div class="purchase-desc">Upgrade to Bronze to increase your mining speed by 1.5x</极>
-                    <div class="purchase-price">0.001 ETH</div>
+                    <div class="purchase-desc">Upgrade to Bronze to increase your mining speed by 1.5x</div>
+                    <div class="purchase-price">₦450 | $1.00</div>
                     <div class="purchase-actions">
-                        <button class="purchase-btn" data-tier="bronze" data-amount="25" data-eth="0.001">
-                            <i class="fab fa-ethereum"></i> Buy with ETH
+                        <button class="purchase-btn" data-tier="bronze" data-amount="25" data-currency="NGN" data-price="450">
+                            <i class="fas fa-naira-sign"></i> Pay with NGN
+                        </button>
+                        <button class="purchase-btn" data-tier="bronze" data-amount="25" data-currency="USD" data-price="1.00">
+                            <i class="fas fa-dollar-sign"></i> Pay with USD
+                        </button>
+                        <button class="purchase-btn" data-tier="bronze" data-amount="25" data-currency="USDT" data-price="1.00">
+                            <i class="fas fa-coins"></i> Pay with USDT
                         </button>
                     </div>
                 </div>
@@ -311,10 +323,16 @@
                     </div>
                     <div class="purchase-min">Minimum Purchase: 1,000 MZLx</div>
                     <div class="purchase-desc">Upgrade to Silver to increase your mining speed by 2x</div>
-                    <div class="purchase-price">0.04 ETH</div>
+                    <div class="purchase-price">₦18,000 | $40.00</div>
                     <div class="purchase-actions">
-                        <button class="purchase-btn" data-tier="silver" data-amount="1000" data-eth="0.04">
-                            <i class="fab fa-ethereum"></i> Buy with ETH
+                        <button class="purchase-btn" data-tier="silver" data-amount="1000" data-currency="NGN" data-price="18000">
+                            <i class="fas fa-naira-sign"></i> Pay with NGN
+                        </button>
+                        <button class="purchase-btn" data-tier="silver" data-amount="1000" data-currency="USD" data-price="40.00">
+                            <i class="fas fa-dollar-sign"></i> Pay with USD
+                        </button>
+                        <button class="purchase-btn" data-tier="silver" data-amount="1000" data-currency="USDT" data-price="40.00">
+                            <i class="fas fa-coins"></i> Pay with USDT
                         </button>
                     </div>
                 </div>
@@ -326,10 +344,16 @@
                     </div>
                     <div class="purchase-min">Minimum Purchase: 5,000 MZLx</div>
                     <div class="purchase-desc">Upgrade to Gold to increase your mining speed by 3x</div>
-                    <div class="purchase-price">0.2 ETH</div>
+                    <div class="purchase-price">₦90,000 | $200.00</div>
                     <div class="purchase-actions">
-                        <button class="purchase-btn" data-tier="gold" data-amount="5000" data-eth="0.2">
-                            <i class="fab fa-ethereum"></i> Buy with ETH
+                        <button class="purchase-btn" data-tier="gold" data-amount="5000" data-currency="NGN" data-price="90000">
+                            <i class="fas fa-naira-sign"></i> Pay with NGN
+                        </button>
+                        <button class="purchase-btn" data-tier="gold" data-amount="5000" data-currency="USD" data-price="200.00">
+                            <i class="fas fa-dollar-sign"></i> Pay with USD
+                        </button>
+                        <button class="purchase-btn" data-tier="gold" data-amount="5000" data-currency="USDT" data-price="200.00">
+                            <i class="fas fa-coins"></i> Pay with USDT
                         </button>
                     </div>
                 </div>
@@ -343,10 +367,16 @@
                         <i class="fas fa-exclamation-circle"></i> Requires existing Bronze, Silver or Gold membership
                     </div>
                     <div class="purchase-desc">Special membership with 4x mining speed and exclusive benefits</div>
-                    <div class="purchase-price">0.05 ETH</div>
+                    <div class="purchase-price">₦25,000 | $50.00</div>
                     <div class="purchase-actions">
-                        <button class="purchase-btn" data-tier="platinum" data-amount="0" data-eth="0.05">
-                            <i class="fab fa-ethereum"></i> Buy with ETH
+                        <button class="purchase-btn" data-tier="platinum" data-amount="0" data-currency="NGN" data-price="25000">
+                            <i class="fas fa-naira-sign"></i> Pay with NGN
+                        </button>
+                        <button class="purchase-btn" data-tier="platinum" data-amount="0" data-currency="USD" data-price="50.00">
+                            <i class="fas fa-dollar-sign"></i> Pay with USD
+                        </button>
+                        <button class="purchase-btn" data-tier="platinum" data-amount="0" data-currency="USDT" data-price="50.00">
+                            <i class="fas fa-coins"></i> Pay with USDT
                         </button>
                     </div>
                 </div>
@@ -359,38 +389,7 @@
     <script src="scripts/mining.js"></script>
     <script src="scripts/wallet.js"></script>
     <script src="scripts/escrow.js"></script>
+    <script src="scripts/flutterwave.js"></script>
+    <script src="scripts/social.js"></script>
 </body>
 </html>
-
-<!-- Add this in head section -->
-<script src="https://checkout.flutterwave.com/v3.js"></script>
-
-<!-- Updated purchase options in buyModal -->
-<div class="purchase-option">
-    <div class="purchase-header">
-        <i class="fas fa-medal" style="color: var(--bronze);"></i>
-        <h4>Bronze Membership</h4>
-    </div>
-    <div class="purchase-min">Minimum Purchase: 25 MZLx</div>
-    <div class="purchase-desc">Upgrade to Bronze to increase your mining speed by 1.5x</div>
-    <div class="purchase-price">₦450 | $1.00</div>
-    <div class="purchase-actions">
-        <button class="purchase-btn" data-tier="bronze" data-amount="25" data-currency="NGN" data-price="450">
-            <i class="fas fa-naira-sign"></i> Pay with NGN
-        </button>
-        <button class="purchase-btn" data-tier="bronze" data-amount="25" data-currency="USD" data-price="1.00">
-            <i class="fas fa-dollar-sign"></i> Pay with USD
-        </button>
-        <button class="purchase-btn" data-tier="bronze" data-amount="25" data-currency="USDT" data-price="1.00">
-            <i class="fas fa-coins"></i> Pay with USDT
-        </button>
-    </div>
-</div>
-
-<!-- Similar updates for other tiers -->
-<!-- Add to social-video-container -->
-<div class="gift-container">
-    <button class="gift-button" id="giftButton">
-        <i class="fas fa-gift"></i> Send Gift
-    </button>
-</div>
