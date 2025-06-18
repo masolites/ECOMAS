@@ -22,7 +22,7 @@
             --silver: #c0c0c0;
             --gold: #ffd700;
             --platinum: #e5e4e2;
-            --social-bg: rgba(0, 0, 0, 0.95);
+            --social-bg: rgba(0, 0, 0, 0.5);
             --social-gradient: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
         }
         
@@ -63,6 +63,7 @@
             display: flex;
             flex-direction: column;
             transition: transform 0.5s ease;
+            backdrop-filter: blur(5px);
         }
         
         .social-overlay.hidden {
@@ -99,21 +100,21 @@
         .social-action-btn {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid var(--light-blue);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            border-radius: 50px;
+            padding: 8px 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 0.9rem;
             color: white;
             transition: all 0.3s ease;
+            gap: 8px;
         }
         
         .social-action-btn:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
         
         .social-close {
@@ -136,7 +137,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #000;
+            background: rgba(0, 0, 0, 0.3);
             position: relative;
         }
         
@@ -144,7 +145,6 @@
             width: 100%;
             height: 100%;
             max-width: 800px;
-            background: rgba(0, 0, 0, 0.7);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -154,7 +154,6 @@
         .video-player {
             width: 100%;
             height: 100%;
-            background: #000;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -261,6 +260,8 @@
             align-items: center;
             padding: 10px 0;
             margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         
         .logo {
@@ -278,6 +279,7 @@
             display: flex;
             gap: 8px;
             align-items: center;
+            flex-wrap: wrap;
         }
         
         .btn {
@@ -291,6 +293,7 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            white-space: nowrap;
         }
         
         .btn-login {
@@ -327,6 +330,7 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            white-space: nowrap;
         }
         
         .switch-btn {
@@ -340,6 +344,7 @@
             gap: 5px;
             cursor: pointer;
             border: none;
+            white-space: nowrap;
         }
         
         .member-badge {
@@ -393,6 +398,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         
         .price-info {
@@ -841,6 +848,110 @@
             border: 1px solid #d8315b;
         }
         
+        .membership-tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        
+        .tag-free {
+            background: var(--light-blue);
+            color: var(--navy);
+        }
+        
+        .tag-bronze {
+            background: var(--bronze);
+            color: white;
+        }
+        
+        .tag-silver {
+            background: var(--silver);
+            color: var(--navy);
+        }
+        
+        .tag-gold {
+            background: var(--gold);
+            color: var(--navy);
+        }
+        
+        .tag-platinum {
+            background: var(--platinum);
+            color: var(--navy);
+        }
+        
+        .purchase-option {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid var(--light-blue);
+        }
+        
+        .purchase-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .purchase-header i {
+            font-size: 1.5rem;
+        }
+        
+        .purchase-min {
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--lemon-green);
+            font-weight: 600;
+        }
+        
+        .purchase-desc {
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .purchase-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 10px 0;
+            color: var(--lemon-green);
+        }
+        
+        .purchase-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .purchase-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 8px;
+            border-radius: 50px;
+            background: var(--light-blue);
+            color: var(--navy);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .membership-requirements {
+            background: rgba(216, 49, 91, 0.2);
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 0.8rem;
+        }
+        
         @media (max-width: 480px) {
             .countdown-item {
                 min-width: 50px;
@@ -862,6 +973,19 @@
             
             .social-content {
                 flex-direction: column;
+            }
+            
+            .social-action-btn {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+            
+            .top-header {
+                gap: 5px;
+            }
+            
+            .auth-container {
+                gap: 5px;
             }
         }
         
@@ -885,13 +1009,13 @@
             </h1>
             <div class="social-actions-top" id="socialActionsTop">
                 <button class="social-action-btn" id="startMiningBtn" title="Start Mining">
-                    <i class="fas fa-hard-hat"></i>
+                    <i class="fas fa-hard-hat"></i> Mine
                 </button>
                 <button class="social-action-btn" id="buyMazolBtn" title="Buy MAZOL">
-                    <i class="fas fa-coins"></i>
+                    <i class="fas fa-coins"></i> Buy
                 </button>
                 <button class="social-action-btn" id="switchToEcomasBtn" title="Switch to ECOMAS">
-                    <i class="fas fa-exchange-alt"></i>
+                    <i class="fas fa-exchange-alt"></i> ECOMAS
                 </button>
             </div>
         </div>
@@ -903,6 +1027,9 @@
                             <i class="fas fa-play-circle"></i>
                             <h3>Welcome to TruYan Social</h3>
                             <p>Connect with the community and earn rewards</p>
+                            <p style="color: var(--light-blue); margin-top: 10px;">
+                                <a href="#" id="socialSignup" style="color: white; text-decoration: underline;">Sign up</a> if not already signed up
+                            </p>
                             <button class="cta-button" id="socialLoginBtn" style="margin-top: 20px;">
                                 <i class="fas fa-sign-in-alt"></i> Login to Social Platform
                             </button>
@@ -1137,7 +1264,102 @@
                 <button class="cta-button" id="confirmLogin">
                     <i class="fas fa-check"></i> Login
                 </button>
-                <p class="auth-note" style="font-size:0.7rem; margin-top:10px; text-align:center;">New user? <a href="#" id="showRegister">Register instead</a></p>
+                <p class="auth-note" style="font-size:0.7rem; margin-top:10px; text-align:center;">New user? <a href="#" id="showRegister" style="color: var(--light-blue);">Register instead</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buy MAZOL Modal -->
+    <div class="modal" id="buyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-shopping-cart"></i> Buy MAZOL Tokens</h3>
+                <p style="font-size: 0.8rem; margin-top: 5px;">Buy More, Mine Faster!</p>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="purchase-option">
+                    <div class="purchase-header">
+                        <i class="fas fa-medal" style="color: var(--bronze);"></i>
+                        <h4>Bronze Membership</h4>
+                    </div>
+                    <div class="purchase-min">Minimum Purchase: 25 MZLx</div>
+                    <div class="purchase-desc">Upgrade to Bronze to increase your mining speed by 1.5x</div>
+                    <div class="purchase-price">₦450</div>
+                    <div class="purchase-actions">
+                        <button class="purchase-btn" data-tier="bronze" data-amount="25">
+                            <i class="fab fa-ethereum"></i> BNB
+                        </button>
+                        <button class="purchase-btn" data-tier="bronze" data-amount="25">
+                            <i class="fas fa-dollar-sign"></i> USDT
+                        </button>
+                        <button class="purchase-btn" data-tier="bronze" data-amount="25">
+                            <i class="fas fa-bolt"></i> Flutterwave
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="purchase-option">
+                    <div class="purchase-header">
+                        <i class="fas fa-medal" style="color: var(--silver);"></i>
+                        <h4>Silver Membership</h4>
+                    </div>
+                    <div class="purchase-min">Minimum Purchase: 1,000 MZLx</div>
+                    <div class="purchase-desc">Upgrade to Silver to increase your mining speed by 2x</div>
+                    <div class="purchase-price">₦18,000</div>
+                    <div class="purchase-actions">
+                        <button class="purchase-btn" data-tier="silver" data-amount="1000">
+                            <i class="fab fa-ethereum"></i> BNB
+                        </button>
+                        <button class="purchase-btn" data-tier="silver" data-amount="1000">
+                            <i class="fas fa-dollar-sign"></i> USDT
+                        </button>
+                        <button class="purchase-btn" data-tier="silver" data-amount="1000">
+                            <i class="fas fa-bolt"></i> Flutterwave
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="purchase-option">
+                    <div class="purchase-header">
+                        <i class="fas fa-medal" style="color: var(--gold);"></i>
+                        <h4>Gold Membership</h4>
+                    </div>
+                    <div class="purchase-min">Minimum Purchase: 5,000 MZLx</div>
+                    <div class="purchase-desc">Upgrade to Gold to increase your mining speed by 3x</div>
+                    <div class="purchase-price">₦90,000</div>
+                    <div class="purchase-actions">
+                        <button class="purchase-btn" data-tier="gold" data-amount="5000">
+                            <i class="fab fa-ethereum"></i> BNB
+                        </button>
+                        <button class="purchase-btn" data-tier="gold" data-amount="5000">
+                            <i class="fas fa-dollar-sign"></i> USDT
+                        </button>
+                        <button class="purchase-btn" data-tier="gold" data-amount="5000">
+                            <i class="fas fa-bolt"></i> Flutterwave
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="purchase-option">
+                    <div class="purchase-header">
+                        <i class="fas fa-star" style="color: var(--platinum);"></i>
+                        <h4>Platinum Membership</h4>
+                    </div>
+                    <div class="membership-requirements">
+                        <i class="fas fa-exclamation-circle"></i> Requires existing Bronze, Silver or Gold membership
+                    </div>
+                    <div class="purchase-desc">Special membership with 4x mining speed and exclusive benefits</div>
+                    <div class="purchase-price">₦1,000</div>
+                    <div class="purchase-actions">
+                        <button class="purchase-btn" data-tier="platinum" data-amount="0">
+                            <i class="fas fa-bolt"></i> Flutterwave
+                        </button>
+                        <button class="purchase-btn" data-tier="platinum" data-amount="0">
+                            <i class="fas fa-university"></i> Bank Transfer
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1160,11 +1382,11 @@
             platformFee: 0.004,
             maxFreeProducts: 3,
             discounts: {
-                free: 0,
-                bronze: 0.05,
-                silver: 0.10,
-                gold: 0.15,
-                platinum: 0.20
+                free: 0.05,
+                bronze: 0.10,
+                silver: 0.15,
+                gold: 0.20,
+                platinum: 0.25
             },
             halvingInterval: 365 * 4,
             initialHalvingDate: new Date('2023-01-01'),
@@ -1175,7 +1397,7 @@
                 bronze: 1000,
                 silver: 5000,
                 gold: 10000,
-                platinum: 25000
+                platinum: 1000
             }
         };
 
@@ -1193,7 +1415,7 @@
                 }
                 
                 // Generate unique member ID
-                const memberId = `MSL-${Math.floor(100000 + Math.random() * 900000)}`;
+                const memberId = this.generateMemberId('free');
                 
                 const user = {
                     email,
@@ -1282,6 +1504,19 @@
                 return address;
             }
             
+            static generateMemberId(tier) {
+                const prefixes = {
+                    'free': 'MSL',
+                    'bronze': 'MSL-B',
+                    'silver': 'MSL-S',
+                    'gold': 'MSL-G',
+                    'platinum': 'MSL-P'
+                };
+                
+                const id = Math.floor(100000000 + Math.random() * 900000000);
+                return `${prefixes[tier] || 'MSL'}-${id}`;
+            }
+            
             static addBadge(user, badge) {
                 if (!user.badges.includes(badge)) {
                     user.badges.push(badge);
@@ -1295,6 +1530,11 @@
                     else multiplier = TOKENOMICS.badgeMultipliers.free;
                     
                     user.miningSpeed = TOKENOMICS.miningBaseRate * multiplier;
+                    
+                    // Update member ID if upgrading
+                    if (badge !== 'free') {
+                        user.memberId = this.generateMemberId(badge);
+                    }
                     
                     // Update user
                     const users = JSON.parse(localStorage.getItem('users') || '[]');
@@ -1556,6 +1796,11 @@
                 document.getElementById('registerModal').style.display = 'flex';
             });
             
+            document.getElementById('socialSignup').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('registerModal').style.display = 'flex';
+            });
+            
             document.getElementById('confirmRegister').addEventListener('click', function() {
                 const email = document.getElementById('registerEmail').value;
                 const password = document.getElementById('registerPassword').value;
@@ -1625,10 +1870,8 @@
                 
                 if (miningSystem.isMining) {
                     miningSystem.stopMining();
-                    this.innerHTML = '<i class="fas fa-hard-hat"></i>';
                 } else {
                     miningSystem.startMining();
-                    this.innerHTML = '<i class="fas fa-stop"></i>';
                 }
             });
             
@@ -1642,6 +1885,51 @@
                 }
                 
                 document.getElementById('buyModal').style.display = 'flex';
+            });
+            
+            // Buy MAZOL from ECOMAS
+            document.getElementById('buyButton').addEventListener('click', function() {
+                const user = UserSystem.getCurrentUser();
+                if (!user) {
+                    alert('Please login to buy tokens');
+                    document.getElementById('loginModal').style.display = 'flex';
+                    return;
+                }
+                
+                document.getElementById('buyModal').style.display = 'flex';
+            });
+            
+            // Purchase tokens
+            document.querySelectorAll('.purchase-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tier = this.dataset.tier;
+                    const amount = parseFloat(this.dataset.amount);
+                    const user = UserSystem.getCurrentUser();
+                    
+                    if (!user) return;
+                    
+                    // Special handling for Platinum
+                    if (tier === 'platinum') {
+                        if (!user.badges.includes('bronze') && 
+                            !user.badges.includes('silver') && 
+                            !user.badges.includes('gold')) {
+                            alert('Platinum membership requires existing Bronze, Silver or Gold membership');
+                            return;
+                        }
+                        
+                        // Add Platinum badge
+                        UserSystem.addBadge(user, 'platinum');
+                        alert('Platinum membership added successfully!');
+                    } else {
+                        // Add badge for other tiers
+                        UserSystem.addBadge(user, tier);
+                        user.cryptoWallet.balance += amount;
+                        alert(`Successfully purchased ${amount} MZLx and upgraded to ${tier} membership!`);
+                    }
+                    
+                    document.getElementById('buyModal').style.display = 'none';
+                    location.reload();
+                });
             });
             
             // Logout
@@ -1749,6 +2037,12 @@
                         badgeContainer.appendChild(badgeEl);
                     }
                 });
+                
+                // Display member ID
+                const memberIdEl = document.createElement('div');
+                memberIdEl.className = 'member-badge';
+                memberIdEl.textContent = user.memberId;
+                badgeContainer.appendChild(memberIdEl);
             }
         }
     </script>
