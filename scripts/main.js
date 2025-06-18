@@ -427,3 +427,21 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('socialActionsTop').style.display = 'none';
     }
 });
+
+// Add to UserSystem class
+static addCryptoBalance(user, amount) {
+    user.cryptoWallet.balance += amount;
+    
+    // Update user
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const updatedUsers = users.map(u => u.email === user.email ? user : u);
+    localStorage.setItem('users', JSON.stringify(updatedUsers));
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    
+    return user;
+}
+
+// Add to DOMContentLoaded event
+document.querySelectorAll('.purchase-btn').forEach(btn => {
+    btn.dataset.originalText = btn.innerHTML;
+});
