@@ -361,3 +361,30 @@
     <script src="scripts/escrow.js"></script>
 </body>
 </html>
+
+<!-- Add this in head section -->
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+
+<!-- Updated purchase options in buyModal -->
+<div class="purchase-option">
+    <div class="purchase-header">
+        <i class="fas fa-medal" style="color: var(--bronze);"></i>
+        <h4>Bronze Membership</h4>
+    </div>
+    <div class="purchase-min">Minimum Purchase: 25 MZLx</div>
+    <div class="purchase-desc">Upgrade to Bronze to increase your mining speed by 1.5x</div>
+    <div class="purchase-price">₦450 | $1.00</div>
+    <div class="purchase-actions">
+        <button class="purchase-btn" data-tier="bronze" data-amount="25" data-currency="NGN" data-price="450">
+            <i class="fas fa-naira-sign"></i> Pay with NGN
+        </button>
+        <button class="purchase-btn" data-tier="bronze" data-amount="25" data-currency="USD" data-price="1.00">
+            <i class="fas fa-dollar-sign"></i> Pay with USD
+        </button>
+        <button class="purchase-btn" data-tier="bronze" data-amount="25" data-currency="USDT" data-price="1.00">
+            <i class="fas fa-coins"></i> Pay with USDT
+        </button>
+    </div>
+</div>
+
+<!-- Similar updates for other tiers -->
