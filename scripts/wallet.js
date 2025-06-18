@@ -108,3 +108,31 @@ document.querySelectorAll('.purchase-btn').forEach(btn => {
         }
     });
 });
+
+// Add to processPurchase function
+if (currency === 'USDT') {
+    // For USDT payments
+    const usdtContract = new ethers.Contract(
+        '0x55d398326f99059fF775485246999027B3197955', // BSC USDT contract
+        ERC20_ABI,
+        signer
+    );
+    
+    // Approve and transfer
+    const decimals = await usdtContract.decimals();
+    const amountInWei = ethers.utils.parseUnits(amount.toString(), decimals);
+    
+    const approveTx = await usdtContract.approve(
+        CONTRACT_ADDRESS,
+        amountInWei
+    );
+    await approveTx.wait();
+    
+    const tx = await contract.buyWithUSDT(
+        amountInWei,
+        user.cryptoWallet.address
+    );
+    await tx.wait();
+    
+    return true;
+}
