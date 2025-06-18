@@ -1,4 +1,4 @@
-// MAZOL Token Contract Details
+ // MAZOL Token Contract Details
 const CONTRACT_ADDRESS = "0x49F4a728BD98480E92dBfc6a82d595DA9d1F7b83";
 const CONTRACT_ABI = [/* Full ABI would be here */];
 
@@ -153,6 +153,21 @@ document.getElementById('claimButton').addEventListener('click', function() {
     miningSystem.claimTokens();
 });
 
+// Start mining from social interface
+document.getElementById('startMiningBtn').addEventListener('click', function() {
+    if (!UserSystem.getCurrentUser()) {
+        alert('Please login to start mining');
+        document.getElementById('loginModal').style.display = 'flex';
+        return;
+    }
+    
+    if (miningSystem.isMining) {
+        miningSystem.stopMining();
+    } else {
+        miningSystem.startMining();
+    }
+});
+
 // Load mined data if exists
 if (localStorage.getItem('totalMined')) {
     miningSystem.totalMined = parseFloat(localStorage.getItem('totalMined'));
@@ -160,3 +175,4 @@ if (localStorage.getItem('totalMined')) {
     if (miningSystem.totalMined > 0) {
         document.getElementById('claimButton').style.display = 'flex';
     }
+}
