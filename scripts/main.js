@@ -1,4 +1,4 @@
-// Tokenomics Configuration
+ // Tokenomics Configuration
 const TOKENOMICS = {
     totalSupply: 50000000,
     privateSale: 25000000,
@@ -24,7 +24,7 @@ const TOKENOMICS = {
     halvingInterval: 365 * 4,
     initialHalvingDate: new Date('2023-01-01'),
     mlmLevels: 5,
-    mlmPercentage: 0.025,
+    ml极Percentage: 0.025,
     membershipPrices: {
         free: 0,
         bronze: 1000,
@@ -314,12 +314,16 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('showRegister').addEventListener('click', function(e) {
         e.preventDefault();
         document.getElementById('loginModal').style.display = 'none';
-        document.getElementById('registerModal').style.display = 'flex';
+        document.getElementById('registerModal').style.display = '极flex';
     });
     
     document.getElementById('socialSignup').addEventListener('click', function(e) {
         e.preventDefault();
         document.getElementById('registerModal').style.display = 'flex';
+    });
+    
+    document.getElementById('socialLoginBtn').addEventListener('click', function() {
+        document.getElementById('loginModal').style.display = 'flex';
     });
     
     document.getElementById('confirmRegister').addEventListener('click', function() {
@@ -345,7 +349,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (user) {
             alert('Login successful!');
             document.getElementById('loginModal').style.display = 'none';
-            location.reload();
+            document.getElementById('socialOverlay').classList.add('hidden');
+            document.getElementById('ecomasPlatform').classList.add('visible');
         } else {
             alert('Invalid email or password');
         }
@@ -360,15 +365,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('switchToSocialBtn').addEventListener('click', function() {
         document.getElementById('ecomasPlatform').classList.remove('visible');
         document.getElementById('socialOverlay').classList.remove('hidden');
-    });
-    
-    // Start mining from social interface
-    document.getElementById('startMiningBtn').addEventListener('click', function() {
-        if (!UserSystem.getCurrentUser()) {
-            alert('Please login to start mining');
-            document.getElementById('loginModal').style.display = 'flex';
-            return;
-        }
     });
     
     // Buy MAZOL from social interface
@@ -393,39 +389,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         document.getElementById('buyModal').style.display = 'flex';
-    });
-    
-    // Purchase tokens
-    document.querySelectorAll('.purchase-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const tier = this.dataset.tier;
-            const amount = parseFloat(this.dataset.amount);
-            const user = UserSystem.getCurrentUser();
-            
-            if (!user) return;
-            
-            // Special handling for Platinum
-            if (tier === 'platinum') {
-                if (!user.badges.includes('bronze') && 
-                    !user.badges.includes('silver') && 
-                    !user.badges.includes('gold')) {
-                    alert('Platinum membership requires existing Bronze, Silver or Gold membership');
-                    return;
-                }
-                
-                // Add Platinum badge
-                UserSystem.addBadge(user, 'platinum');
-                alert('Platinum membership added successfully!');
-            } else {
-                // Add badge for other tiers
-                UserSystem.addBadge(user, tier);
-                user.cryptoWallet.balance += amount;
-                alert(`Successfully purchased ${amount} MZLx and upgraded to ${tier} membership!`);
-            }
-            
-            document.getElementById('buyModal').style.display = 'none';
-            location.reload();
-        });
     });
     
     // Logout
