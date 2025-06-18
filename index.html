@@ -23,6 +23,7 @@
             --gold: #ffd700;
             --platinum: #e5e4e2;
             --social-bg: rgba(0, 0, 0, 0.95);
+            --social-gradient: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
         }
         
         * {
@@ -33,24 +34,24 @@
         }
         
         body {
-            background: linear-gradient(rgba(15, 12, 41, 0.85), rgba(48, 43, 99, 0.85));
+            background: var(--social-gradient);
             color: var(--text-light);
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            padding: 10px;
             overflow: hidden;
             position: relative;
         }
         
         .app-container {
             max-width: 100%;
-            height: calc(100vh - 20px);
+            height: 100vh;
             display: flex;
             flex-direction: column;
             margin: 0 auto;
             overflow: hidden;
         }
         
+        /* Social Media Overlay */
         .social-overlay {
             position: fixed;
             top: 0;
@@ -58,10 +59,14 @@
             width: 100%;
             height: 100%;
             background: var(--social-bg);
-            z-index: 10000;
+            z-index: 100;
             display: flex;
             flex-direction: column;
-            backdrop-filter: blur(10px);
+            transition: transform 0.5s ease;
+        }
+        
+        .social-overlay.hidden {
+            transform: translateY(100%);
         }
         
         .social-header {
@@ -71,6 +76,8 @@
             padding: 15px;
             background: rgba(0, 0, 0, 0.7);
             border-bottom: 1px solid var(--light-blue);
+            position: relative;
+            z-index: 10;
         }
         
         .social-logo {
@@ -82,6 +89,31 @@
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+        
+        .social-actions-top {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-action-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--light-blue);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-action-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
         }
         
         .social-close {
@@ -135,18 +167,29 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-        }
-        
-        .social-video-placeholder {
             text-align: center;
             padding: 20px;
-            max-width: 90%;
         }
         
-        .social-video-placeholder i {
+        .video-placeholder i {
             font-size: 5rem;
             margin-bottom: 20px;
             color: var(--light-blue);
+        }
+        
+        .video-placeholder h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--lemon-green), var(--light-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .video-placeholder p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+            max-width: 80%;
         }
         
         .social-actions {
@@ -157,7 +200,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .social-action-btn {
+        .social-bottom-btn {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -169,7 +212,7 @@
             min-width: 60px;
         }
         
-        .social-action-btn i {
+        .social-bottom-btn i {
             font-size: 1.5rem;
             margin-bottom: 5px;
         }
@@ -192,10 +235,24 @@
         .video-stat i {
             font-size: 1.5rem;
             margin-bottom: 5px;
+            color: white;
         }
         
         .video-stat span {
             font-size: 0.8rem;
+        }
+        
+        /* ECOMAS Platform */
+        .ecomas-platform {
+            display: none;
+            flex-direction: column;
+            height: 100vh;
+            padding: 10px;
+            background: linear-gradient(rgba(15, 12, 41, 0.85), rgba(48, 43, 99, 0.85));
+        }
+        
+        .ecomas-platform.visible {
+            display: flex;
         }
         
         .top-header {
@@ -270,6 +327,19 @@
             display: flex;
             align-items: center;
             gap: 5px;
+        }
+        
+        .switch-btn {
+            background: var(--light-blue);
+            color: var(--navy);
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            border: none;
         }
         
         .member-badge {
@@ -813,23 +883,29 @@
                 <i class="fas fa-comments"></i>
                 TruYan Social
             </h1>
-            <button class="social-close" id="socialCloseBtn">
-                <i class="fas fa-times"></i>
-            </button>
+            <div class="social-actions-top" id="socialActionsTop">
+                <button class="social-action-btn" id="startMiningBtn" title="Start Mining">
+                    <i class="fas fa-hard-hat"></i>
+                </button>
+                <button class="social-action-btn" id="buyMazolBtn" title="Buy MAZOL">
+                    <i class="fas fa-coins"></i>
+                </button>
+                <button class="social-action-btn" id="switchToEcomasBtn" title="Switch to ECOMAS">
+                    <i class="fas fa-exchange-alt"></i>
+                </button>
+            </div>
         </div>
         <div class="social-content">
             <div class="social-video-container">
                 <div class="social-video">
                     <div class="video-player">
                         <div class="video-placeholder">
-                            <div class="social-video-placeholder">
-                                <i class="fas fa-play-circle"></i>
-                                <h3>Welcome to TruYan Social</h3>
-                                <p>Connect with the community and earn rewards</p>
-                                <button class="cta-button" id="socialLoginBtn" style="margin-top: 20px;">
-                                    <i class="fas fa-sign-in-alt"></i> Login to Social Platform
-                                </button>
-                            </div>
+                            <i class="fas fa-play-circle"></i>
+                            <h3>Welcome to TruYan Social</h3>
+                            <p>Connect with the community and earn rewards</p>
+                            <button class="cta-button" id="socialLoginBtn" style="margin-top: 20px;">
+                                <i class="fas fa-sign-in-alt"></i> Login to Social Platform
+                            </button>
                         </div>
                     </div>
                     <div class="video-stats">
@@ -853,23 +929,23 @@
                 </div>
             </div>
             <div class="social-actions">
-                <button class="social-action-btn">
+                <button class="social-bottom-btn">
                     <i class="fas fa-home"></i>
                     <span>Home</span>
                 </button>
-                <button class="social-action-btn">
+                <button class="social-bottom-btn">
                     <i class="fas fa-search"></i>
                     <span>Discover</span>
                 </button>
-                <button class="social-action-btn">
+                <button class="social-bottom-btn">
                     <i class="fas fa-plus-circle"></i>
                     <span>Create</span>
                 </button>
-                <button class="social-action-btn">
+                <button class="social-bottom-btn">
                     <i class="fas fa-envelope"></i>
                     <span>Messages</span>
                 </button>
-                <button class="social-action-btn">
+                <button class="social-bottom-btn">
                     <i class="fas fa-user"></i>
                     <span>Profile</span>
                 </button>
@@ -877,13 +953,17 @@
         </div>
     </div>
 
-    <div class="app-container">
+    <!-- ECOMAS Platform -->
+    <div class="ecomas-platform" id="ecomasPlatform">
         <div class="top-header">
             <h1 class="logo">
                 <i class="fas fa-coins"></i>
                 MASOLITES ECOMAS
             </h1>
             <div class="auth-container">
+                <button class="switch-btn" id="switchToSocialBtn">
+                    <i class="fas fa-exchange-alt"></i> Switch to TruYan
+                </button>
                 <button class="btn btn-login" id="loginBtn">
                     <i class="fas fa-sign-in-alt"></i> Login
                 </button>
@@ -1062,336 +1142,6 @@
         </div>
     </div>
 
-    <!-- Save & Earn Modal -->
-    <div class="modal" id="saveEarnModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-piggy-bank"></i> Save & Earn</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="tabs">
-                    <button class="tab-btn active" data-tab="manual">
-                        <i class="fas fa-building"></i> Bank
-                    </button>
-                    <button class="tab-btn" data-tab="flutterwave">
-                        <i class="fas fa-credit-card"></i> Flutterwave
-                    </button>
-                    <button class="tab-btn" data-tab="crypto">
-                        <i class="fas fa-coins"></i> Crypto
-                    </button>
-                </div>
-                
-                <div class="tab-content active" id="manualTab">
-                    <div class="card" style="background: rgba(0,0,0,0.3); margin-bottom:15px;">
-                        <h4><i class="fas fa-university"></i> Pay To Bank:</h4>
-                        <p><strong>UBA</strong>: 1026664654</p>
-                        <p><strong>Account Name</strong>: Masses Freedom</p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Amount (₦)</label>
-                        <input type="number" id="depositAmount" min="500" max="2000000" value="1000">
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Date (dd.mm.yy)</label>
-                            <input type="text" id="receiptDate" placeholder="01.01.23">
-                        </div>
-                        <div class="form-group">
-                            <label>Time (hh.mm am/pm)</label>
-                            <input type="text" id="receiptTime" placeholder="12.00 pm">
-                        </div>
-                    </div>
-                    
-                    <button class="cta-button" id="submitDeposit">
-                        <i class="fas fa-paper-plane"></i> Submit Deposit
-                    </button>
-                    <p class="note" style="font-size:0.7rem; margin-top:10px;">Min: ₦500, Max: ₦2,000,000</p>
-                </div>
-                
-                <div class="tab-content" id="flutterwaveTab">
-                    <div class="form-group">
-                        <label>Amount (₦)</label>
-                        <input type="number" id="fwAmount" min="500" value="1000">
-                    </div>
-                    
-                    <button class="cta-button" id="processFlutterwave">
-                        <i class="fas fa-credit-card"></i> Pay with Flutterwave
-                    </button>
-                </div>
-                
-                <div class="tab-content" id="cryptoTab">
-                    <div class="form-group">
-                        <label>Amount (USDT)</label>
-                        <input type="number" id="cryptoAmount" min="10" value="50">
-                    </div>
-                    
-                    <button class="cta-button" id="processCrypto">
-                        <i class="fas fa-coins"></i> Vest Crypto
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Dashboard Modal -->
-    <div class="modal" id="dashboardModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-user-circle"></i> Your Dashboard</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="card" style="background: rgba(0,0,0,0.3); margin-bottom:15px;">
-                    <h4><i class="fas fa-wallet"></i> Crypto Wallet</h4>
-                    <p><strong>Address:</strong></p>
-                    <div style="word-break: break-all; font-family: monospace; font-size:0.8rem; background:rgba(0,0,0,0.5); padding:8px; border-radius:8px; margin-top:5px;" id="cryptoAddress">0x000...0000</div>
-                    <p style="margin-top:8px;"><strong>Balance:</strong> <span id="cryptoBalance">0</span> MZLx</p>
-                </div>
-                
-                <div class="card" style="background: rgba(0,0,0,0.3); margin-bottom:15px;">
-                    <h4><i class="fas fa-money-bill-wave"></i> Fiat Wallet</h4>
-                    <p><strong>Account:</strong> <span id="fiatAccount">MAS_0000000000</span></p>
-                    <p><strong>Balance:</strong> ₦<span id="fiatBalance">0</span></p>
-                </div>
-                
-                <div class="card" style="background: rgba(0,0,0,0.3); margin-bottom:15px;">
-                    <h4><i class="fas fa-exchange-alt"></i> P2P Transfer</h4>
-                    <div class="form-group">
-                        <label>Recipient Wallet Address</label>
-                        <input type="text" id="recipientAddress" placeholder="Enter recipient address">
-                    </div>
-                    <div class="form-group">
-                        <label>Amount (MZLx)</label>
-                        <input type="number" id="transferAmount" min="1" value="10">
-                    </div>
-                    <button class="cta-button" id="transferButton">
-                        <i class="fas fa-paper-plane"></i> Send MZLx
-                    </button>
-                    <p class="note" style="font-size:0.7rem; margin-top:10px;">Platform fee: 0.4% per transaction</p>
-                </div>
-                
-                <div class="card" style="background: rgba(0,0,0,0.3); margin-bottom:15px;">
-                    <h4><i class="fas fa-bell"></i> Notifications</h4>
-                    <div id="notificationList" style="max-height:150px; overflow-y:auto;">
-                        <div style="padding:10px; border-bottom:1px solid rgba(255,255,255,0.1);">
-                            <p>Welcome to Masolites! Start by exploring the platform.</p>
-                            <p style="font-size:0.7rem; color:rgba(255,255,255,0.6); margin-top:3px;">Just now</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card" style="background: rgba(0,0,0,0.3);">
-                    <h4><i class="fas fa-user-edit"></i> Update Profile</h4>
-                    <div class="form-group">
-                        <input type="text" id="userFullName" placeholder="Full Name">
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" id="userPhone" placeholder="Phone Number">
-                    </div>
-                    <button class="cta-button" id="updateProfile">
-                        <i class="fas fa-save"></i> Update Profile
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Buy Options Modal -->
-    <div class="modal" id="buyModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-shopping-cart"></i> Buy MAZOL Tokens</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Select Membership Level</label>
-                    <select id="membershipLevel">
-                        <option value="free">Free (0 MZLx)</option>
-                        <option value="bronze">Bronze (₦1,000)</option>
-                        <option value="silver">Silver (₦5,000)</option>
-                        <option value="gold">Gold (₦10,000)</option>
-                        <option value="platinum">Platinum (₦25,000)</option>
-                    </select>
-                </div>
-                
-                <div class="tabs" style="margin-top:15px;">
-                    <button class="tab-btn active" data-tab="bankOption">
-                        <i class="fas fa-building"></i> Bank
-                    </button>
-                    <button class="tab-btn" data-tab="usdtOption">
-                        <i class="fab fa-ethereum"></i> USDT
-                    </button>
-                    <button class="tab-btn" data-tab="flutterOption">
-                        <i class="fas fa-bolt"></i> Flutterwave
-                    </button>
-                </div>
-                
-                <div class="tab-content active" id="bankOptionTab">
-                    <div class="card" style="background: rgba(0,0,0,0.3); margin-top:15px;">
-                        <h4><i class="fas fa-university"></i> Bank Transfer</h4>
-                        <p style="margin-top:10px;"><strong>UBA</strong>: 1026664654</p>
-                        <p><strong>Account Name</strong>: Masses Freedom</p>
-                        <p class="note" style="font-size:0.8rem; margin-top:10px;">After payment, submit proof using the Save & Earn section</p>
-                    </div>
-                </div>
-                
-                <div class="tab-content" id="usdtOptionTab">
-                    <div class="card" style="background: rgba(0,0,0,0.3); margin-top:15px;">
-                        <h4><i class="fab fa-ethereum"></i> USDT Payment</h4>
-                        <p style="margin-top:10px; word-break:break-all;"><strong>USDT Address</strong>: 0x9a3E0603d8e91dA3f1c5F3B2C3D4E5F6A7B8C9D0</p>
-                    </div>
-                </div>
-                
-                <div class="tab-content" id="flutterOptionTab">
-                    <div class="card" style="background: rgba(0,0,0,0.3); margin-top:15px;">
-                        <h4><i class="fas fa-bolt"></i> Flutterwave Payment</h4>
-                        <p>Instant Payment Gateway</p>
-                    </div>
-                </div>
-                
-                <button class="cta-button" id="confirmBuy" style="margin-top:15px;">
-                    <i class="fas fa-check"></i> Confirm Purchase
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Admin Access Modal -->
-    <div class="modal" id="adminAccessModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-lock"></i> Admin Access</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Admin Username</label>
-                    <input type="text" id="adminUsername" placeholder="Enter admin username" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="adminPassword" placeholder="Enter password" required>
-                </div>
-                <div class="form-group">
-                    <label>6-Digit PIN</label>
-                    <input type="text" id="adminPin" placeholder="Enter 6-digit PIN" maxlength="6" required>
-                </div>
-                <div class="error-message" id="adminError" style="display:none; color: var(--accent); padding: 10px; margin-bottom: 10px;"></div>
-                <button class="cta-button" id="adminLoginBtn">
-                    <i class="fas fa-sign-in-alt"></i> Access Admin Panel
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Escrow Shop Modal -->
-    <div class="modal" id="escrowShopModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-store"></i> Escrow Shop</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="tabs">
-                    <button class="tab-btn active" data-tab="buy">
-                        <i class="fas fa-shopping-cart"></i> Buy
-                    </button>
-                    <button class="tab-btn" data-tab="sell">
-                        <i class="fas fa-tag"></i> Sell
-                    </button>
-                </div>
-                
-                <div class="tab-content active" id="buyTab">
-                    <div class="search-bar" style="display:flex; gap:8px; margin-bottom:15px;">
-                        <input type="text" id="productSearch" placeholder="Search products...">
-                        <button class="cta-button" style="padding:10px 15px;" id="searchProductsBtn">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="product-grid" id="productGrid">
-                        <!-- Products will be populated here -->
-                    </div>
-                </div>
-                
-                <div class="tab-content" id="sellTab">
-                    <div class="form-group">
-                        <label>Product/Service Name</label>
-                        <input type="text" id="productName" placeholder="Enter product/service name" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea id="productDescription" placeholder="Describe your product/service" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Price (MZLx)</label>
-                        <input type="number" id="productPrice" min="1" value="10" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Category</label>
-                        <select id="productCategory">
-                            <option value="electronics">Electronics</option>
-                            <option value="fashion">Fashion</option>
-                            <option value="services">Services</option>
-                            <option value="real-estate">Real Estate</option>
-                            <option value="others">Others</option>
-                        </select>
-                    </div>
-                    <button class="cta-button" id="listProductBtn">
-                        <i class="fas fa-plus"></i> List Product/Service
-                    </button>
-                    <p class="note" style="font-size:0.7rem; margin-top:10px;">
-                        <i class="fas fa-info-circle"></i> Free members can list up to 3 products. Premium members have higher limits.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Product Detail Modal -->
-    <div class="modal" id="productDetailModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="productDetailTitle"></h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="product-image" style="margin-bottom:15px; height:200px;">
-                    <i class="fas fa-image" style="font-size:3rem; opacity:0.3;"></i>
-                </div>
-                
-                <div class="form-group">
-                    <label>Description</label>
-                    <p id="productDetailDescription" style="margin-top:5px;"></p>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Price</label>
-                        <p id="productDetailPrice" style="color:var(--lemon-green); font-weight:700; font-size:1.2rem;"></p>
-                    </div>
-                    <div class="form-group">
-                        <label>Seller</label>
-                        <p id="productDetailSeller"></p>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Category</label>
-                    <p id="productDetailCategory"></p>
-                </div>
-                
-                <button class="cta-button" id="buyProductBtn">
-                    <i class="fas fa-shopping-cart"></i> Buy Now
-                </button>
-            </div>
-        </div>
-    </div>
-
     <script>
         // Tokenomics Configuration
         const TOKENOMICS = {
@@ -1481,7 +1231,7 @@
                 
                 // Process referral
                 if (referralCode) {
-                    MLMSystem.processReferral(referralCode, user.email, 0);
+                    this.processReferral(referralCode, user.email, 0);
                 }
                 
                 return user;
@@ -1565,6 +1315,44 @@
                 else if (user.badges.includes('silver')) return TOKENOMICS.discounts.silver;
                 else if (user.badges.includes('bronze')) return TOKENOMICS.discounts.bronze;
                 else return TOKENOMICS.discounts.free;
+            }
+            
+            static processReferral(referralCode, newUserId, amount) {
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const referrer = users.find(u => u.referralCode === referralCode);
+                
+                if (!referrer) return;
+                
+                // Add new user as downline
+                const newUser = users.find(u => u.email === newUserId);
+                if (newUser) {
+                    newUser.upline = referrer.email;
+                    referrer.downlines.push(newUser.email);
+                }
+                
+                // Distribute rewards through 5 levels
+                let currentUpline = referrer;
+                for (let level = 0; level < TOKENOMICS.mlmLevels; level++) {
+                    if (!currentUpline) break;
+                    
+                    // Calculate reward
+                    const reward = amount * TOKENOMICS.mlmPercentage;
+                    currentUpline.cryptoWallet.balance += reward;
+                    
+                    // Add notification
+                    const message = `You earned ${reward.toFixed(6)} MZLx from level ${level+1} referral!`;
+                    this.addNotification(currentUpline, message);
+                    
+                    // Move to next upline
+                    if (currentUpline.upline) {
+                        currentUpline = users.find(u => u.email === currentUpline.upline);
+                    } else {
+                        currentUpline = null;
+                    }
+                }
+                
+                // Update users
+                localStorage.setItem('users', JSON.stringify(users));
             }
         }
 
@@ -1697,47 +1485,6 @@
             }
         }
 
-        // MLM System
-        class MLMSystem {
-            static processReferral(referralCode, newUserId, amount) {
-                const users = JSON.parse(localStorage.getItem('users') || '[]');
-                const referrer = users.find(u => u.referralCode === referralCode);
-                
-                if (!referrer) return;
-                
-                // Add new user as downline
-                const newUser = users.find(u => u.email === newUserId);
-                if (newUser) {
-                    newUser.upline = referrer.email;
-                    referrer.downlines.push(newUser.email);
-                }
-                
-                // Distribute rewards through 5 levels
-                let currentUpline = referrer;
-                for (let level = 0; level < TOKENOMICS.mlmLevels; level++) {
-                    if (!currentUpline) break;
-                    
-                    // Calculate reward
-                    const reward = amount * TOKENOMICS.mlmPercentage;
-                    currentUpline.cryptoWallet.balance += reward;
-                    
-                    // Add notification
-                    const message = `You earned ${reward.toFixed(6)} MZLx from level ${level+1} referral!`;
-                    UserSystem.addNotification(currentUpline, message);
-                    
-                    // Move to next upline
-                    if (currentUpline.upline) {
-                        currentUpline = users.find(u => u.email === currentUpline.upline);
-                    } else {
-                        currentUpline = null;
-                    }
-                }
-                
-                // Update users
-                localStorage.setItem('users', JSON.stringify(users));
-            }
-        }
-
         // Initialize when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize systems
@@ -1857,128 +1604,36 @@
                 miningSystem.claimTokens();
             });
             
-            // Save & Earn
-            document.getElementById('saveEarnBtn').addEventListener('click', function() {
+            // Switch between interfaces
+            document.getElementById('switchToEcomasBtn').addEventListener('click', function() {
+                document.getElementById('socialOverlay').classList.add('hidden');
+                document.getElementById('ecomasPlatform').classList.add('visible');
+            });
+            
+            document.getElementById('switchToSocialBtn').addEventListener('click', function() {
+                document.getElementById('ecomasPlatform').classList.remove('visible');
+                document.getElementById('socialOverlay').classList.remove('hidden');
+            });
+            
+            // Start mining from social interface
+            document.getElementById('startMiningBtn').addEventListener('click', function() {
                 if (!UserSystem.getCurrentUser()) {
-                    alert('Please login to use Save & Earn');
-                    document.getElementById('loginModal').style.display = 'flex';
-                    return;
-                }
-                document.getElementById('saveEarnModal').style.display = 'flex';
-            });
-            
-            // Dashboard
-            document.getElementById('platformWalletBtn').addEventListener('click', function() {
-                const user = UserSystem.getCurrentUser();
-                if (!user) {
-                    alert('Please login to view wallet');
+                    alert('Please login to start mining');
                     document.getElementById('loginModal').style.display = 'flex';
                     return;
                 }
                 
-                document.getElementById('cryptoAddress').textContent = user.cryptoWallet.address;
-                document.getElementById('cryptoBalance').textContent = user.cryptoWallet.balance.toFixed(6);
-                document.getElementById('fiatAccount').textContent = user.fiatWallet.account;
-                document.getElementById('fiatBalance').textContent = user.fiatWallet.balance.toFixed(2);
-                
-                // Load notifications
-                const notificationList = document.getElementById('notificationList');
-                notificationList.innerHTML = '';
-                user.notifications.forEach(notif => {
-                    const item = document.createElement('div');
-                    item.style.padding = '10px';
-                    item.style.borderBottom = '1px solid rgba(255,255,255,0.1)';
-                    item.innerHTML = `
-                        <p>${notif.message}</p>
-                        <p style="font-size:0.7rem; color:rgba(255,255,255,0.6); margin-top:3px;">${new Date(notif.timestamp).toLocaleString()}</p>
-                    `;
-                    notificationList.appendChild(item);
-                });
-                
-                document.getElementById('dashboardModal').style.display = 'flex';
+                if (miningSystem.isMining) {
+                    miningSystem.stopMining();
+                    this.innerHTML = '<i class="fas fa-hard-hat"></i>';
+                } else {
+                    miningSystem.startMining();
+                    this.innerHTML = '<i class="fas fa-stop"></i>';
+                }
             });
             
-            // P2P Transfer
-            document.getElementById('transferButton').addEventListener('click', async function() {
-                const recipientAddress = document.getElementById('recipientAddress').value;
-                const amount = parseFloat(document.getElementById('transferAmount').value);
-                
-                if (!recipientAddress || !amount) {
-                    alert('Please fill all fields');
-                    return;
-                }
-                
-                // This would be handled by the blockchain in a real app
-                const user = UserSystem.getCurrentUser();
-                if (user.cryptoWallet.balance < amount) {
-                    alert('Insufficient balance');
-                    return;
-                }
-                
-                // Deduct amount + fee
-                const fee = amount * TOKENOMICS.platformFee;
-                const total = amount + fee;
-                
-                if (user.cryptoWallet.balance < total) {
-                    alert(`Insufficient balance to cover amount + fee (${fee.toFixed(6)} MZLx)`);
-                    return;
-                }
-                
-                user.cryptoWallet.balance -= total;
-                
-                // Add transfer record
-                user.transfers.push({
-                    type: 'out',
-                    amount,
-                    recipient: recipientAddress,
-                    fee,
-                    timestamp: new Date().toISOString()
-                });
-                
-                // Find recipient and credit them
-                const users = JSON.parse(localStorage.getItem('users') || '[]');
-                const recipient = users.find(u => u.cryptoWallet.address === recipientAddress);
-                if (recipient) {
-                    recipient.cryptoWallet.balance += amount;
-                    recipient.transfers.push({
-                        type: 'in',
-                        amount,
-                        sender: user.email,
-                        timestamp: new Date().toISOString()
-                    });
-                    
-                    // Update recipient
-                    localStorage.setItem('users', JSON.stringify(users));
-                }
-                
-                // Update sender
-                localStorage.setItem('users', JSON.stringify(users));
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                
-                alert(`Successfully sent ${amount.toFixed(6)} MZLx to ${recipientAddress.substring(0, 8)}...`);
-                document.getElementById('cryptoBalance').textContent = user.cryptoWallet.balance.toFixed(6);
-                
-                // Add notification
-                UserSystem.addNotification(user, `Sent ${amount.toFixed(6)} MZLx to ${recipientAddress.substring(0, 8)}...`);
-            });
-            
-            // Voting
-            document.getElementById('submitVote').addEventListener('click', function() {
-                const newPrice = parseFloat(document.getElementById('newPrice').value);
-                if (newPrice < 0.001) {
-                    alert('Minimum price is $0.001');
-                    return;
-                }
-                
-                // This would be handled by the blockchain in a real app
-                TOKENOMICS.currentPrice = newPrice;
-                document.getElementById('currentPrice').textContent = newPrice.toFixed(3);
-                
-                alert(`Vote submitted for new price: $${newPrice}`);
-            });
-            
-            // Buy MAZOL
-            document.getElementById('buyButton').addEventListener('click', function() {
+            // Buy MAZOL from social interface
+            document.getElementById('buyMazolBtn').addEventListener('click', function() {
                 const user = UserSystem.getCurrentUser();
                 if (!user) {
                     alert('Please login to buy tokens');
@@ -1989,52 +1644,10 @@
                 document.getElementById('buyModal').style.display = 'flex';
             });
             
-            // Confirm purchase
-            document.getElementById('confirmBuy').addEventListener('click', function() {
-                const membershipLevel = document.getElementById('membershipLevel').value;
-                
-                // Add badge to user
-                const user = UserSystem.getCurrentUser();
-                if (user) {
-                    UserSystem.addBadge(user, membershipLevel);
-                    
-                    // Process MLM
-                    if (user.referredBy) {
-                        MLMSystem.processReferral(user.referredBy, user.email, TOKENOMICS.membershipPrices[membershipLevel]);
-                    }
-                    
-                    alert(`Successfully upgraded to ${membershipLevel} membership!`);
-                    document.getElementById('buyModal').style.display = 'none';
-                    location.reload();
-                }
-            });
-            
-            // Admin button
-            document.getElementById('adminBtn').addEventListener('click', function() {
-                document.getElementById('adminAccessModal').style.display = 'flex';
-            });
-            
-            // Admin login with PIN
-            document.getElementById('adminLoginBtn').addEventListener('click', function() {
-                const username = document.getElementById('adminUsername').value;
-                const password = document.getElementById('adminPassword').value;
-                const pin = document.getElementById('adminPin').value;
-                
-                const ADMIN_CREDENTIALS = {
-                    username: "admin",
-                    password: "Masolites123",
-                    pin: "123456"
-                };
-                
-                if (username === ADMIN_CREDENTIALS.username && 
-                    password === ADMIN_CREDENTIALS.password && 
-                    pin === ADMIN_CREDENTIALS.pin) {
-                    localStorage.setItem('adminLoggedIn', 'true');
-                    window.location.href = 'admin.html';
-                } else {
-                    document.getElementById('adminError').textContent = 'Invalid admin credentials or PIN';
-                    document.getElementById('adminError').style.display = 'block';
-                }
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                UserSystem.logout();
+                location.reload();
             });
             
             // Connect to Metamask
@@ -2081,113 +1694,19 @@
                 }
             });
             
-            // Logout
-            document.getElementById('logoutBtn').addEventListener('click', function() {
-                UserSystem.logout();
-                location.reload();
-            });
-            
-            // Profile update
-            document.getElementById('updateProfile').addEventListener('click', function() {
-                const user = UserSystem.getCurrentUser();
-                if (!user) return;
-                
-                user.fullName = document.getElementById('userFullName').value;
-                user.phone = document.getElementById('userPhone').value;
-                
-                // Update user
-                const users = JSON.parse(localStorage.getItem('users') || []);
-                const updatedUsers = users.map(u => u.email === user.email ? user : u);
-                localStorage.setItem('users', JSON.stringify(updatedUsers));
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                
-                alert('Profile updated successfully!');
-            });
-            
-            // Escrow Shop
-            document.getElementById('escrowShopBtn').addEventListener('click', function() {
-                const user = UserSystem.getCurrentUser();
-                if (!user) {
-                    alert('Please login to use Escrow Shop');
-                    document.getElementById('loginModal').style.display = 'flex';
+            // Voting
+            document.getElementById('submitVote').addEventListener('click', function() {
+                const newPrice = parseFloat(document.getElementById('newPrice').value);
+                if (newPrice < 0.001) {
+                    alert('Minimum price is $0.001');
                     return;
                 }
                 
-                // Load products
-                loadProducts();
-                document.getElementById('escrowShopModal').style.display = 'flex';
-            });
-            
-            // List product
-            document.getElementById('listProductBtn').addEventListener('click', function() {
-                const name = document.getElementById('productName').value;
-                const description = document.getElementById('productDescription').value;
-                const price = parseFloat(document.getElementById('productPrice').value);
-                const category = document.getElementById('productCategory').value;
+                // This would be handled by the blockchain in a real app
+                TOKENOMICS.currentPrice = newPrice;
+                document.getElementById('currentPrice').textContent = newPrice.toFixed(3);
                 
-                if (!name || !description || !price || !category) {
-                    alert('Please fill all fields');
-                    return;
-                }
-                
-                const user = UserSystem.getCurrentUser();
-                if (!user) return;
-                
-                // Check product limit for free members
-                if (user.badges.includes('free') && user.products.length >= TOKENOMICS.maxFreeProducts) {
-                    alert(`Free members can only list up to ${TOKENOMICS.maxFreeProducts} products. Upgrade to list more.`);
-                    return;
-                }
-                
-                // Add product
-                user.products.push({
-                    id: user.products.length + 1,
-                    name,
-                    description,
-                    price,
-                    category,
-                    status: 'active',
-                    sellerId: user.email
-                });
-                
-                // Update user
-                const users = JSON.parse(localStorage.getItem('users') || []);
-                const updatedUsers = users.map(u => u.email === user.email ? user : u);
-                localStorage.setItem('users', JSON.stringify(updatedUsers));
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                
-                alert('Product listed successfully!');
-                document.getElementById('escrowShopModal').style.display = 'none';
-            });
-            
-            // Social Media Overlay
-            document.getElementById('socialCloseBtn').addEventListener('click', function() {
-                document.getElementById('socialOverlay').style.display = 'none';
-            });
-            
-            document.getElementById('socialLoginBtn').addEventListener('click', function() {
-                document.getElementById('loginModal').style.display = 'flex';
-                document.getElementById('socialOverlay').style.display = 'none';
-            });
-            
-            // Tab switching
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const tabId = this.dataset.tab;
-                    
-                    // Hide all tab contents
-                    this.closest('.tabs').querySelectorAll('.tab-btn').forEach(b => {
-                        b.classList.remove('active');
-                    });
-                    
-                    this.closest('.tabs').parentElement.querySelectorAll('.tab-content').forEach(c => {
-                        c.classList.remove('active');
-                    });
-                    
-                    // Show selected tab
-                    this.classList.add('active');
-                    document.getElementById(`${tabId}Tab`).classList.add('active');
-                });
+                alert(`Vote submitted for new price: $${newPrice}`);
             });
             
             // Check if user is logged in
@@ -2196,10 +1715,13 @@
                 document.getElementById('loginBtn').style.display = 'none';
                 document.getElementById('registerBtn').style.display = 'none';
                 document.getElementById('logoutBtn').style.display = 'flex';
+                document.getElementById('socialActionsTop').style.display = 'flex';
+                document.getElementById('socialLoginBtn').style.display = 'none';
                 displayBadges();
-                document.getElementById('socialOverlay').style.display = 'none';
             } else {
-                document.getElementById('socialOverlay').style.display = 'flex';
+                document.getElementById('socialOverlay').classList.remove('hidden');
+                document.getElementById('ecomasPlatform').classList.remove('visible');
+                document.getElementById('socialActionsTop').style.display = 'none';
             }
         });
         
@@ -2228,77 +1750,6 @@
                     }
                 });
             }
-        }
-        
-        // Load products for Escrow Shop
-        function loadProducts() {
-            // This would come from a database in a real app
-            const products = [
-                { id: 1, name: "iPhone 13 Pro", price: 1500, category: "electronics", seller: "TechDeals" },
-                { id: 2, name: "Designer Watch", price: 800, category: "fashion", seller: "FashionHub" },
-                { id: 3, name: "Web Development", price: 500, category: "services", seller: "DevServices" },
-                { id: 4, name: "Apartment for Rent", price: 5000, category: "real-estate", seller: "PropertyPlus" },
-                { id: 5, name: "Laptop Bag", price: 120, category: "others", seller: "AccessoriesRUs" },
-                { id: 6, name: "Smart TV 55\"", price: 1200, category: "electronics", seller: "ElectroWorld" }
-            ];
-            
-            const productGrid = document.getElementById('productGrid');
-            productGrid.innerHTML = '';
-            
-            const user = UserSystem.getCurrentUser();
-            const discount = user ? UserSystem.getDiscount(user) : 0;
-            
-            products.forEach(product => {
-                const discountedPrice = product.price * (1 - discount);
-                
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card';
-                productCard.dataset.id = product.id;
-                productCard.innerHTML = `
-                    <div class="product-image">
-                        <i class="fas fa-image"></i>
-                    </div>
-                    <div class="product-title">${product.name}</div>
-                    <div class="product-price">${discountedPrice.toFixed(2)} MZLx</div>
-                    ${discount > 0 ? `<div class="discount-badge">${(discount * 100).toFixed(0)}% OFF</div>` : ''}
-                `;
-                
-                productCard.addEventListener('click', function() {
-                    const productId = parseInt(this.dataset.id);
-                    showProductDetail(productId);
-                });
-                
-                productGrid.appendChild(productCard);
-            });
-        }
-        
-        // Show product details
-        function showProductDetail(productId) {
-            const products = [
-                { id: 1, name: "iPhone 13 Pro", description: "Brand new iPhone 13 Pro with 256GB storage", price: 1500, category: "electronics", seller: "TechDeals" },
-                { id: 2, name: "Designer Watch", description: "Luxury designer watch with leather strap", price: 800, category: "fashion", seller: "FashionHub" },
-                { id: 3, name: "Web Development", description: "Professional website development services", price: 500, category: "services", seller: "DevServices" },
-                { id: 4, name: "Apartment for Rent", description: "2-bedroom apartment in city center", price: 5000, category: "real-estate", seller: "PropertyPlus" },
-                { id: 5, name: "Laptop Bag", description: "Premium leather laptop bag", price: 120, category: "others", seller: "AccessoriesRUs" },
-                { id: 6, name: "Smart TV 55\"", description: "4K Smart TV with HDR", price: 1200, category: "electronics", seller: "ElectroWorld" }
-            ];
-            
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-            
-            const user = UserSystem.getCurrentUser();
-            const discount = user ? UserSystem.getDiscount(user) : 0;
-            const discountedPrice = product.price * (1 - discount);
-            
-            document.getElementById('productDetailTitle').textContent = product.name;
-            document.getElementById('productDetailDescription').textContent = product.description;
-            document.getElementById('productDetailPrice').textContent = `${discountedPrice.toFixed(2)} MZLx (${discount > 0 ? (discount * 100).toFixed(0) + '% OFF' : 'No discount'})`;
-            document.getElementById('productDetailSeller').textContent = product.seller;
-            document.getElementById('productDetailCategory').textContent = product.category.charAt(0).toUpperCase() + product.category.slice(1);
-            
-            document.getElementById('buyProductBtn').dataset.productId = productId;
-            
-            document.getElementById('productDetailModal').style.display = 'flex';
         }
     </script>
 </body>
