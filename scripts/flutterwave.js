@@ -3,7 +3,7 @@ class FlutterwaveProcessor {
     static async makePayment(user, amount, currency, tier, tokenAmount) {
         return new Promise((resolve, reject) => {
             FlutterwaveCheckout({
-                public_key: "FLWPUBK-67633829eee8c3a462374a9a1a8958de-X",
+                public_key: "YOUR_FLUTTERWAVE_PUBLIC_KEY", // REPLACE WITH YOUR KEY
                 tx_ref: `MZL-${Date.now()}-${user.email}`,
                 amount: amount,
                 currency: currency,
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     alert('Platinum membership added!');
                 } else {
                     UserSystem.addBadge(user, tier);
-                    user.cryptoWallet.balance += tokenAmount;
+                    UserSystem.addCryptoBalance(user, tokenAmount);
                     alert(`Purchased ${tokenAmount} MZLx!`);
                 }
                 
