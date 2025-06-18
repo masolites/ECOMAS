@@ -24,7 +24,7 @@ const TOKENOMICS = {
     halvingInterval: 365 * 4,
     initialHalvingDate: new Date('2023-01-01'),
     mlmLevels: 5,
-    ml极Percentage: 0.025,
+    mlmPercentage: 0.025,
     membershipPrices: {
         free: 0,
         bronze: 1000,
@@ -104,7 +104,7 @@ class UserSystem {
     }
     
     static logout() {
-        localStorage.removeItem('currentUser');
+        localStorage.removeItem('currentUser'));
     }
     
     static addNotification(user, message) {
@@ -174,6 +174,18 @@ class UserSystem {
             return true;
         }
         return false;
+    }
+    
+    static addCryptoBalance(user, amount) {
+        user.cryptoWallet.balance += amount;
+        
+        // Update user
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const updatedUsers = users.map(u => u.email === user.email ? user : u);
+        localStorage.setItem('users', JSON.stringify(updatedUsers));
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        
+        return user;
     }
     
     static getDiscount(user) {
@@ -314,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('showRegister').addEventListener('click', function(e) {
         e.preventDefault();
         document.getElementById('loginModal').style.display = 'none';
-        document.getElementById('registerModal').style.display = '极flex';
+        document.getElementById('registerModal').style.display = 'flex';
     });
     
     document.getElementById('socialSignup').addEventListener('click', function(e) {
@@ -412,6 +424,11 @@ document.addEventListener('DOMContentLoaded', function() {
         alert(`Vote submitted for new price: $${newPrice}`);
     });
     
+    // Store original button text
+    document.querySelectorAll('.purchase-btn').forEach(btn => {
+        btn.dataset.originalText = btn.innerHTML;
+    });
+    
     // Check if user is logged in
     const user = UserSystem.getCurrentUser();
     if (user) {
@@ -426,22 +443,4 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('ecomasPlatform').classList.remove('visible');
         document.getElementById('socialActionsTop').style.display = 'none';
     }
-});
-
-// Add to UserSystem class
-static addCryptoBalance(user, amount) {
-    user.cryptoWallet.balance += amount;
-    
-    // Update user
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const updatedUsers = users.map(u => u.email === user.email ? user : u);
-    localStorage.setItem('users', JSON.stringify(updatedUsers));
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    
-    return user;
-}
-
-// Add to DOMContentLoaded event
-document.querySelectorAll('.purchase-btn').forEach(btn => {
-    btn.dataset.originalText = btn.innerHTML;
 });
