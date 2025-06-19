@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,6 +25,9 @@
                 </button>
                 <button class="social-action-btn" id="buyMazolBtn" title="Buy MAZOL">
                     <i class="fas fa-coins"></i> Buy
+                </button>
+                <button class="social-action-btn" id="depositFiatBtn" title="Deposit Funds">
+                    <i class="fas fa-money-bill-wave"></i> Deposit
                 </button>
                 <button class="social-action-btn" id="switchToEcomasBtn" title="Switch to ECOMAS">
                     <i class="fas fa-exchange-alt"></i> ECOMAS
@@ -63,7 +66,7 @@
                             <i class="fas fa-comment"></i>
                             <span>148</span>
                         </div>
-                        <极 class="video-stat">
+                        <div class="video-stat">
                             <i class="fas fa-share"></i>
                             <span>32</span>
                         </div>
@@ -80,7 +83,7 @@
                     <span>Home</span>
                 </button>
                 <button class="social-bottom-btn">
-                    <i class="fas fa-search"></i>
+                    <i class="fas fa-search"></极>
                     <span>Discover</span>
                 </button>
                 <button class="social-bottom-btn">
@@ -115,6 +118,9 @@
                 </button>
                 <button class="btn btn-register" id="registerBtn">
                     <i class="fas fa-user-plus"></i> Register
+                </button>
+                <button class="btn btn-deposit" id="depositBtn" title="Deposit Funds">
+                    <i class="fas fa-money-bill-wave"></i> Deposit
                 </button>
                 <div class="admin-btn" id="adminBtn" title="Admin Panel">
                     <i class="fas fa-cog"></i>
@@ -381,6 +387,36 @@
                             <i class="fas fa-coins"></i> Pay with USDT
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deposit Modal -->
+    <div class="modal" id="depositModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-money-bill-wave"></i> Deposit Funds</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Amount (₦)</label>
+                    <input type="number" id="depositAmount" min="100" placeholder="Enter amount" required>
+                </div>
+                <div class="form-group">
+                    <label>Deposit Method</label>
+                    <select id="depositMethod" class="form-select">
+                        <option value="bank">Bank Transfer</option>
+                        <option value="card">Credit/Debit Card</option>
+                        <option value="mobile">Mobile Money</option>
+                    </select>
+                </div>
+                <button class="cta-button" id="confirmDeposit">
+                    <i class="fas fa-arrow-right"></i> Proceed to Payment
+                </button>
+                <div class="wallet-info">
+                    <p><strong>Your Fiat Wallet:</strong> <span id="fiatWalletBalance">₦0.00</span></p>
                 </div>
             </div>
         </div>
