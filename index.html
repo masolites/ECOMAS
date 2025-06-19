@@ -48,15 +48,21 @@
                             Your browser does not support the video tag.
                         </video>
                         <div class="video-placeholder" id="videoPlaceholder">
-                            <i class="fas fa-play-circle"></i>
-                            <h3>Welcome to TruYan Social</h3>
-                            <p>Connect with the community and earn rewards</p>
-                            <p style="color: var(--light-blue); margin-top: 10px;">
-                                <a href="#" id="socialSignup" style="color: white; text-decoration: underline;">Sign up</a> if not already signed up
-                            </p>
-                            <button class="cta-button" id="socialLoginBtn">
-                                <i class="fas fa-sign-in-alt"></i> Login to Social Platform
-                            </button>
+                            <div class="video-controls">
+                                <i class="fas fa-play-circle play-button" id="playButton"></i>
+                            </div>
+                            <div class="video-content">
+                                <h3>Welcome to TruYan Social</h3>
+                                <p>Connect with the community and earn rewards</p>
+                                <div class="auth-actions">
+                                    <p>
+                                        <a href="#" id="socialSignup">Sign up</a> if not already signed up
+                                    </p>
+                                    <button class="cta-button" id="socialLoginBtn">
+                                        <i class="fas fa-sign-in-alt"></i> Login to Social Platform
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div class="video-stats">
                             <div class="video-stat">
@@ -98,7 +104,7 @@
                 </button>
                 <button class="social-bottom-btn">
                     <i class="fas fa-user"></i>
-                    <span>Profile</极>
+                    <span>Profile</span>
                 </button>
             </div>
         </div>
@@ -112,14 +118,14 @@
                 MASOLITES ECOMAS
             </h1>
             <div class="auth-container">
-                <button class="switch-btn" id极="switchToSocialBtn">
+                <button class="switch-btn" id="switchToSocialBtn">
                     <i class="fas fa-exchange-alt"></i> Switch to TruYan
                 </button>
                 <button class="btn btn-login" id="loginBtn">
                     <i class="fas fa-sign-in-alt"></i> Login
                 </button>
                 <button class="btn btn-register" id="registerBtn">
-                    <i class="fas fa-user-plus"></i> Register
+                    <极 class="fas fa-user-plus"></i> Register
                 </button>
                 <button class="btn btn-deposit" id="depositBtn" title="Deposit Funds">
                     <i class="fas fa-money-bill-wave"></i> Deposit
@@ -134,7 +140,7 @@
         </div>
         
         <div class="main-content">
-            <!-- ECOMAS content remains unchanged -->
+            <!-- ECOMAS content remains unchanged from previous implementation -->
         </div>
     </div>
 
@@ -174,6 +180,34 @@
         </div>
     </div>
 
+    <!-- Admin Panel Modal -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-cog"></i> Admin Panel</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="admin-section">
+                    <h4>User Management</h4>
+                    <div class="admin-users-list" id="adminUsersList">
+                        <!-- Users will be populated here -->
+                    </div>
+                </div>
+                <div class="admin-section">
+                    <h4>Platform Settings</h4>
+                    <div class="form-group">
+                        <label>Base Mining Rate</label>
+                        <input type="number" id="miningRate" step="0.000001" value="0.000001">
+                    </div>
+                    <button class="cta-button" id="saveSettings">
+                        <i class="fas fa-save"></i> Save Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
     <script src="scripts/main.js"></script>
     <script src="scripts/mining.js"></script>
@@ -181,34 +215,5 @@
     <script src="scripts/escrow.js"></script>
     <script src="scripts/flutterwave.js"></script>
     <script src="scripts/social.js"></script>
-    <script>
-        // Video player functionality
-        const video = document.getElementById('socialVideo');
-        const placeholder = document.getElementById('videoPlaceholder');
-        
-        if (video) {
-            video.addEventListener('play', function() {
-                placeholder.style.display = 'none';
-            });
-            
-            video.addEventListener('pause', function() {
-                placeholder.style.display = 'flex';
-            });
-            
-            video.addEventListener('ended', function() {
-                placeholder.style.display = 'flex';
-            });
-            
-            placeholder.addEventListener('click', function() {
-                video.play().catch(e => {
-                    placeholder.innerHTML = `
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <h3>Playback Restricted</h3>
-                        <p>Click the play button to start video</p>
-                    `;
-                });
-            });
-        }
-    </script>
 </body>
 </html>
