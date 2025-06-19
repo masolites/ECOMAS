@@ -1,8 +1,11 @@
-// Social Gifting System
+ // Social Gifting System
 class SocialGifting {
     static async sendGift(receiverId, amount) {
         const user = UserSystem.getCurrentUser();
-        if (!user) return false;
+        if (!user) {
+            alert('Please login to send gifts');
+            return false;
+        }
         
         // Check balance
         if (user.cryptoWallet.balance < amount) {
@@ -10,26 +13,51 @@ class SocialGifting {
             return false;
         }
         
+        // Simple validation
+        if (!receiverId || !receiverId.startsWith('MZLx') || receiverId.length !== 44) {
+            alert('Invalid wallet address format');
+            return false;
+        }
+        
         try {
-            // Connect to blockchain
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner();
-            const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+            // Show processing state
+            const giftBtn = document.getElementById('giftButton');
+            const originalText = giftBtn.innerHTML;
+            giftBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            giftBtn.disabled = true;
             
-            // Transfer tokens
-            const tx = await contract.transfer(
-                receiverId,
-                ethers.utils.parseUnits(amount.toString(), 18)
-            );
-            await tx.wait();
+            // In a real app, this would be a blockchain transaction
+            // For demo purposes, we'll simulate with localStorage
             
-            // Update local balances
+            // Update sender balance
             user.cryptoWallet.balance -= amount;
-            UserSystem.addNotification(user, `Sent ${amount} MZLx to ${receiverId}`);
+            UserSystem.addNotification(user, `Sent ${amount} MZLx to ${receiverId.substring(0, 12)}...`);
             
+            // Update receiver balance (if exists)
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const receiver = users.find(u => u.cryptoWallet.address === receiverId);
+            if (receiver) {
+                receiver.cryptoWallet.balance += amount;
+                UserSystem.addNotification(receiver, `Received ${amount} MZLx from ${user.memberId}`);
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+            
+            // Update current user
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            
+            // Reset button after delay
+            setTimeout(() => {
+                giftBtn.innerHTML = originalText;
+                giftBtn.disabled = false;
+            }, 2000);
+            
+            alert(`Successfully sent ${amount} MZLx!`);
             return true;
         } catch (error) {
             console.error('Gift failed:', error);
+            alert('Failed to send gift');
+            giftBtn.innerHTML = originalText;
+            giftBtn.disabled = false;
             return false;
         }
     }
@@ -38,14 +66,13 @@ class SocialGifting {
 // Gift button in social interface
 document.getElementById('giftButton').addEventListener('click', async function() {
     const amount = parseFloat(prompt('Enter MZL amount to gift:'));
-    const receiver = prompt('Enter receiver wallet address:');
-    
-    if (amount && receiver) {
-        const success = await SocialGifting.sendGift(receiver, amount);
-        if (success) {
-            alert('Gift sent successfully!');
-        } else {
-            alert('Failed to send gift');
-        }
+    if (isNaN(amount) || amount <= 0) {
+        alert('Please enter a valid amount');
+        return;
     }
+    
+    const receiver = prompt('Enter receiver wallet address:');
+    if (!receiver) return;
+    
+    await SocialGifting.sendGift(receiver, amount);
 });
