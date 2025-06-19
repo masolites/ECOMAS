@@ -21,7 +21,7 @@
             </h1>
             <div class="social-actions-top" id="socialActionsTop" style="display:none;">
                 <button class="social-action-btn" id="startMiningBtn" title="Start Mining">
-                    <i class="fas fa-hard-hat"></极> Mine
+                    <i class="fas fa-hard-hat"></i> Mine
                 </button>
                 <button class="social-action-btn" id="buyMazolBtn" title="Buy MAZOL">
                     <i class="fas fa-coins"></i> Buy
@@ -39,18 +39,20 @@
                     </button>
                 </div>
                 <div class="social-video">
-                    <div class="video-player">
-                        <div class="video-placeholder">
-                            <i class="fas fa-play-circle"></i>
-                            <h3>Welcome to TruYan Social</h3>
-                            <p>Connect with the community and earn rewards</p>
-                            <p style="color: var(--light-blue); margin-top: 10px;">
-                                <a href="#" id="socialSignup" style="color: white; text-decoration: underline;">Sign up</a> if not already signed up
-                            </p>
-                            <button class="cta-button" id="socialLoginBtn" style="margin-top: 20px;">
-                                <i class="fas fa-sign-in-alt"></i> Login to Social Platform
-                            </button>
-                        </div>
+                    <video id="socialVideo" width="100%" height="auto" controls poster="https://placehold.co/800x450?text=Video+Placeholder">
+                        <source src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-placeholder" id="videoPlaceholder">
+                        <i class="fas fa-play-circle"></i>
+                        <h3>Welcome to TruYan Social</h3>
+                        <p>Connect with the community and earn rewards</p>
+                        <p style="color: var(--light-blue); margin-top: 10px;">
+                            <a href="#" id="socialSignup" style="color: white; text-decoration: underline;">Sign up</a> if not already signed up
+                        </p>
+                        <button class="cta-button" id="socialLoginBtn" style="margin-top: 20px;">
+                            <i class="fas fa-sign-in-alt"></i> Login to Social Platform
+                        </button>
                     </div>
                     <div class="video-stats">
                         <div class="video-stat">
@@ -61,7 +63,7 @@
                             <i class="fas fa-comment"></i>
                             <span>148</span>
                         </div>
-                        <div class="video-stat">
+                        <极 class="video-stat">
                             <i class="fas fa-share"></i>
                             <span>32</span>
                         </div>
@@ -179,7 +181,7 @@
                 </div>
                 <div class="mining-status" id="miningStatus">
                     Mining will automatically stop after 24 hours
-                </极>
+                </div>
             </div>
             
             <div class="badge-container" id="badgeContainer">
@@ -391,5 +393,36 @@
     <script src="scripts/escrow.js"></script>
     <script src="scripts/flutterwave.js"></script>
     <script src="scripts/social.js"></script>
+    <script>
+        // Video player functionality
+        const video = document.getElementById('socialVideo');
+        const placeholder = document.getElementById('videoPlaceholder');
+        
+        if (video) {
+            video.addEventListener('play', function() {
+                placeholder.style.display = 'none';
+            });
+            
+            video.addEventListener('pause', function() {
+                placeholder.style.display = 'flex';
+            });
+            
+            video.addEventListener('ended', function() {
+                placeholder.style.display = 'flex';
+            });
+            
+            // Auto-play video when placeholder is clicked
+            placeholder.addEventListener('click', function() {
+                video.play().catch(e => {
+                    console.error('Autoplay failed:', e);
+                    placeholder.innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Playback Restricted</h3>
+                        <p>Click the play button to start video</p>
+                    `;
+                });
+            });
+        }
+    </script>
 </body>
 </html>
