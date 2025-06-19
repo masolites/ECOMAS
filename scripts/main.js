@@ -162,7 +162,7 @@ class UserSystem {
             
             // Update member ID if upgrading
             if (badge !== 'free') {
-                user.memberId = this.generateMemberId(badge);
+                user.member极 = this.generateMemberId(badge);
             }
             
             // Update user
@@ -361,8 +361,18 @@ document.addEventListener('DOMContentLoaded', function() {
         if (user) {
             alert('Login successful!');
             document.getElementById('loginModal').style.display = 'none';
+            
+            // Show ECOMAS platform after login
             document.getElementById('socialOverlay').classList.add('hidden');
             document.getElementById('ecomasPlatform').classList.add('visible');
+            
+            // Update UI for logged in user
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'flex';
+            document.getElementById('socialActionsTop').style.display = 'flex';
+            document.getElementById('socialLoginBtn').style.display = 'none';
+            displayBadges();
         } else {
             alert('Invalid email or password');
         }
