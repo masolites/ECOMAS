@@ -1,4 +1,4 @@
-// Flutterwave Payment Processor
+ // Flutterwave Payment Processor
 class FlutterwaveProcessor {
     static async makePayment(user, amount, currency, tier, tokenAmount) {
         return new Promise((resolve, reject) => {
