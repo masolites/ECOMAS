@@ -1,27 +1,19 @@
- class WalletSystem {
-    static connectMetamask() {
-        if (typeof window.ethereum === 'undefined') {
-            document.getElementById('walletStatus').textContent = 'Metamask not installed!';
-            return;
-        }
-        
-        window.ethereum.request({ method: 'eth_requestAccounts' })
-            .then(accounts => {
-                const address = accounts[0];
-                document.getElementById('walletStatus').innerHTML = `
-                    <i class="fas fa-check-circle" style="color:var(--success)"></i>
-                    Connected: ${address.substring(0, 6)}...${address.substring(address.length - 4)}
-                `;
-                document.getElementById('connectWalletBtn').style.display = 'none';
-            })
-            .catch(err => {
-                document.getElementById('walletStatus').textContent = 'Connection failed: ' + err.message;
-            });
-    }
-}
-
+ // Placeholder for escrow functionality
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('connectWalletBtn').addEventListener('click', function() {
-        WalletSystem.connectMetamask();
+    document.getElementById('escrowShopBtn').addEventListener('click', function() {
+        alert('Escrow Shop functionality will be implemented in next version');
+    });
+    
+    document.getElementById('saveEarnBtn').addEventListener('click', function() {
+        alert('Save & Earn functionality will be implemented in next version');
+    });
+    
+    document.getElementById('platformWalletBtn').addEventListener('click', function() {
+        const user = UserSystem.getCurrentUser();
+        if (user) {
+            alert(`Your wallet balance: ${user.cryptoWallet.balance.toFixed(6)} MZLx`);
+        } else {
+            alert('Please login to view wallet');
+        }
     });
 });
