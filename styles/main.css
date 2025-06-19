@@ -93,6 +93,11 @@ body {
     color: var(--text-dark);
 }
 
+.btn-deposit {
+    background: var(--success);
+    color: white;
+}
+
 .switch-btn {
     background: transparent;
     border: 1px solid var(--lemon-green);
@@ -343,7 +348,7 @@ body {
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1极 solid rgba(255, 255, 255, 0.05);
 }
 
 .action-card:hover {
@@ -365,7 +370,7 @@ body {
 
 .vote-price {
     text-align: center;
-    font-size: 1.5rem;
+    font-size极 1.5rem;
     font-weight: 700;
     margin: 20px 0;
     background: linear-gradient(to right, var(--lemon-green), var(--light-blue));
@@ -403,7 +408,7 @@ body {
     font-weight: 600;
 }
 
-.form-group input {
+.form-group input, .form-select {
     width: 100%;
     padding: 12px 15px;
     border-radius: 10px;
@@ -566,6 +571,14 @@ body {
     font-size: 0.9rem;
 }
 
+.wallet-info {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    text-align: center;
+}
+
 /* Video player styles */
 video {
     width: 100%;
@@ -608,6 +621,7 @@ video {
     .auth-container {
         width: 100%;
         justify-content: center;
+        flex-wrap: wrap;
     }
     
     .action-grid {
