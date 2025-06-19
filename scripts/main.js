@@ -162,7 +162,7 @@ class UserSystem {
             
             // Update member ID if upgrading
             if (badge !== 'free') {
-                user.member极 = this.generateMemberId(badge);
+                user.memberId = this.generateMemberId(badge);
             }
             
             // Update user
@@ -188,6 +188,18 @@ class UserSystem {
         return user;
     }
     
+    static addFiatBalance(user, amount) {
+        user.fiatWallet.balance += amount;
+        
+        // Update user
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const updatedUsers = users.map(u => u.email === user.email ? user : u);
+        localStorage.setItem('users', JSON.stringify(updatedUsers));
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        
+        return user;
+    }
+    
     static getDiscount(user) {
         if (!user) return 0;
         
@@ -195,7 +207,7 @@ class UserSystem {
         else if (user.badges.includes('gold')) return TOKENOMICS.discounts.gold;
         else if (user.badges.includes('silver')) return TOKENOMICS.discounts.silver;
         else if (user.badges.includes('bronze')) return TOKENOMICS.discounts.bronze;
-        else return TOKENOMICS.discounts.free;
+        else return TO极KENOMICS.discounts.free;
     }
     
     static processReferral(referralCode, newUserId, amount) {
@@ -413,6 +425,31 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('buyModal').style.display = 'flex';
     });
     
+    // Deposit button
+    document.getElementById('depositBtn').addEventListener('click', function() {
+        const user = UserSystem.getCurrentUser();
+        if (!user) {
+            alert('Please login to deposit funds');
+            document.getElementById('loginModal').style.display = 'flex';
+            return;
+        }
+        
+        document.getElementById('fiatWalletBalance').textContent = `₦${user.fiatWallet.balance.toFixed(2)}`;
+        document.getElementById('depositModal').style.display = 'flex';
+    });
+    
+    document.getElementById('depositFiatBtn').addEventListener('click', function() {
+        const user = UserSystem.getCurrentUser();
+        if (!user) {
+            alert('Please login to deposit funds');
+            document.getElementById('loginModal').style.display = 'flex';
+            return;
+        }
+        
+        document.getElementById('fiatWalletBalance').textContent = `₦${user.fiatWallet.balance.toFixed(2)}`;
+        document.getElementById('depositModal').style.display = 'flex';
+    });
+    
     // Logout
     document.getElementById('logoutBtn').addEventListener('click', function() {
         UserSystem.logout();
@@ -437,6 +474,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // Store original button text
     document.querySelectorAll('.purchase-btn').forEach(btn => {
         btn.dataset.originalText = btn.innerHTML;
+    });
+    
+    // Deposit handler
+    document.getElementById('confirmDeposit').addEventListener('click', function() {
+        const amount = parseFloat(document.getElementById('depositAmount').value);
+        const method = document.getElementById('depositMethod').value;
+        const user = UserSystem.getCurrentUser();
+        
+        if (!user) {
+            alert('Please login to deposit funds');
+            return;
+        }
+        
+        if (isNaN(amount) || amount < 100) {
+            alert('Minimum deposit amount is ₦100');
+            return;
+        }
+        
+        // Process deposit
+        FlutterwaveProcessor.makeDeposit(user, amount, method)
+            .then(txId => {
+                UserSystem.addFiatBalance(user, amount);
+                alert(`Successfully deposited ₦${amount.toFixed(2)}!`);
+                document.getElementById('depositModal').style.display = 'none';
+                location.reload();
+            })
+            .catch(error => {
+                alert(`Deposit failed: ${error}`);
+            });
     });
     
     // Check if user is logged in
