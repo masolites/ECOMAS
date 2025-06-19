@@ -30,6 +30,38 @@ class FlutterwaveProcessor {
             });
         });
     }
+    
+    static async makeDeposit(user, amount, method) {
+        return new Promise((resolve, reject) => {
+            FlutterwaveCheckout({
+                public_key: "YOUR_FLUTTERWAVE_PUBLIC_KEY", // REPLACE WITH YOUR KEY
+                tx_ref: `DEP-${Date.now()}-${user.email}`,
+                amount: amount,
+                currency: "NGN",
+                payment_options: method === 'bank' ? 'banktransfer' : 
+                                 method === 'mobile' ? 'mobilemoney' : 'card',
+                customer: {
+                    email: user.email,
+                    name: user.memberId
+                },
+                customizations: {
+                    title: "NGN Deposit",
+                    description: `Depositing ₦${amount} to fiat wallet`,
+                    logo: "https://masolites.com/logo.png"
+                },
+                callback: function(response) {
+                    if (response.status === 'successful') {
+                        resolve(response.transaction_id);
+                    } else {
+                        reject('Payment failed');
+                    }
+                },
+                onclose: function() {
+                    reject('Payment cancelled');
+                }
+            });
+        });
+    }
 }
 
 // Flutterwave event handlers
