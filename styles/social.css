@@ -24,6 +24,8 @@
     background: rgba(0, 0, 0, 0.8);
     border-bottom: 1px solid var(--light-blue);
     z-index: 10;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .social-logo {
@@ -40,6 +42,7 @@
 .social-actions-top {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .social-action-btn {
@@ -55,6 +58,7 @@
     color: white;
     transition: all 0.3s ease;
     gap: 5px;
+    white-space: nowrap;
 }
 
 .social-content {
