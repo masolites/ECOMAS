@@ -3,217 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MASOLITES ECOMAS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/social.css">
-    <link rel="stylesheet" href="styles/ecomas.css">
+    <title>MAZOL Token Platform</title>
+    <link rel="stylesheet" href="/public/styles.css">
+    <script src="https://cdn.thirdweb.com/sdk/5.10.0/thirdweb.min.js"></script>
     <script src="https://checkout.flutterwave.com/v3.js"></script>
 </head>
 <body>
-    <!-- Social Media Overlay -->
-    <div class="social-overlay" id="socialOverlay">
-        <div class="social-header">
-            <h1 class="social-logo">
-                <i class="fas fa-comments"></i>
-                TruYan Social
-            </h1>
-            <div class="social-actions-top" id="socialActionsTop">
-                <button class="social-action-btn" id="startMiningBtn" title="Start Mining">
-                    <i class="fas fa-hard-hat"></i> Mine
-                </button>
-                <button class="social-action-btn" id="buyMazolBtn" title="Buy MAZOL">
-                    <i class="fas fa-coins"></i> Buy
-                </button>
-                <button class="social-action-btn" id="depositFiatBtn" title="Deposit Funds">
-                    <i class="fas fa-money-bill-wave"></i> Deposit
-                </button>
-                <button class="social-action-btn" id="switchToEcomasBtn" title="Switch to ECOMAS">
-                    <i class="fas fa-exchange-alt"></i> ECOMAS
-                </button>
+    <!-- Auth Section -->
+    <section id="auth-section">
+        <div class="logo">MAZOL (MZLx)</div>
+        <div class="card">
+            <h2>User Authentication</h2>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="text" id="referral-code" placeholder="Referral Code (Optional)">
+            <div class="button-group">
+                <button id="signup-btn">Sign Up</button>
+                <button id="login-btn">Login</button>
             </div>
         </div>
-        <div class="social-content">
-            <div class="video-container-wrapper">
-                <div class="social-video-container">
-                    <div class="gift-container">
-                        <button class="gift-button" id="giftButton">
-                            <i class="fas fa-gift"></i> Send Gift
-                        </button>
-                    </div>
-                    <div class="social-video">
-                        <video id="socialVideo" width="100%" height="auto" controls poster="https://placehold.co/800x450?text=Video+Placeholder">
-                            <source src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <div class="video-placeholder" id="videoPlaceholder">
-                            <div class="video-controls">
-                                <i class="fas fa-play-circle play-button" id="playButton"></i>
-                            </div>
-                            <div class="video-content">
-                                <h3>Welcome to TruYan Social</h3>
-                                <p>Connect with the community and earn rewards</p>
-                                <div class="auth-actions">
-                                    <p>
-                                        <a href="#" id="socialSignup">Sign up</a> if not already signed up
-                                    </p>
-                                    <button class="cta-button" id="socialLoginBtn">
-                                        <i class="fas fa-sign-in-alt"></i> Login to Social Platform
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="video-stats">
-                            <div class="video-stat">
-                                <i class="fas fa-heart"></i>
-                                <span>2.4K</span>
-                            </div>
-                            <div class="video-stat">
-                                <i class="fas fa-comment"></i>
-                                <span>148</span>
-                            </div>
-                            <div class="video-stat">
-                                <i class="fas fa-share"></i>
-                                <span>32</span>
-                            </div>
-                            <div class="video-stat">
-                                <i class="fas fa-gift"></i>
-                                <span>5 MZL</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="dashboard" style="display:none;">
+        <!-- Tier/Wallet Display -->
+        <div class="tier-badge">
+            <span id="tier-indicator">🥈 SILVER</span>
+            <span id="token-balance">0 MZLx</span>
+            <span id="wallet-balance">$0.00</span>
+        </div>
+
+        <!-- Purchase Section -->
+        <div class="card">
+            <h2>Private Sale: $0.001 per MZLx</h2>
+            <div class="input-group">
+                <input type="number" id="token-amount" min="500" placeholder="Min 500 MZLx">
+                <span>MZLx</span>
             </div>
-            <div class="social-actions">
-                <button class="social-bottom-btn">
-                    <i class="fas fa-home"></i>
-                    <span>Home</span>
-                </button>
-                <button class="social-bottom-btn">
-                    <i class="fas fa-search"></i>
-                    <span>Discover</span>
-                </button>
-                <button class="social-bottom-btn">
-                    <i class="fas fa-plus-circle"></i>
-                    <span>Create</span>
-                </button>
-                <button class="social-bottom-btn">
-                    <i class="fas fa-envelope"></i>
-                    <span>Messages</span>
-                </button>
-                <button class="social-bottom-btn">
-                    <i class="fas fa-user"></i>
-                    <span>Profile</span>
-                </button>
+            
+            <div class="purchase-options">
+                <button id="connect-metamask">Connect MetaMask</button>
+                <button id="flutterwave-btn">Buy with Flutterwave</button>
+                <button id="bank-deposit-btn">Manual Bank Deposit</button>
+            </div>
+            
+            <div id="wallet-address" class="monospace"></div>
+            <div id="platform-wallet">
+                <h3>Platform Wallet</h3>
+                <p>USDT Balance: <span id="usdt-balance">0.00</span></p>
+                <p>NGN Balance: ₦<span id="ngn-balance">0.00</span></p>
             </div>
         </div>
-    </div>
 
-    <!-- ECOMAS Platform -->
-    <div class="ecomas-platform" id="ecomasPlatform">
-        <div class="top-header">
-            <h1 class="logo">
-                <i class="fas fa-coins"></i>
-                MASOLITES ECOMAS
-            </h1>
-            <div class="auth-container">
-                <button class="switch-btn" id="switchToSocialBtn">
-                    <i class="fas fa-exchange-alt"></i> Switch to TruYan
-                </button>
-                <button class="btn btn-login" id="loginBtn">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </button>
-                <button class="btn btn-register" id="registerBtn">
-                    <极 class="fas fa-user-plus"></i> Register
-                </button>
-                <button class="btn btn-deposit" id="depositBtn" title="Deposit Funds">
-                    <i class="fas fa-money-bill-wave"></i> Deposit
-                </button>
-                <div class="admin-btn" id="adminBtn" title="Admin Panel">
-                    <i class="fas fa-cog"></i>
-                </div>
-                <button class="logout-btn" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
+        <!-- Mining Section -->
+        <div class="card">
+            <h2>Token Mining</h2>
+            <div class="mining-info">
+                <div>Current Speed: <strong id="mining-speed">🥈 x1</strong></div>
+                <div>Mined: <strong id="mined-tokens">0 MZLx</strong></div>
+            </div>
+            <button id="start-mining">Start Mining</button>
+            <div class="mining-stats">
+                <p>Gold Tier (🥇): x4 speed - Requires token purchase</p>
+                <p>Silver Tier (🥈): x1 speed - Free account</p>
             </div>
         </div>
-        
-        <div class="main-content">
-            <!-- ECOMAS content remains unchanged from previous implementation -->
-        </div>
-    </div>
 
-    <!-- Auth Modals -->
-    <!-- Unchanged from previous implementation -->
-
-    <!-- Buy MAZOL Modal -->
-    <!-- Unchanged from previous implementation -->
-
-    <!-- Deposit Modal -->
-    <div class="modal" id="depositModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-money-bill-wave"></i> Deposit Funds</h3>
-                <button class="modal-close">&times;</button>
+        <!-- Voting Section -->
+        <div class="card">
+            <h2>Daily Price Vote <span class="badge">Gold Only</span></h2>
+            <div id="vote-status">
+                <p>Current Price: $<span id="token-price">0.001</span></p>
+                <p>Quorum: <span id="quorum-status">0%</span> (30% required)</p>
+                <div class="input-group">
+                    <input type="number" id="price-suggestion" min="0.001" step="0.001" placeholder="Suggest new price">
+                    <button id="cast-vote" disabled>Submit Vote</button>
+                </div>
+                <p id="vote-error" class="error"></p>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Amount (₦)</label>
-                    <input type="number" id="depositAmount" min="100" placeholder="Enter amount" required>
-                </div>
-                <div class="form-group">
-                    <label>Deposit Method</label>
-                    <select id="depositMethod" class="form-select">
-                        <option value="bank">Bank Transfer</option>
-                        <option value="card">Credit/Debit Card</option>
-                        <option value="mobile">Mobile Money</option>
-                    </select>
-                </div>
-                <button class="cta-button" id="confirmDeposit">
-                    <i class="fas fa-arrow-right"></i> Proceed to Payment
-                </button>
-                <div class="wallet-info">
-                    <p><strong>Your Fiat Wallet:</strong> <span id="fiatWalletBalance">₦0.00</span></p>
-                </div>
+            <div id="vote-results">
+                <h3>Voting Results</h3>
+                <ul id="results-list"></ul>
             </div>
         </div>
-    </div>
 
-    <!-- Admin Panel Modal -->
-    <div class="modal" id="adminModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-cog"></i> Admin Panel</h3>
-                <button class="modal-close">&times;</button>
+        <!-- Referral Section -->
+        <div class="card">
+            <h2>Referral Program</h2>
+            <p>Earn 2.5% commission on referrals</p>
+            <div class="referral-box">
+                <p>Your Referral Code:</p>
+                <strong id="user-referral">LOADING...</strong>
+                <button id="copy-referral">Copy Link</button>
             </div>
-            <div class="modal-body">
-                <div class="admin-section">
-                    <h4>User Management</h4>
-                    <div class="admin-users-list" id="adminUsersList">
-                        <!-- Users will be populated here -->
-                    </div>
-                </div>
-                <div class="admin-section">
-                    <h4>Platform Settings</h4>
-                    <div class="form-group">
-                        <label>Base Mining Rate</label>
-                        <input type="number" id="miningRate" step="0.000001" value="0.000001">
-                    </div>
-                    <button class="cta-button" id="saveSettings">
-                        <i class="fas fa-save"></i> Save Settings
-                    </button>
-                </div>
+            <div id="referral-earnings">
+                <h3>Earnings: <span id="referral-amount">0 MZLx</span></h3>
             </div>
         </div>
-    </div>
+    </section>
 
-    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
-    <script src="scripts/main.js"></script>
-    <script src="scripts/mining.js"></script>
-    <script src="scripts/wallet.js"></script>
-    <script src="scripts/escrow.js"></script>
-    <script src="scripts/flutterwave.js"></script>
-    <script src="scripts/social.js"></script>
+    <script src="/scripts/utils.js"></script>
+    <script src="/scripts/thirdweb.js"></script>
+    <script src="/scripts/app.js"></script>
 </body>
 </html>
